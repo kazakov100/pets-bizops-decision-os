@@ -588,19 +588,21 @@ if deep_dive is not None:
                 it.get("detail", ""), it.get("evidence_source", ""),
             )
 
-    with st.expander("📈 Supporting real-data charts"):
+    with st.expander("📈 Supporting real-data charts", expanded=True):
         for cid in _SUPPORTING_CHART_IDS:
             chart_fn = CHART_REGISTRY.get(cid)
             if chart_fn is not None:
                 st.altair_chart(chart_fn(), width="stretch")
 
+    # --- Sources & grounding: everything that backs the analysis, in one place ---
+    st.divider()
+    st.markdown("##### 🔎 Sources & grounding")
+    st.caption(f"🧭 Lens: **{FRAMEWORK_LABELS.get(fid, fid)}** • RAG grounding: {deep_dive.get('rag_source', '')}")
     validation.render_validation(deep_dive, deep_dive_transcript, "business_deep_dive")
     style.rag_sources_used(deep_dive_transcript)
-
-    with st.expander(f"Tool calls used ({len(deep_dive_transcript)})"):
+    with st.expander(f"🛠 Tool calls used ({len(deep_dive_transcript)})"):
         for entry in deep_dive_transcript:
             st.markdown(f"**{entry['tool']}**({entry['input']})")
             st.json(entry["result"])
 
-    st.caption(f"🧭 Lens: {FRAMEWORK_LABELS.get(fid, fid)} • grounding: {deep_dive.get('rag_source', '')}")
     st.success("Continue to **User Pain Points**, then **Course of Action**.")
