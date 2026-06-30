@@ -1,0 +1,16 @@
+[theme]
+base = "light"
+primaryColor = "#FF0083"
+backgroundColor = "#FFFFFF"
+secondaryBackgroundColor = "#F7F5F2"
+textColor = "#2B2B2B"
+font = "sans serif"
+
+[browser]
+gatherUsageStats = false
+
+[client]
+# Hide the developer toolbar/menu, which also disables the dev keyboard
+# shortcuts (C = clear caches, R = rerun) that otherwise fire when you press
+# Cmd+C to copy text.
+toolbarMode = "minimal"

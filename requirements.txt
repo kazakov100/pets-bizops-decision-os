@@ -1,0 +1,9 @@
+pandas
+numpy
+pyarrow
+pytest
+streamlit
+anthropic
+python-dotenv
+altair
+sentence-transformers

@@ -1,0 +1,42 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pip3 --version)",
+      "Read(//opt/homebrew/bin/**)",
+      "Read(//usr/local/bin/**)",
+      "Bash(python3 -)",
+      "Bash(agent-browser open *)",
+      "Bash(agent-browser screenshot *)",
+      "Bash(agent-browser eval *)",
+      "Bash(agent-browser click *)",
+      "Bash(agent-browser press *)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:8765)",
+      "Bash(agent-browser --help)",
+      "Bash(agent-browser scrollintoview *)",
+      "Bash(agent-browser find *)",
+      "Bash(pkill -f \"streamlit run\")",
+      "Bash(agent-browser close *)",
+      "WebSearch",
+      "WebFetch(domain:www.lemonade.com)",
+      "WebFetch(domain:www.sec.gov)",
+      "WebFetch(domain:www.insurancejournal.com)",
+      "WebFetch(domain:coinlaw.io)",
+      "WebFetch(domain:en.wikipedia.org)",
+      "WebFetch(domain:www.carriermanagement.com)",
+      "WebFetch(domain:beinsure.com)",
+      "WebFetch(domain:www.marketscreener.com)",
+      "Bash(curl -sL -H 'User-Agent: PetsBizOpsResearch research@example.com' https://www.sec.gov/Archives/edgar/data/0001691421/000169142125000146/lmndshareholderletterq32.htm -o /tmp/lmnd_sl_q3.html -w 'HTTP %{http_code}, size %{size_download}\\\\n')",
+      "Bash(curl -sL -H 'User-Agent: PetsBizOpsResearch research@example.com' https://www.sec.gov/Archives/edgar/data/0001691421/000169142125000120/lmndshareholderletterq22.htm -o /tmp/lmnd_sl_q2.html -w 'HTTP %{http_code}, size %{size_download}\\\\n')",
+      "Bash(curl -sL -H 'User-Agent: PetsBizOpsResearch research@example.com' https://www.sec.gov/Archives/edgar/data/0001691421/000169142125000062/lmndshareholderletterq12.htm -o /tmp/lmnd_sl_q1.html -w 'HTTP %{http_code}, size %{size_download}\\\\n')",
+      "Bash(curl -sL -H 'User-Agent: PetsBizOpsResearch research@example.com' https://www.sec.gov/Archives/edgar/data/0001691421/000169142126000006/lmndshareholderletterq42.htm -o /tmp/lmnd_sl_q4_25.html -w 'HTTP %{http_code}, size %{size_download}\\\\n')",
+      "Bash(curl -sL -H 'User-Agent: PetsBizOpsResearch research@example.com' https://www.sec.gov/Archives/edgar/data/0001691421/000169142126000029/lmndshareholderletterq12.htm -o /tmp/lmnd_sl_q1_26.html -w 'HTTP %{http_code}, size %{size_download}\\\\n')",
+      "Bash(.venv/bin/python -m pytest -v)",
+      "Bash(.venv/bin/python -m pytest -q)",
+      "Bash(.venv/bin/python -c ' *)",
+      "Bash(.venv/bin/python -m pytest pets_bizops/tests/test_simulation.py -q)",
+      "Bash(nohup .venv/bin/streamlit run app.py --server.headless true > /tmp/streamlit.log 2>&1 & *)",
+      "Bash(curl -s -H \"User-Agent: PetsBizOpsResearch research@example.com\" \"https://www.sec.gov/Archives/edgar/data/0001691421/000169142126000029/lmndshareholderletterq12.htm\" -o /tmp/lmnd_q1_26.htm)",
+      "Bash(mkdir -p /Users/assafkazakov/Pets/pets_bizops/ai/skills)"
+    ]
+  }
+}

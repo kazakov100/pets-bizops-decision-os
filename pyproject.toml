@@ -1,0 +1,3 @@
+[tool.pytest.ini_options]
+testpaths = ["pets_bizops/tests"]
+markers = ["slow: real-model smoke tests that download/load sentence-transformers"]

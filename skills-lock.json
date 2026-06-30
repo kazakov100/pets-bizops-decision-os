@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "consulting-analysis": {
+      "source": "bytedance/deer-flow",
+      "sourceType": "github",
+      "skillPath": "skills/public/consulting-analysis/SKILL.md",
+      "computedHash": "3242c2149e8ca3290ade56ce380d1751c75473bc5420c092f7ee70718dd34597"
+    }
+  }
+}

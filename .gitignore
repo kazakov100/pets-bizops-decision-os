@@ -1,0 +1,9 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.local_data/
+.env
+.streamlit/secrets.toml
+pets_bizops/rag/index/
+.firecrawl/

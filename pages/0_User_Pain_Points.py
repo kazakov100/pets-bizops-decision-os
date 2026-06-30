@@ -1,0 +1,105 @@
+"""User Pain Points: real public customer-sentiment signal, analyzed by the
+Lemonade Sentiment Analysis Skill into named pain points and the risks/
+opportunities they imply.
+"""
+
+from __future__ import annotations
+
+import streamlit as st
+
+from pets_bizops.data import market_sentiment, default_runs
+from pets_bizops.ai import tools, client, prompts, skills, jobs
+from pets_bizops.ui import style, validation, jobs_ui
+
+st.set_page_config(page_title="User Pain Points -- Pets BizOps Decision OS", page_icon="🐾", layout="wide")
+style.inject_global_styles()
+
+style.headline(
+    "User Pain Points",
+    "Real customer-sentiment signal, analyzed into named pain points, risks, and opportunities.",
+)
+
+st.divider()
+style.headline("1. Market sentiment (real public signal)")
+st.caption(market_sentiment.PUBLIC_SENTIMENT_LIMITATION)
+
+tp = market_sentiment.TRUSTPILOT_SNAPSHOT
+style.kpi_card("Trustpilot Rating", f"{tp['rating']:.1f} / {tp['scale']:.0f}", f"{tp['review_count']:,} reviews, {tp['as_of']}", None)
+st.caption(
+    "The underlying review/complaint themes feed the AI analysis below via the "
+    "get_market_sentiment tool -- they appear, verbatim, in the \"Tool calls used\" "
+    "panel once you run it, so the AI's pain points stay traceable to the real data."
+)
+
+st.divider()
+sentiment_skill = skills.load_skill("sentiment_analysis")
+style.headline("2. User pain points (AI analysis)", "The AI reads the real review/complaint signal into named pain points, risks, and opportunities -- the conclusions live here, not above.")
+st.caption(f"🧠 System prompt used: **{sentiment_skill.name}** • 📚 RAG corpus: **sentiment_methodology**")
+style.model_badge(client.MODEL)
+with st.expander("View system prompt (tells the AI when/how to retrieve from the RAG corpus)"):
+    st.markdown(sentiment_skill.body)
+
+_JOB = "user_pain_points"
+if st.button("Analyze User Pain Points", type="primary"):
+    try:
+        system_prompt = prompts.SHARED_GUARDRAILS + "\n\n" + sentiment_skill.body + "\n\n" + prompts.SENTIMENT_ANALYSIS_SYSTEM_PROMPT_SUFFIX
+        jobs.submit(
+            _JOB, client.run_tool_loop,
+            system_prompt=system_prompt,
+            user_message="Analyze Lemonade Pet's user pain points, risks, and opportunities from the sentiment data.",
+            tool_schemas=tools.TOOL_SCHEMAS,
+            tool_executor=tools.build_tool_executor(),
+        )
+        st.rerun()
+    except client.MissingApiKeyError as e:
+        st.error(str(e))
+
+_done = jobs_ui.poll_result(_JOB)
+if _done is not None:
+    text, transcript = _done
+    try:
+        st.session_state.user_pain_points = client.parse_json_response(text)
+        st.session_state.user_pain_points_transcript = transcript
+        st.session_state.pop("audit_user_pain_points", None)
+    except ValueError as e:
+        st.error(f"Could not parse the model's response: {e}")
+
+result = st.session_state.get("user_pain_points")
+transcript = st.session_state.get("user_pain_points_transcript", [])
+is_default = result is None
+if is_default:
+    result, transcript = default_runs.load_default("user_pain_points")
+
+if result is not None:
+    if is_default:
+        st.info("📌 Showing a precomputed example analysis (a real prior run). Click **Analyze User Pain Points** above to generate a fresh one live.")
+
+    st.markdown("**Pain points**")
+    for p in result.get("pain_points", []):
+        src = p.get("evidence_source", "")
+        st.markdown(f"- {style.escape_dollar(p['pain_point'])}" + (f" &nbsp;<span style='color:#9a9a9a;font-size:0.82rem;'>· {src}</span>" if src else ""), unsafe_allow_html=True)
+
+    rcol, ocol = st.columns(2)
+    with rcol:
+        st.markdown("**Risks**")
+        for r in result.get("risks", []):
+            st.markdown(f"- ⚠ **{r.get('severity', '')}** — {style.escape_dollar(r['risk'])}")
+    with ocol:
+        st.markdown("**Opportunities**")
+        for o in result.get("opportunities", []):
+            st.markdown(f"- ↑ **{o.get('potential_impact', '')}** — {style.escape_dollar(o['opportunity'])}")
+
+    validation.render_validation(result, transcript, "user_pain_points")
+    style.rag_sources_used(transcript)
+
+    with st.expander(f"Tool calls used ({len(transcript)})"):
+        for entry in transcript:
+            st.markdown(f"**{entry['tool']}**({entry['input']})")
+            st.json(entry["result"])
+
+    # Grounding -- de-emphasized, at the very bottom.
+    fc = result.get("framework_choice")
+    if fc:
+        st.caption(f"🧭 Grounding: {fc.get('document_used', '')} — {fc.get('justification', '')}")
+
+    st.success("Continue to **Business Overview**'s AI Deep Dive (if not done yet), then **Course of Action**.")
