@@ -34,6 +34,20 @@ Respond with ONLY a JSON object (no prose outside the JSON, no markdown fences):
   "rag_source": "<the 'source' field from the consulting_best_practices chunk you used>",
   "bottom_line": "<1 punchy headline sentence: the single most important risk-or-opportunity takeaway>",
   "narrative": "<2-3 sentences max, citing real numbers, framing where the risks/opps concentrate through this lens>",
+  "executive_summary": {
+    "key_takeaway": "<1 sharp sentence: the single most important conclusion a busy exec must grasp in 10 seconds>",
+    "why_it_matters": "<1 short clause, <=12 words: the stake -- why act now>",
+    "recommended_action": "<1 sentence: the #1 priority to act on -- a concrete move, not 'monitor X'>",
+    "kpi_impact": {
+      "metric_label": "<the real disclosed KPI that this action would move, e.g. 'Pet gross loss ratio'>",
+      "dollar_estimate": {
+        "applies": true,
+        "base_metric": "pet_ifp_m | company_ifp_m",
+        "low_points": <number>, "base_points": <number>, "high_points": <number>,
+        "assumption_rationale": "<1 clause: why this point range is achievable, grounded in a retrieved RAG chunk or a real trend>"
+      }
+    }
+  },
   "items": [
     {
       "title": "<short label, <=6 words>",
@@ -50,6 +64,18 @@ Respond with ONLY a JSON object (no prose outside the JSON, no markdown fences):
 Provide EXACTLY 2-4 items of type "risk" and EXACTLY 2-4 of type "opportunity" (so the
 risk/opportunity map stays readable) -- prioritize ruthlessly. These items feed the
 downstream Course of Action page.
+
+EXECUTIVE_SUMMARY -- this is what a busy reader sees FIRST, above everything else, so
+make it the sharpest, most decision-ready synthesis of the items below:
+- `key_takeaway`, `why_it_matters`, `recommended_action` must SYNTHESIZE the items you
+  surfaced -- introduce no new numbers beyond what the items already cite.
+- `recommended_action` is a concrete move tied to your highest-impact item (the lever
+  to pull), NOT "keep monitoring".
+- `kpi_impact.dollar_estimate`: you supply ONLY the inputs -- a real `base_metric` key
+  (`pet_ifp_m` or `company_ifp_m`) and the assumed percentage-point range
+  (low/base/high) you believe the recommended action could move. CODE multiplies it
+  out; you must NEVER state the dollar figure yourself. Set `applies: false` only if no
+  point-range improvement on in-force premium is a sensible way to size the action.
 
 `impact` and `confidence` position the item on the risk/opportunity map. Rate
 `confidence` by this EVIDENCE-QUALITY rubric (not a gut feel), and make sure the

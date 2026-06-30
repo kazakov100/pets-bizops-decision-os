@@ -50,30 +50,6 @@ for o in user_pain_points.get("opportunities", []):
 candidates = [c for c in candidates if c["label"]]
 
 
-def _resolve_dollar_estimate(result: dict) -> None:
-    """The AI supplies only the inputs (base_metric + assumed point range) in
-    result['dollar_estimate']; CODE does the arithmetic. Sets result['computed_dollar'].
-    """
-    de = result.get("dollar_estimate") or {}
-    if not de.get("applies"):
-        result["computed_dollar"] = None
-        return
-    try:
-        est = impact.estimate_dollar_value(
-            base_metric=de.get("base_metric", ""),
-            low_points=de.get("low_points", 0),
-            base_points=de.get("base_points", 0),
-            high_points=de.get("high_points", 0),
-        ).as_dict()
-        result["computed_dollar"] = {
-            "range": f"${est['low_usd_m']:.1f}-{est['high_usd_m']:.1f}M/year (base ${est['base_case_usd_m']:.1f}M)",
-            "formula": est["formula"],
-            "assumption_rationale": de.get("assumption_rationale", ""),
-        }
-    except (ValueError, TypeError):
-        result["computed_dollar"] = None
-
-
 # ---------------------------------------------------------------------------
 # One step: pick a problem -> AI frames it (consulting RAG) AND recommends a
 # course of action (Lemonade RAG) in a single pass.
@@ -118,7 +94,7 @@ if _coa_done is not None:
     text, transcript = _coa_done
     try:
         result = client.parse_json_response(text)
-        _resolve_dollar_estimate(result)
+        result["computed_dollar"] = impact.resolve_estimate(result.get("dollar_estimate"))
         st.session_state.course_of_action = result
         st.session_state.course_of_action_transcript = transcript
         st.session_state.pop("audit_course_of_action", None)

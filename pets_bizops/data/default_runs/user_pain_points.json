@@ -2,61 +2,61 @@
   "result": {
     "framework_choice": {
       "document_used": "Hu, N., Pavlou, P.A., Zhang, J., \"On Self-Selection Biases in Online Product Reviews,\" MIS Quarterly, 2017 -- https://misq.umn.edu/misq/article/41/2/449/335/On-Self-Selection-Biases-in-Online-Product",
-      "justification": "The Hu et al. J-shaped distribution / self-selection bias framework is the most directly applicable here: with 5,750 Trustpilot reviews and no segment-level (Pet-only) split, negative complaint themes systematically over-represent the most-vocal upset customers; recurring themes (pre-existing conditions, premium hikes, slow complex claims) are treated as real directional signal about failure modes, not as the typical customer experience, while the silent moderately-satisfied majority is assumed to be undercounted."
+      "justification": "The J-shaped/bimodal self-selection bias framework is the most relevant calibration tool here: with 5,750 Trustpilot reviews the sample is reasonably large and recent, but it still structurally over-represents extreme reactions, so negative complaint themes are real signals about vocal-minority failure modes -- not necessarily base-rate problems for the median Pet customer."
     },
     "pain_points": [
       {
         "pain_point": "Unexpected premium spikes after year-one or post-claim renewal",
-        "evidence_source": "get_market_sentiment \u2014 theme: 'Premium increases after the first 12 months'"
+        "evidence_source": "get_market_sentiment \u2013 theme: 'Premium increases after the first 12 months'"
       },
       {
-        "pain_point": "Pre-existing condition disputes blocking claim reimbursement",
-        "evidence_source": "get_market_sentiment \u2014 theme: 'Claim denials tied to pre-existing-condition enforcement'"
+        "pain_point": "Disputed pre-existing-condition definitions triggering claim denials",
+        "evidence_source": "get_market_sentiment \u2013 theme: 'Claim denials tied to pre-existing-condition enforcement'"
       },
       {
-        "pain_point": "Long resolution times on complex or multi-step claims",
-        "evidence_source": "get_market_sentiment \u2014 theme: 'Slow processing on complex/multi-step claims'"
+        "pain_point": "No accessible human escalation path for complex, multi-step claims",
+        "evidence_source": "get_market_sentiment \u2013 theme: 'Slow processing on complex/multi-step claims'"
       },
       {
-        "pain_point": "Difficulty reaching a human agent when AI escalation is needed",
-        "evidence_source": "get_market_sentiment \u2014 NAIC complaint notes: 'difficulty reaching a human'"
+        "pain_point": "Mismatch between marketed simplicity and real policy exclusion complexity",
+        "evidence_source": "get_market_sentiment \u2013 NAIC complaint index 3.85x industry baseline (NAIC Consumer Information Source)"
       },
       {
-        "pain_point": "Mismatch between marketed coverage and actual policy exclusions at claims time",
-        "evidence_source": "get_market_sentiment \u2014 theme: 'Claim denials tied to pre-existing-condition enforcement' (trust/transparency sub-signal)"
+        "pain_point": "Premium-per-customer rising 10.8% YoY with no visible service upgrade signal",
+        "evidence_source": "get_pet_segment_kpis \u2013 yoy_ppc_growth_pct: 0.1078"
       }
     ],
     "risks": [
       {
-        "risk": "NAIC complaint index at 3.85x baseline and rising signals near-term regulatory scrutiny",
-        "evidence_source": "get_market_sentiment \u2014 NAIC Consumer Information Source, 2024",
+        "risk": "NAIC index at 3.85x baseline and rising invites state-level regulatory scrutiny",
+        "evidence_source": "get_market_sentiment \u2013 NAIC Consumer Information Source, 2024",
         "severity": "high"
       },
       {
-        "risk": "Renewal churn from premium-hike surprise erodes $490M Pet IFP compounding trajectory",
-        "evidence_source": "get_pet_segment_kpis + get_market_sentiment \u2014 theme: 'Premium increases after first 12 months'",
-        "severity": "high"
+        "risk": "Pricing and denial complaints compound CAC if negative reviews suppress organic referral growth",
+        "evidence_source": "get_market_sentiment \u2013 Trustpilot 4.1/5, complaint themes; Reichheld HBR 2003",
+        "severity": "medium"
       },
       {
-        "risk": "Negative reviews on pre-existing-condition denials inflate CAC by dampening word-of-mouth referrals",
-        "evidence_source": "get_market_sentiment \u2014 Trustpilot 4.1/5 + Reichheld HBR 2003 (NPS-growth linkage)",
+        "risk": "Premium-per-customer growth without perceived value lift accelerates churn at renewal",
+        "evidence_source": "get_pet_segment_kpis \u2013 yoy_ppc_growth_pct 10.8%; get_market_sentiment \u2013 pricing theme",
         "severity": "medium"
       }
     ],
     "opportunities": [
       {
-        "opportunity": "Double down on AI-first simple-claim speed as a differentiating marketing proof point",
-        "evidence_source": "get_market_sentiment \u2014 theme: 'Fast reimbursement and ease of use for simple claims'",
+        "opportunity": "Double down on AI claims speed for simple cases \u2014 the clearest proven differentiator",
+        "evidence_source": "get_market_sentiment \u2013 theme: 'Fast reimbursement and ease of use for simple claims'",
         "potential_impact": "high"
       },
       {
-        "opportunity": "Proactive renewal-price transparency tool could convert churn risk into retention trust signal",
-        "evidence_source": "get_market_sentiment \u2014 theme: 'Premium increases after first 12 months'",
+        "opportunity": "Proactive renewal pricing transparency could convert churn risk into retention signal",
+        "evidence_source": "get_market_sentiment \u2013 pricing theme; get_pet_segment_kpis \u2013 $490M IFP at risk",
         "potential_impact": "high"
       },
       {
-        "opportunity": "Guided pre-existing-condition disclosure flow at onboarding reduces denial disputes and complaint volume",
-        "evidence_source": "get_market_sentiment \u2014 theme: 'Claim denials tied to pre-existing-condition enforcement'",
+        "opportunity": "Structured pre-existing-condition disclosure at onboarding could reduce denial disputes and complaints",
+        "evidence_source": "get_market_sentiment \u2013 theme: 'Claim denials tied to pre-existing-condition enforcement'",
         "potential_impact": "medium"
       }
     ]

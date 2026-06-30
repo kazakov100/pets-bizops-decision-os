@@ -52,6 +52,34 @@ class DollarEstimate:
         }
 
 
+def resolve_estimate(dollar_estimate: dict | None) -> dict | None:
+    """Turn an AI-supplied dollar_estimate spec into a code-computed result.
+
+    The AI supplies only the inputs (which real base_metric, and the assumed
+    point range); CODE does the arithmetic via estimate_dollar_value. Returns
+    {range, formula, assumption_rationale} or None if it doesn't apply / the
+    inputs are invalid. Shared by the Course of Action page and the Business
+    Overview executive-takeaway block so the math lives in exactly one place.
+    """
+    de = dollar_estimate or {}
+    if not de.get("applies"):
+        return None
+    try:
+        est = estimate_dollar_value(
+            base_metric=de.get("base_metric", ""),
+            low_points=de.get("low_points", 0),
+            base_points=de.get("base_points", 0),
+            high_points=de.get("high_points", 0),
+        ).as_dict()
+    except (ValueError, TypeError):
+        return None
+    return {
+        "range": f"${est['low_usd_m']:.1f}-{est['high_usd_m']:.1f}M/year (base ${est['base_case_usd_m']:.1f}M)",
+        "formula": est["formula"],
+        "assumption_rationale": de.get("assumption_rationale", ""),
+    }
+
+
 def estimate_dollar_value(
     base_metric: str,
     low_points: float,

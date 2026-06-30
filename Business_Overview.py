@@ -19,7 +19,7 @@ import streamlit as st
 
 from pets_bizops.data import real_lemonade_data as data
 from pets_bizops.data import default_runs
-from pets_bizops.analysis import kpis
+from pets_bizops.analysis import kpis, impact
 from pets_bizops.ai import tools, client, prompts, skills, jobs, full_chain
 from pets_bizops.rag import embeddings
 from pets_bizops.ui import style, validation, jobs_ui
@@ -33,7 +33,7 @@ embeddings.prewarm()
 
 style.headline("Business Overview", "Lemonade's Pet insurance business, at a glance.")
 
-with st.expander("ℹ️ How this works — the approach", expanded=True):
+with st.expander("ℹ️ How this works — the approach", expanded=False):
     st.markdown(
         "- **The flow:** read the company's status → surface the main **risks & opportunities** → "
         "examine **user pain points** → merge it all into a **course of action**.\n"
@@ -77,6 +77,28 @@ if _full_done is not None:
         st.session_state[f"{_key}_transcript"] = _payload["transcript"]
         st.session_state.pop(f"audit_{_key}", None)
     st.success("Full analysis complete — all three AI pages now show this fresh live run.")
+
+# Executive takeaway -- the answer-first hero. Reads the SAME Risks &
+# Opportunities run that drives the section lower on the page (live run in
+# session, else the precomputed default), so the top block and the detail
+# never disagree. The KPI $ impact is code-computed from the AI's stated
+# assumption -- never an AI-asserted figure.
+_dd = st.session_state.get("business_deep_dive")
+if _dd is None:
+    _dd = default_runs.load_default("business_deep_dive")[0]
+_exec = (_dd or {}).get("executive_summary")
+if _exec:
+    _kpi = _exec.get("kpi_impact", {})
+    _computed = impact.resolve_estimate(_kpi.get("dollar_estimate"))
+    style.executive_takeaway(
+        _exec.get("key_takeaway", ""), _exec.get("why_it_matters", ""),
+        _exec.get("recommended_action", ""), _kpi.get("metric_label", ""),
+        _computed,
+    )
+    if _computed:
+        with st.expander("How the KPI impact was computed (code-computed from the AI's stated assumption)"):
+            st.caption(style.escape_dollar(_computed.get("formula", "")))
+            st.caption(f"Assumption (AI, RAG-grounded): {_computed.get('assumption_rationale', '')}")
 
 
 def labeled_vertical_bar(bars: alt.Chart, label_field: str) -> alt.Chart:

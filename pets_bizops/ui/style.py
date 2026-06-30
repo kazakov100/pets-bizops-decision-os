@@ -388,6 +388,37 @@ table.pbz-table tr:last-child td {{
     line-height: 1.45;
 }}
 
+.pbz-exec {{
+    border: 2px solid {PINK};
+    border-radius: 16px;
+    padding: 1.05rem 1.3rem 1.15rem 1.3rem;
+    margin: 0.3rem 0 1.1rem 0;
+    background: linear-gradient(180deg, {PINK_TINT} 0%, #FFFFFF 55%);
+}}
+.pbz-exec-tag {{
+    display: block; text-transform: uppercase; letter-spacing: 0.09em;
+    font-size: 0.7rem; font-weight: 800; color: {PINK_DARK}; margin-bottom: 0.4rem;
+}}
+.pbz-exec-key {{
+    font-size: 1.28rem; font-weight: 800; line-height: 1.35; color: {TEXT};
+    margin-bottom: 0.9rem;
+}}
+.pbz-exec-grid {{ display: flex; flex-wrap: wrap; gap: 0.7rem; }}
+.pbz-exec-cell {{
+    flex: 1 1 30%; min-width: 180px;
+    background: #fff; border: 1px solid #EDE3E9; border-radius: 10px;
+    padding: 0.6rem 0.75rem;
+}}
+.pbz-exec-cell.kpi {{ border-color: {PINK}; background: {PINK_TINT}; }}
+.pbz-exec-cell.action {{ border-left: 4px solid #1B7A3D; }}
+.pbz-exec-label {{
+    display: block; text-transform: uppercase; letter-spacing: 0.06em;
+    font-size: 0.63rem; font-weight: 700; color: {MUTED}; margin-bottom: 0.25rem;
+}}
+.pbz-exec-val {{ font-size: 0.86rem; color: {TEXT}; line-height: 1.4; }}
+.pbz-exec-kpi-num {{ font-size: 1.0rem; font-weight: 800; color: {PINK_DARK}; }}
+.pbz-exec-kpi-metric {{ display: block; font-size: 0.72rem; color: {MUTED}; margin-top: 0.15rem; }}
+
 .pbz-situation {{
     background: #F4F5F8;
     border-left: 5px solid {NAVY};
@@ -659,6 +690,37 @@ def recommendation_hero(text: str) -> None:
     st.markdown(
         f'<div class="pbz-rec-hero"><span class="pbz-rec-hero-label">Executive recommendation</span>'
         f'<span class="pbz-rec-hero-text">{escape_dollar(text)}</span></div>',
+        unsafe_allow_html=True,
+    )
+
+
+def executive_takeaway(
+    key_takeaway: str, why_it_matters: str, recommended_action: str,
+    kpi_metric_label: str, computed_dollar: dict | None,
+) -> None:
+    """The answer-first hero at the top of the page: one sharp takeaway, then a
+    row of Why it matters / Recommended action / Expected KPI impact. The KPI
+    impact shows the code-computed $ range (never an AI-stated figure); the
+    formula + assumption are surfaced by the caller in an expander beneath.
+    """
+    if computed_dollar and computed_dollar.get("range"):
+        kpi_inner = (
+            f'<span class="pbz-exec-kpi-num">{escape_dollar(computed_dollar["range"])}</span>'
+            f'<span class="pbz-exec-kpi-metric">{escape_dollar(kpi_metric_label)}</span>'
+        )
+    else:
+        kpi_inner = f'<span class="pbz-exec-val">{escape_dollar(kpi_metric_label or "—")}</span>'
+    st.markdown(
+        '<div class="pbz-exec">'
+        '<span class="pbz-exec-tag">★ Executive takeaway</span>'
+        f'<div class="pbz-exec-key">{escape_dollar(key_takeaway)}</div>'
+        '<div class="pbz-exec-grid">'
+        f'<div class="pbz-exec-cell"><span class="pbz-exec-label">Why it matters</span>'
+        f'<span class="pbz-exec-val">{escape_dollar(why_it_matters)}</span></div>'
+        f'<div class="pbz-exec-cell action"><span class="pbz-exec-label">Recommended action</span>'
+        f'<span class="pbz-exec-val">{escape_dollar(recommended_action)}</span></div>'
+        f'<div class="pbz-exec-cell kpi"><span class="pbz-exec-label">Expected KPI impact</span>{kpi_inner}</div>'
+        '</div></div>',
         unsafe_allow_html=True,
     )
 
