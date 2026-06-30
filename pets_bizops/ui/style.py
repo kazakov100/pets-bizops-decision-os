@@ -396,28 +396,28 @@ table.pbz-table tr:last-child td {{
     background: linear-gradient(180deg, {PINK_TINT} 0%, #FFFFFF 55%);
 }}
 .pbz-exec-tag {{
-    display: block; text-transform: uppercase; letter-spacing: 0.09em;
-    font-size: 0.7rem; font-weight: 800; color: {PINK_DARK}; margin-bottom: 0.4rem;
+    display: block; text-transform: uppercase; letter-spacing: 0.1em;
+    font-size: 0.8rem; font-weight: 800; color: {PINK_DARK}; margin-bottom: 0.5rem;
 }}
 .pbz-exec-key {{
-    font-size: 1.28rem; font-weight: 800; line-height: 1.35; color: {TEXT};
-    margin-bottom: 0.9rem;
+    font-size: 1.62rem; font-weight: 800; line-height: 1.4; color: {TEXT};
+    margin-bottom: 1.1rem;
 }}
-.pbz-exec-grid {{ display: flex; flex-wrap: wrap; gap: 0.7rem; }}
+.pbz-exec-grid {{ display: flex; flex-wrap: wrap; gap: 0.75rem; }}
 .pbz-exec-cell {{
-    flex: 1 1 30%; min-width: 180px;
+    flex: 1 1 30%; min-width: 190px;
     background: #fff; border: 1px solid #EDE3E9; border-radius: 10px;
-    padding: 0.6rem 0.75rem;
+    padding: 0.75rem 0.9rem;
 }}
 .pbz-exec-cell.kpi {{ border-color: {PINK}; background: {PINK_TINT}; }}
 .pbz-exec-cell.action {{ border-left: 4px solid #1B7A3D; }}
 .pbz-exec-label {{
-    display: block; text-transform: uppercase; letter-spacing: 0.06em;
-    font-size: 0.63rem; font-weight: 700; color: {MUTED}; margin-bottom: 0.25rem;
+    display: block; text-transform: uppercase; letter-spacing: 0.07em;
+    font-size: 0.72rem; font-weight: 700; color: {MUTED}; margin-bottom: 0.35rem;
 }}
-.pbz-exec-val {{ font-size: 0.86rem; color: {TEXT}; line-height: 1.4; }}
-.pbz-exec-kpi-num {{ font-size: 1.0rem; font-weight: 800; color: {PINK_DARK}; }}
-.pbz-exec-kpi-metric {{ display: block; font-size: 0.72rem; color: {MUTED}; margin-top: 0.15rem; }}
+.pbz-exec-val {{ font-size: 1.0rem; color: {TEXT}; line-height: 1.45; }}
+.pbz-exec-kpi-num {{ font-size: 1.45rem; font-weight: 800; color: {PINK_DARK}; }}
+.pbz-exec-kpi-metric {{ display: block; font-size: 0.85rem; color: {MUTED}; margin-top: 0.2rem; }}
 
 .pbz-situation {{
     background: #F4F5F8;
