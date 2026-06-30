@@ -434,14 +434,14 @@ FRAMEWORK_LABELS = {
 
 st.divider()
 deep_dive_skill = skills.load_skill("business_deep_dive")
-style.headline("Risks & Opportunities", "You choose the strategic lens; the AI advises on the trade-offs, then maps where the risks and opportunities are.")
+style.headline("Risks & Opportunities", "Pick a strategic lens; the AI maps the risks and opportunities through it.")
 
 _ids = list(FRAMEWORK_LABELS.keys())
 if "chosen_framework_select" not in st.session_state:
     st.session_state.chosen_framework_select = "bcg_growth_share"
 
 # Step 1 -- optional framework advisor.
-st.caption("The AI lays out the pros/cons of each lens for Lemonade's current numbers, grounded in real cited frameworks -- so you choose with eyes open. You make the call.")
+st.caption("The AI weighs each lens against Lemonade's real numbers and cited frameworks — you make the call.")
 style.model_badge(client.FAST_MODEL)
 _ADVISOR_JOB = "framework_advisor"
 if st.button("🧭 Step 1 (optional): compare frameworks for this situation"):
@@ -552,18 +552,18 @@ if deep_dive is not None:
     with rcol:
         st.markdown("**⚠ Risks**")
         for it in [x for x in items if x.get("type") == "risk"]:
-            style.note(
-                f"<strong>{it.get('_n')}. {it.get('title', '')}</strong> "
-                f"<em>[{it.get('framework_element', '')}]</em> · impact {it.get('impact', '?')} / conf {it.get('confidence', '?')}<br/>"
-                f"{it.get('detail', '')} <em>({it.get('evidence_source', '')})</em>"
+            style.risk_opportunity_card(
+                it.get("_n"), "risk", it.get("title", ""), it.get("framework_element", ""),
+                it.get("impact", "?"), it.get("confidence", "?"),
+                it.get("detail", ""), it.get("evidence_source", ""),
             )
     with ocol:
         st.markdown("**↑ Opportunities**")
         for it in [x for x in items if x.get("type") == "opportunity"]:
-            style.note(
-                f"<strong>{it.get('_n')}. {it.get('title', '')}</strong> "
-                f"<em>[{it.get('framework_element', '')}]</em> · impact {it.get('impact', '?')} / conf {it.get('confidence', '?')}<br/>"
-                f"{it.get('detail', '')} <em>({it.get('evidence_source', '')})</em>"
+            style.risk_opportunity_card(
+                it.get("_n"), "opportunity", it.get("title", ""), it.get("framework_element", ""),
+                it.get("impact", "?"), it.get("confidence", "?"),
+                it.get("detail", ""), it.get("evidence_source", ""),
             )
 
     with st.expander("📈 Supporting real-data charts"):

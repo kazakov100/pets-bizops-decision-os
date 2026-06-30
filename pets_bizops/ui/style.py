@@ -281,6 +281,35 @@ table.pbz-table tr:last-child td {{
     margin: 0.3rem 0 1.1rem 0;
 }}
 
+.pbz-ro {{
+    border-radius: 10px;
+    padding: 0.55rem 0.8rem 0.65rem 0.8rem;
+    margin: 0 0 0.55rem 0;
+    border-left: 4px solid;
+}}
+.pbz-ro.risk {{ border-left-color: #D64550; background: #FDEDEF; }}
+.pbz-ro.opp  {{ border-left-color: #0A8754; background: #E9F6F0; }}
+.pbz-ro-head {{ display: flex; align-items: center; gap: 0.45rem; }}
+.pbz-ro-num {{
+    flex: none; display: inline-flex; align-items: center; justify-content: center;
+    width: 1.3rem; height: 1.3rem; border-radius: 50%;
+    font-size: 0.72rem; font-weight: 700; color: #fff;
+}}
+.pbz-ro.risk .pbz-ro-num {{ background: #D64550; }}
+.pbz-ro.opp  .pbz-ro-num {{ background: #0A8754; }}
+.pbz-ro-title {{ font-size: 0.92rem; font-weight: 700; color: {TEXT}; line-height: 1.25; }}
+.pbz-ro-meta {{ margin: 0.3rem 0 0 0; display: flex; flex-wrap: wrap; gap: 0.3rem; align-items: center; }}
+.pbz-ro-pill {{
+    font-size: 0.64rem; font-weight: 700; letter-spacing: 0.02em;
+    padding: 0.05rem 0.42rem; border-radius: 999px;
+    background: rgba(0,0,0,0.05); color: #666; text-transform: uppercase;
+}}
+.pbz-ro-pill.hi {{ background: rgba(214,69,80,0.16); color: #B23240; }}
+.pbz-ro.opp .pbz-ro-pill.hi {{ background: rgba(10,135,84,0.16); color: #0A8754; }}
+.pbz-ro-tag {{ font-size: 0.66rem; color: #999; font-style: italic; }}
+.pbz-ro-detail {{ font-size: 0.81rem; color: #4A4A4A; margin-top: 0.35rem; line-height: 1.4; }}
+.pbz-ro-src {{ font-size: 0.63rem; color: #B0B0B0; margin-top: 0.3rem; }}
+
 .pbz-section-emphasis {{
     border-left: 4px solid {PINK};
     padding-left: 0.7rem;
@@ -624,6 +653,35 @@ def recommendation_hero(text: str) -> None:
 
 def note(text: str) -> None:
     st.markdown(f'<div class="pbz-note">{escape_dollar(text)}</div>', unsafe_allow_html=True)
+
+
+def risk_opportunity_card(
+    n: int, kind: str, title: str, framework_element: str,
+    impact: str, confidence: str, detail: str, source: str,
+) -> None:
+    """A scannable color-coded card for one risk/opportunity item: number badge
+    matching the bubble map, title, impact/confidence pills (high = accent), the
+    framework element tag, a tight detail line, and a muted source.
+    """
+    cls = "risk" if kind == "risk" else "opp"
+    imp_hi = "hi" if str(impact).lower() == "high" else ""
+    conf_hi = "hi" if str(confidence).lower() == "high" else ""
+    st.markdown(
+        f'<div class="pbz-ro {cls}">'
+        f'<div class="pbz-ro-head">'
+        f'<span class="pbz-ro-num">{n}</span>'
+        f'<span class="pbz-ro-title">{escape_dollar(title)}</span>'
+        f'</div>'
+        f'<div class="pbz-ro-meta">'
+        f'<span class="pbz-ro-pill {imp_hi}">impact {escape_dollar(impact)}</span>'
+        f'<span class="pbz-ro-pill {conf_hi}">conf {escape_dollar(confidence)}</span>'
+        f'<span class="pbz-ro-tag">{escape_dollar(framework_element)}</span>'
+        f'</div>'
+        f'<div class="pbz-ro-detail">{escape_dollar(detail)}</div>'
+        f'<div class="pbz-ro-src">{escape_dollar(source)}</div>'
+        f'</div>',
+        unsafe_allow_html=True,
+    )
 
 
 def note_lg(text: str) -> None:

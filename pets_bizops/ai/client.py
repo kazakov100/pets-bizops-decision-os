@@ -29,13 +29,11 @@ MAX_TOOL_TURNS = 6
 MODEL_INFO = {
     MODEL: {
         "label": "Claude Sonnet 4.6",
-        "role": "deeper reasoning — used for the core analysis (risk/opportunity mapping, "
-                "user pain points, course of action) where analytical depth matters more than speed.",
+        "role": "deeper reasoning — for the core analysis where depth matters.",
     },
     FAST_MODEL: {
         "label": "Claude Haiku 4.5",
-        "role": "fast & low-cost — used for the structured helper steps (framework advice, "
-                "problem framing) where speed matters more than depth, so you're not waiting on Sonnet.",
+        "role": "fast & low-cost — for structured helper steps.",
     },
 }
 
