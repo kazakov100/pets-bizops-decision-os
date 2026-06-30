@@ -11,7 +11,7 @@ from pets_bizops.data import market_sentiment, default_runs
 from pets_bizops.ai import tools, client, prompts, skills, jobs
 from pets_bizops.ui import style, validation, jobs_ui
 
-st.set_page_config(page_title="User Pain Points -- Pets BizOps Decision OS", page_icon="🐾", layout="wide")
+st.set_page_config(page_title="User Pain Points -- Pets BizOps Decision OS", page_icon=style.LEMONADE_ICON, layout="wide")
 style.inject_global_styles()
 
 style.headline(

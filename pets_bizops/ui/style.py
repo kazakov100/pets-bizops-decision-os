@@ -7,8 +7,14 @@ headlines) for a portfolio project, not a pixel-accurate clone of their app.
 
 from __future__ import annotations
 
+import os
+
 import altair as alt
 import streamlit as st
+
+# Real Lemonade brand icon, used for the sidebar logo and browser favicon.
+# (See module disclaimer: this is a portfolio project, not affiliated with Lemonade.)
+LEMONADE_ICON = os.path.join(os.path.dirname(os.path.dirname(__file__)), "assets", "lemonade_icon.png")
 
 PINK = "#FF0083"
 PINK_TINT = "#FFE6F2"
@@ -479,6 +485,12 @@ div[data-testid="stSidebarNav"] {{
 
 def inject_global_styles() -> None:
     st.markdown(_CSS, unsafe_allow_html=True)
+    # Brand mark at the top of the sidebar, shown on every page.
+    if os.path.exists(LEMONADE_ICON):
+        try:
+            st.logo(LEMONADE_ICON, size="large")
+        except Exception:
+            pass
 
 
 def disclaimer_banner(text: str) -> None:

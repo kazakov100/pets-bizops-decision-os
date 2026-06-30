@@ -13,7 +13,7 @@ from pets_bizops.data import real_lemonade_data as data
 from pets_bizops.analysis import kpis
 from pets_bizops.ui import style
 
-st.set_page_config(page_title="Data -- Pets BizOps Decision OS", page_icon="🐾", layout="wide")
+st.set_page_config(page_title="Data -- Pets BizOps Decision OS", page_icon=style.LEMONADE_ICON, layout="wide")
 style.inject_global_styles()
 
 style.headline("Data", "The real, publicly disclosed numbers behind every chart and AI call in this app.")

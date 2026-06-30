@@ -24,7 +24,7 @@ from pets_bizops.ai import tools, client, prompts, skills, jobs, full_chain
 from pets_bizops.rag import embeddings
 from pets_bizops.ui import style, validation, jobs_ui
 
-st.set_page_config(page_title="Business Overview -- Pets BizOps Decision OS", page_icon="🐾", layout="wide")
+st.set_page_config(page_title="Business Overview -- Pets BizOps Decision OS", page_icon=style.LEMONADE_ICON, layout="wide")
 style.inject_global_styles()
 
 # Warm the embedding model in the background at startup so the first

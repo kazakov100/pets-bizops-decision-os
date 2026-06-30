@@ -17,7 +17,7 @@ from pets_bizops.ai import tools, client, prompts, skills, jobs
 from pets_bizops.data import default_runs
 from pets_bizops.ui import style, validation, jobs_ui
 
-st.set_page_config(page_title="Course of Action -- Pets BizOps Decision OS", page_icon="🐾", layout="wide")
+st.set_page_config(page_title="Course of Action -- Pets BizOps Decision OS", page_icon=style.LEMONADE_ICON, layout="wide")
 style.inject_global_styles()
 
 style.headline("Course of Action", "Pick one risk/opportunity; the AI frames it into a sharp problem and recommends a course of action -- in one pass.")

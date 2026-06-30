@@ -13,7 +13,7 @@ from pets_bizops.rag.embeddings import MODEL_NAME, EMBEDDING_DIM
 from pets_bizops.rag.load_index import get_retriever, IndexNotBuiltError
 from pets_bizops.ui import style
 
-st.set_page_config(page_title="RAG Deep Dive -- Pets BizOps Decision OS", page_icon="🐾", layout="wide")
+st.set_page_config(page_title="RAG Deep Dive -- Pets BizOps Decision OS", page_icon=style.LEMONADE_ICON, layout="wide")
 style.inject_global_styles()
 
 style.headline("RAG Deep Dive", "How the retrieval layer behind Business Overview, User Pain Points, and Course of Action is actually built.")
