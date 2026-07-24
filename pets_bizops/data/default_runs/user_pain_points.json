@@ -2,61 +2,71 @@
   "result": {
     "framework_choice": {
       "document_used": "Hu, N., Pavlou, P.A., Zhang, J., \"On Self-Selection Biases in Online Product Reviews,\" MIS Quarterly, 2017 -- https://misq.umn.edu/misq/article/41/2/449/335/On-Self-Selection-Biases-in-Online-Product",
-      "justification": "The J-shaped/bimodal distribution framework directly applies here: with 5,750 Trustpilot reviews the sample is non-trivial but structurally over-represents strong reactions, so the three recurring negative themes (pricing, denials, slow claims) are treated as confirmed pain signals for a vocal minority, while the silent moderate-majority base rate is assumed to be better than the raw mix implies."
+      "justification": "The Hu et al. J-shaped distribution framework is most applicable here: Trustpilot's 5,750-review sample skews toward extreme reactions in both directions, so recurring negative themes represent real signal about a vocal upset minority \u2014 but the silent majority's experience is likely better than the raw complaint mix implies. Braun & Clarke's thematic credibility check (step 4) further tempers any single theme that may be driven by only a handful of loud reviews."
     },
     "pain_points": [
       {
-        "pain_point": "Unexpected premium spikes after year-one or post-claim renewal",
-        "evidence_source": "get_market_sentiment \u2014 'Premium increases after the first 12 months' theme"
+        "pain_point": "Unexpected premium spikes at renewal after pet ages or files a claim",
+        "evidence_source": "get_market_sentiment \u2014 theme: 'Premium increases after the first 12 months'",
+        "prevalence": "frequently cited",
+        "business_significance": "Plausibly pressures Annual Dollar Retention downward as repriced customers churn at year-one renewal"
       },
       {
-        "pain_point": "Opaque pre-existing-condition boundaries driving claim disputes",
-        "evidence_source": "get_market_sentiment \u2014 'Claim denials tied to pre-existing-condition enforcement' theme"
+        "pain_point": "Pre-existing-condition denials feel arbitrary and poorly communicated",
+        "evidence_source": "get_market_sentiment \u2014 theme: 'Claim denials tied to pre-existing-condition enforcement'",
+        "prevalence": "frequently cited",
+        "business_significance": "Plausibly elevates NAIC complaint index (already 3.85x industry baseline) and draws regulatory attention"
       },
       {
-        "pain_point": "Complex multi-step claims stall without a clear human escalation path",
-        "evidence_source": "get_market_sentiment \u2014 'Slow processing on complex/multi-step claims' theme"
+        "pain_point": "No easy human escalation path for complex, multi-step claims",
+        "evidence_source": "get_market_sentiment \u2014 themes: 'Slow processing on complex/multi-step claims'; NAIC complaint data",
+        "prevalence": "frequently cited",
+        "business_significance": "Directional pressure on gross loss ratio if unresolved disputes linger and on IFP growth via negative word-of-mouth"
       },
       {
-        "pain_point": "NAIC complaint index at ~4x industry baseline, trending worse YoY",
-        "evidence_source": "get_market_sentiment \u2014 NAIC Consumer Information Source (3.85 vs. 1.0 baseline, up from ~3.5 in 2023)"
+        "pain_point": "Mismatch between marketed coverage breadth and enforced exclusions at claim time",
+        "evidence_source": "get_market_sentiment \u2014 NAIC complaint index at 3.85x baseline (2024); pre-existing theme",
+        "prevalence": "occasionally cited",
+        "business_significance": "Trust/transparency gap plausibly suppresses premium per customer ($822) as customers select lower-tier plans to limit risk"
       },
       {
-        "pain_point": "AI claims flow ('Jim') perceived as a dead end for non-simple cases",
-        "evidence_source": "get_market_sentiment \u2014 'Slow processing' theme cross-referenced with 'Fast reimbursement' praise limited to simple claims"
+        "pain_point": "Review-visible dissatisfaction concentrated around policy repricing after first claim",
+        "evidence_source": "get_market_sentiment \u2014 complaint theme notes; Trustpilot 4.1/5 with 5,750 reviews",
+        "prevalence": "occasionally cited",
+        "business_significance": "Churn risk at renewal could dampen YoY IFP growth (currently +56% YoY) as cohort ages out of first policy year"
       }
     ],
     "risks": [
       {
-        "risk": "Elevated NAIC index (~4x baseline, rising) invites state-level regulatory scrutiny",
-        "evidence_source": "get_market_sentiment",
+        "risk": "NAIC complaint index at 3.85x baseline and rising risks regulatory scrutiny or mandated process changes",
+        "evidence_source": "get_market_sentiment \u2014 NAIC Consumer Information Source (2024)",
         "severity": "high"
       },
       {
-        "risk": "Renewal churn from pricing shock erodes $85M cross-sell IFP and ADR",
-        "evidence_source": "get_pet_segment_kpis",
+        "risk": "Renewal-pricing and denial complaints drive negative word-of-mouth, inflating customer acquisition cost over time",
+        "evidence_source": "get_market_sentiment \u2014 Trustpilot; Hu et al. MIS Quarterly 2017 (self-selection bias)",
         "severity": "high"
       },
       {
-        "risk": "Negative review momentum inflates CAC by deterring word-of-mouth referrals",
-        "evidence_source": "get_market_sentiment",
+        "risk": "AI-only claims flow alienates complex-claim customers, creating retention leakage as pet cohorts age and claims grow more complex",
+        "evidence_source": "get_market_sentiment \u2014 theme: 'Slow processing on complex/multi-step claims'; get_pet_segment_kpis (Q1'26 gross loss ratio 69%)",
         "severity": "medium"
       }
     ],
     "opportunities": [
       {
-        "opportunity": "Double down on AI simple-claims speed \u2014 the only consistently praised differentiator",
-        "evidence_source": "get_market_sentiment \u2014 'Fast reimbursement and ease of use for simple claims' theme",
+        "opportunity": "Double down on AI-first simple claims as a marketing differentiator where positive signal is strongest",
+        "evidence_source": "get_market_sentiment \u2014 theme: 'Fast reimbursement and ease of use for simple claims'",
         "potential_impact": "high"
       },
       {
-        "opportunity": "Pre-renewal pricing transparency tool could reduce shock-churn and lift ADR",
-        "evidence_source": "get_market_sentiment \u2014 'Premium increases after the first 12 months' theme",
+        "opportunity": "Proactive renewal-pricing transparency tool could convert at-risk renewers into cross-sell retention wins",
+        "evidence_source": "get_market_sentiment \u2014 pricing theme; get_pet_segment_kpis ($85M IFP from cross-sell existing customers)",
         "potential_impact": "high"
       },
       {
-        "opportunity": "Clearer pre-existing-condition disclosure at enrollment reduces denial disputes and complaint volume",
-        "evidence_source": "get_market_sentiment \u2014 'Claim denials tied to pre-existing-condition enforcement' theme",
+        "opportunity": "Structured human-escalation tier for complex claims could reduce NAIC complaint index and improve ADR",
+        "evidence_source": "get_market_sentiment \u2014 NAIC index 3.85x; complex-claim theme",
         "potential_impact": "medium"
       }
     ]
@@ -141,9 +151,8 @@
     {
       "tool": "retrieve_knowledge",
       "input": {
-        "query": "review self-selection bias NPS methodology thematic coding",
-        "corpus": "sentiment_methodology",
-        "k": 3
+        "query": "review self-selection bias NPS methodology small sample thematic coding",
+        "corpus": "sentiment_methodology"
       },
       "result": {
         "results": [
@@ -151,19 +160,19 @@
             "text": "Fred Reichheld's 2003 Harvard Business Review article \"The One Number You\nNeed to Grow\" introduced the Net Promoter Score after two years of research\nlinking survey responses to actual customer behavior (repurchasing,\nreferrals) and ultimately to company growth. The core finding: across most\nindustries studied, a single question -- \"How likely are you to recommend\nthis company to a friend or colleague?\" (0-10 scale) -- was a stronger\npredictor of growth than most longer satisfaction surveys. Customers are\nbucketed into promoters (9-10), passives (7-8), and detractors (0-6); NPS =\n%promoters - %detractors. The methodological lesson for reading any public\nsentiment signal (Trustpilot rating, app-store rating, etc.) even when you\ndon't have the raw NPS survey: a single aggregate score is a legitimate,\nresearch-backed proxy for word-of-mouth growth risk, but it should be read\nalongside the volume and recency of responses, not in isolation -- a\n4.1/5 rating from a small or stale sample carries much less signal than the\nsame score from a large, recent sample, since the original NPS research\ndepended on having enough responses to be statistically meaningful.",
             "source": "Fred Reichheld, \"The One Number You Need to Grow,\" Harvard Business Review, Dec 2003 -- https://hbr.org/2003/12/the-one-number-you-need-to-grow",
             "corpus": "sentiment_methodology",
-            "score": 0.4246
+            "score": 0.4565
           },
           {
             "text": "Hu, Pavlou, and Zhang's research (\"Why Do Online Product Reviews Have a\nJ-Shaped Distribution?\", Communications of the ACM 2009; expanded as \"On\nSelf-Selection Biases in Online Product Reviews,\" MIS Quarterly 2017)\nidentifies two structural biases in any public review/complaint dataset.\n\"Acquisition bias\": people who already had a favorable predisposition toward\na product are more likely to have bought it and thus more likely to be among\nthe reviewers at all. \"Underreporting bias\": people with extreme experiences\n(very good or very bad) are far more likely to write a review than people\nwith a moderate, unremarkable experience -- producing the characteristic\nJ-shaped (bimodal, skewed) distribution of online ratings rather than a\nnormal distribution centered on the \"typical\" customer experience. The\npractical implication for reading Trustpilot-style data or complaint themes:\ntreat the sample as systematically over-representing strong reactions in\nboth directions, not as a representative cross-section of all customers --\nrecurring negative themes are real signal about what upsets the most vocal\nminority, but the underlying base rate among silent, moderately-satisfied\ncustomers is almost certainly better than the raw review mix suggests.",
             "source": "Hu, N., Pavlou, P.A., Zhang, J., \"On Self-Selection Biases in Online Product Reviews,\" MIS Quarterly, 2017 -- https://misq.umn.edu/misq/article/41/2/449/335/On-Self-Selection-Biases-in-Online-Product",
             "corpus": "sentiment_methodology",
-            "score": 0.3453
+            "score": 0.3786
           },
           {
             "text": "Braun and Clarke's six-phase thematic analysis method is the standard\nacademic approach for turning unstructured qualitative feedback (reviews,\ncomplaint text, open-ended survey answers) into reliable named themes\nrather than impressionistic summaries. The six phases: (1) familiarize\nyourself with the full dataset before coding anything, (2) generate initial\ncodes -- short labels applied consistently across the data, (3) search for\ncandidate themes by grouping related codes, (4) review themes against the\nfull dataset to check they actually hold up and aren't just one or two loud\nexamples, (5) clearly define and name each theme so it has one core\nmeaning, not several blended ideas, (6) produce the write-up connecting\neach theme back to specific supporting examples. The discipline this\nimposes when reading a small set of public complaint themes: a theme is\nonly as credible as its review (step 4) -- if a \"theme\" is really just one\nvivid complaint generalized into a pattern, it should be labeled as an\nisolated anecdote, not presented with the same confidence as a theme that\nrecurs across many independent reviews. The process is explicitly iterative,\nnot a one-pass classification -- themes should be revisited as more\nevidence comes in.",
             "source": "Braun, V. & Clarke, V., reflexive thematic analysis six-phase framework (Qualitative Research in Psychology, 2006; subsequent methodology papers) -- https://www.thedegreedoctor.com/blog/braun-and-clarke-thematic-analysis-how-to-do-the-six-step-process-in-your-qualitative-research-project",
             "corpus": "sentiment_methodology",
-            "score": 0.307
+            "score": 0.3044
           }
         ]
       }

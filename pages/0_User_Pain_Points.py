@@ -20,15 +20,24 @@ style.headline(
 )
 
 st.divider()
-style.headline("1. Market sentiment (real public signal)")
-st.caption(market_sentiment.PUBLIC_SENTIMENT_LIMITATION)
+style.headline("1. Evidence base (real public signal)")
 
 tp = market_sentiment.TRUSTPILOT_SNAPSHOT
-style.kpi_card("Trustpilot Rating", f"{tp['rating']:.1f} / {tp['scale']:.0f}", f"{tp['review_count']:,} reviews, {tp['as_of']}", None)
+naic = market_sentiment.NAIC_COMPLAINT_INDEX
+c1, c2 = st.columns(2)
+with c1:
+    style.kpi_card("Trustpilot", f"{tp['rating']:.1f} / {tp['scale']:.0f}", f"{tp['review_count']:,} reviews · {tp['as_of']}", None)
+with c2:
+    style.kpi_card("NAIC complaint index", f"{naic['value']:.2f}", f"≈{naic['value']/naic['industry_baseline']:.0f}× industry baseline ({naic['industry_baseline']:.0f}) · {naic['year']}", None)
+
+st.markdown(
+    f"**Sample:** {tp['review_count']:,} public Trustpilot reviews + the NAIC consumer-complaint "
+    f"index. **Representativeness:** {market_sentiment.PUBLIC_SENTIMENT_LIMITATION}"
+)
 st.caption(
-    "The underlying review/complaint themes feed the AI analysis below via the "
-    "get_market_sentiment tool -- they appear, verbatim, in the \"Tool calls used\" "
-    "panel once you run it, so the AI's pain points stay traceable to the real data."
+    "These themes feed the AI analysis below via the get_market_sentiment tool -- they appear "
+    "verbatim in the \"Tool calls used\" panel once you run it, so every pain point stays "
+    "traceable to the real signal."
 )
 
 st.divider()
@@ -77,7 +86,18 @@ if result is not None:
     st.markdown("**Pain points**")
     for p in result.get("pain_points", []):
         src = p.get("evidence_source", "")
-        st.markdown(f"- {style.escape_dollar(p['pain_point'])}" + (f" &nbsp;<span style='color:#9a9a9a;font-size:0.82rem;'>· {src}</span>" if src else ""), unsafe_allow_html=True)
+        prevalence = p.get("prevalence", "")
+        significance = p.get("business_significance", "")
+        meta = " · ".join(x for x in [prevalence, src] if x)
+        line = f"- **{style.escape_dollar(p['pain_point'])}**"
+        if meta:
+            line += f" &nbsp;<span style='color:#9a9a9a;font-size:0.8rem;'>· {style.escape_dollar(meta)}</span>"
+        st.markdown(line, unsafe_allow_html=True)
+        if significance:
+            st.markdown(
+                f"&nbsp;&nbsp;&nbsp;<span style='color:#B23240;font-size:0.82rem;'>↳ So what: {style.escape_dollar(significance)}</span>",
+                unsafe_allow_html=True,
+            )
 
     rcol, ocol = st.columns(2)
     with rcol:

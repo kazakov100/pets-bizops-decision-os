@@ -2,12 +2,12 @@
   "result": {
     "framework_id": "three_horizons",
     "rag_source": "McKinsey & Company, \"Enduring Ideas: The three horizons of growth\" -- https://www.mckinsey.com/capabilities/strategy-and-corporate-finance/our-insights/enduring-ideas-the-three-horizons-of-growth",
-    "bottom_line": "Pet is Lemonade's Horizon 2 engine\u201456% YoY IFP growth with a persistently plateaued loss ratio is the single biggest lever between here and profitability.",
-    "narrative": "Through a Three Horizons lens, Homeowners ($540M IFP, slowing growth, dramatically improving loss ratio from 0.79 to 0.49) is Lemonade's maturing Horizon 1 cash-flow defender; Pet ($490M IFP, 56% YoY growth, now 37% of company IFP) is the critical Horizon 2 segment that must scale toward underwriting discipline, not just volume; Europe ($67M IFP, highest trajectory at roughly 5x growth in 9 quarters but loss ratio still 0.85) and Car ($214M IFP, loss ratio declining from 0.99 to 0.74 but still elevated) are contested Horizon 2/3 bets requiring continued investment. McKinsey's framework warns explicitly against applying Horizon 1 profitability standards to a Horizon 2 business\u2014yet Pet's gross loss ratio has been locked in a 0.68\u20130.72 band for 9 straight quarters even as IFP more than doubled, signaling a pricing/claims-frequency problem that compounding growth will magnify, not self-correct.",
+    "bottom_line": "Pet is Lemonade's fastest-scaling Horizon 2 engine \u2014 but a loss ratio locked in the 68\u201372% band for 9 straight quarters must be broken before the segment can graduate to Horizon 1 profitability.",
+    "narrative": "Through the Three Horizons lens, Homeowners ($540M IFP, improving loss ratio now at 49%) is a maturing Horizon 1 core; Pet ($490M IFP, +56% YoY, on track to be the largest product line) is the critical Horizon 2 growth engine that demands investment but must show underwriting progress to justify its trajectory; and Europe ($67M IFP, improving from 106% to 85% loss ratio) plus Car ($214M IFP, trending down from 99% toward 74%) are Horizon 3 options still in early proof-of-concept. The company-wide financial signal is encouraging \u2014 Adjusted EBITDA improved $29.9M YoY to -$17.1M in Q1'26 and gross profit margin reached 39% \u2014 but Pet's flat loss ratio (ranging only 68\u201372% across all 9 disclosed quarters per get_pet_loss_ratio_trend) is the single biggest obstacle to Pet converting its scale into Horizon 1-style margin contribution.",
     "executive_summary": {
-      "key_takeaway": "Pet is growing fast enough to become Lemonade's largest product line, but a loss ratio stuck at 69% for 9 quarters means scaling volume without fixing underwriting is scaling a margin problem.",
-      "why_it_matters": "EBITDA breakeven is guided for Q4'26; Pet's loss ratio plateau is the primary obstacle.",
-      "recommended_action": "Accelerate Pet pricing calibration (especially post-claim and book-aging cohorts flagged in public complaint data) to bend the loss ratio below 65%, directly protecting the Q4'26 EBITDA-positive target.",
+      "key_takeaway": "Pet is the company's growth crown jewel at $490M IFP and +56% YoY, but its loss ratio has been stuck in a 68\u201372% band for 9 consecutive quarters \u2014 scale without underwriting improvement is a margin trap, not a success story.",
+      "why_it_matters": "Plateau here blocks Pet's Horizon 1 graduation and EBITDA breakeven.",
+      "recommended_action": "Prioritize advanced pricing analytics and claims-frequency segmentation within Pet now \u2014 McKinsey's Global Insurance Report identifies these as the two highest-leverage levers to structurally break a loss-ratio plateau, converting Pet's scale into margin rather than just volume.",
       "kpi_impact": {
         "metric_label": "Pet gross loss ratio",
         "dollar_estimate": {
@@ -16,81 +16,81 @@
           "low_points": 2,
           "base_points": 4,
           "high_points": 7,
-          "assumption_rationale": "Homeowners' loss ratio fell ~30pp over 8 quarters via pricing actions; a 2\u20137pp improvement in Pet's plateaued 69% ratio is conservative given Lemonade's stated playbook of treating underwriting improvement as the gate for taking on retained risk (Artemis.bm / Q1'26 shareholder letter, lemonade_approach corpus)."
+          "assumption_rationale": "McKinsey's Global Insurance Report (consulting_best_practices) cites underwriting discipline and advanced pricing analytics as capable of driving 5+ combined-ratio point improvement in a specific segment; 2\u20137pp is the plausible range given Pet's 9-quarter flat baseline and $490M IFP base."
         }
       }
     },
     "items": [
       {
-        "title": "Pet loss ratio plateau at scale",
+        "title": "Pet loss ratio structurally flat",
         "type": "risk",
         "framework_element": "Horizon 2 -- Pet",
         "impact": "high",
         "confidence": "high",
-        "detail": "Pet's gross loss ratio has been locked 68\u201372% for all 9 disclosed quarters (Q1'24\u2013Q1'26) even as IFP doubled from $201M to $490M; pricing likely hasn't caught up to book-aging claims frequency, meaning more growth compounds the underwriting deficit rather than diluting it.",
+        "detail": "Pet's gross loss ratio has held 68\u201372% across all 9 disclosed quarters (Q1'24\u2013Q1'26) even as IFP more than doubled from $201M to $490M; pricing has likely not kept pace with claims frequency as the book ages, so scale is compounding exposure rather than improving margin.",
         "evidence_source": "get_pet_loss_ratio_trend"
       },
       {
-        "title": "ADR erosion threatens H1 retention moat",
+        "title": "NAIC complaint index 4\u00d7 industry",
         "type": "risk",
-        "framework_element": "Horizon 1 -- Homeowners / Core",
-        "impact": "medium",
-        "confidence": "high",
-        "detail": "Company-wide Annual Dollar Retention has slid from 88% (Q1'24) to 84\u201385% (Q1'25\u2013Q1'26); in Horizon 1 terms, eroding retention in the core book reduces the cross-sell base that feeds Pet's Horizon 2 growth engine.",
-        "evidence_source": "get_company_financials"
-      },
-      {
-        "title": "Complaint index 4x industry baseline",
-        "type": "risk",
-        "framework_element": "Horizon 1 -- Homeowners / Core",
+        "framework_element": "Horizon 1 -- Homeowners / Horizon 2 -- Pet",
         "impact": "medium",
         "confidence": "low",
-        "detail": "NAIC complaint index hit 3.85 in 2024 (vs. 1.0 industry baseline), up from 3.5 in 2023, driven by post-claim premium spikes and pre-existing-condition disputes; if unaddressed, churn pressure compounds the ADR slide and narrows the cross-sell funnel for Horizon 2 segments.",
+        "detail": "Lemonade's NAIC complaint index rose to 3.85 (vs. 1.0 industry baseline) in 2024, driven by recurring themes of post-renewal premium spikes and pre-existing condition disputes \u2014 directional churn risk across the Horizon 1 and 2 base, though complaint data is not segment-specific.",
         "evidence_source": "get_market_sentiment"
       },
       {
-        "title": "Europe loss ratio still elevated at H3 scale",
+        "title": "Annual Dollar Retention declining",
+        "type": "risk",
+        "framework_element": "Horizon 1 -- Homeowners",
+        "impact": "medium",
+        "confidence": "high",
+        "detail": "Company-wide Annual Dollar Retention slipped from 88% in Q1'24 to 84\u201385% by Q1'26; for a Horizon 1 core that must fund Horizon 2/3 investment, even a 3-point ADR erosion structurally compresses the cash engine Lemonade depends on to self-fund growth.",
+        "evidence_source": "get_company_financials"
+      },
+      {
+        "title": "Europe loss ratio volatile, not proven",
         "type": "risk",
         "framework_element": "Horizon 3 -- Europe",
-        "impact": "low",
+        "impact": "medium",
         "confidence": "medium",
-        "detail": "Europe's gross loss ratio is 0.85 in Q1'26 on just $67M IFP\u2014improving from 1.06 but still far above breakeven; at this early stage the risk is that capital gets drawn toward a Horizon 3 bet before Horizon 2 (Pet) has demonstrated underwriting discipline.",
+        "detail": "Europe's gross loss ratio swung from 64% in Q4'25 back up to 85% in Q1'26 \u2014 only $67M IFP \u2014 signaling the Horizon 3 option is still early and episodic, not yet a repeatable underwriting model, meaning capital allocation risk if scaled prematurely.",
         "evidence_source": "get_all_segments_trend"
       },
       {
-        "title": "Pet cross-sell IFP already $85M",
+        "title": "$85M cross-sell IFP unlocks low-CAC growth",
         "type": "opportunity",
         "framework_element": "Horizon 2 -- Pet",
         "impact": "high",
         "confidence": "high",
-        "detail": "Of Pet's $490M IFP, $85M already comes from cross-selling to existing customers\u2014proving low-CAC acquisition at scale; expanding this channel inside the 3.1M customer base is the fastest, cheapest path to accelerating Horizon 2 volume without raising aggregate loss exposure from adverse-selected new cohorts.",
+        "detail": "Pet already has $85M of IFP sourced from cross-sell to existing Lemonade customers \u2014 Lemonade's own playbook (Artemis/Q1'26 letter) frames existing-base cross-sell as the lowest-CAC acquisition channel, meaning Pet can compound IFP growth without proportional marketing spend.",
         "evidence_source": "get_pet_segment_kpis"
       },
       {
-        "title": "Homeowners underwriting now a funding engine",
+        "title": "Revenue outpacing IFP via quota-share cuts",
         "type": "opportunity",
-        "framework_element": "Horizon 1 -- Homeowners",
+        "framework_element": "Horizon 1 -- Homeowners / Horizon 2 -- Pet",
         "impact": "high",
         "confidence": "high",
-        "detail": "Homeowners' gross loss ratio collapsed from 0.79 (Q1'24) to 0.49 (Q1'26) while IFP grew to $540M; this Horizon 1 segment is transitioning to cash-flow-generation mode and can fund continued Pet and Car investment without external dilution, consistent with McKinsey's Three Horizons logic.",
-        "evidence_source": "get_all_segments_trend"
+        "detail": "Revenue grew 71% YoY in Q1'26 vs. only 32% IFP growth \u2014 directly driven by quota-share reinsurance cession reductions (per Lemonade Q1'26 shareholder letter) \u2014 meaning as Pet's underwriting improves, each additional IFP dollar retained yields outsized revenue and margin leverage.",
+        "evidence_source": "get_company_financials"
       },
       {
-        "title": "Car underwriting inflection in progress",
+        "title": "Car loss ratio on steep improvement path",
         "type": "opportunity",
         "framework_element": "Horizon 2 -- Car",
         "impact": "medium",
         "confidence": "medium",
-        "detail": "Car's gross loss ratio has trended from 0.99 (Q1'24) to 0.74 (Q1'26) as IFP grew to $214M\u2014an inflection trajectory that, if sustained, would make Car a second Horizon 2 growth engine alongside Pet, diversifying IFP concentration risk.",
+        "detail": "Car's gross loss ratio dropped from 99% in Q1'24 to 74% in Q1'26 \u2014 a 25-point structural improvement across 9 quarters \u2014 suggesting a Horizon 2 segment finding its underwriting footing, creating a potential second Pet-like growth ramp that diversifies revenue concentration.",
         "evidence_source": "get_all_segments_trend"
       },
       {
-        "title": "Revenue outpacing IFP via quota-share reduction",
+        "title": "EBITDA breakeven within striking range",
         "type": "opportunity",
-        "framework_element": "Horizon 1 -- Homeowners / Core",
-        "impact": "medium",
-        "confidence": "medium",
-        "detail": "Revenue grew 71% YoY in Q1'26 vs. only 32% IFP growth, directly attributed to reduced reinsurance cession; as Pet's underwriting matures, applying the same quota-share reduction to the Pet book would structurally lift revenue and gross profit margin without requiring new customer acquisition.",
+        "framework_element": "Horizon 1 -- Homeowners / Horizon 2 -- Pet",
+        "impact": "high",
+        "confidence": "high",
+        "detail": "Adjusted EBITDA improved $29.9M YoY to -$17.1M in Q1'26, with Q4'25 reaching -$4.6M; the company has guided first EBITDA-positive quarter for Q4'26 \u2014 achieving this validates the Three Horizons thesis that Horizon 2 investment can be self-funded rather than perpetually dilutive.",
         "evidence_source": "get_company_financials"
       }
     ]
@@ -721,7 +721,7 @@
     {
       "tool": "retrieve_knowledge",
       "input": {
-        "query": "Three Horizons growth framework McKinsey strategic planning core growth emerging options",
+        "query": "Three Horizons growth framework McKinsey horizon 1 2 3 strategy",
         "corpus": "consulting_best_practices",
         "k": 3
       },
@@ -731,19 +731,19 @@
             "text": "McKinsey's \"Three Horizons of Growth\" framework (from Baghai, Coley, and\nWhite's 2000 book \"The Alchemy of Growth\") argues that a company should\nmanage three kinds of business simultaneously rather than judging its whole\nportfolio by one growth number. Horizon 1 is the core business that\nprovides the greatest current profit and cash flow -- the focus there is\ndefending and extracting maximum value through performance improvement.\nHorizon 2 is emerging, fast-growing lines that aren't yet the largest\nprofit contributor but could become Horizon-1-scale -- these need\ninvestment, not just monitoring. Horizon 3 is early-stage options for\nfuture growth. When analyzing a multi-segment business, this means a\nsegment that is small but accelerating (Horizon 2) should be judged on\ntrajectory and unit economics, not on its current share of company profit\n-- the mistake is applying Horizon-1 profitability standards to a\nHorizon-2 business and concluding it's underperforming.",
             "source": "McKinsey & Company, \"Enduring Ideas: The three horizons of growth\" -- https://www.mckinsey.com/capabilities/strategy-and-corporate-finance/our-insights/enduring-ideas-the-three-horizons-of-growth",
             "corpus": "consulting_best_practices",
-            "score": 0.7259
+            "score": 0.7588
           },
           {
             "text": "McKinsey's 2014 \"Grow Fast or Die Slow\" study examined thousands of software\nand technology companies from 1980-2012 and found that revenue growth rate\nis a far stronger predictor of long-term market-cap gain than margin\nimprovement, for companies under roughly $4 billion in revenue: growth\ncontributes roughly twice as much to market-cap gain as margin does at that\nscale. \"Supergrowers\" (50%+ CAGR) had materially lower EBITDA margins early\non (around 5% at $100M revenue) than slower growers, but that gap closes as\nthey scale past $1B in revenue (around 24% EBITDA margin). The practical\ntakeaway for reading a growth-stage company's numbers: a young, fast-growing\nsegment showing thin or negative margins is not automatically a red flag --\nit can be the expected, even desirable, shape of a company in its\nsupergrowth phase. The flag worth watching for is growth decelerating\nwithout margin improving to compensate -- that combination has no offsetting\nupside. Note the important exception: once a company passes roughly $4\nbillion in revenue, margin becomes the more important lever than growth.",
             "source": "McKinsey & Company, \"Grow fast or die slow: The role of profitability in sustainable growth\" -- https://www.mckinsey.com/industries/technology-media-and-telecommunications/our-insights/grow-fast-or-die-slow-the-role-of-profitability-in-sustainable-growth",
             "corpus": "consulting_best_practices",
-            "score": 0.4894
+            "score": 0.428
           },
           {
             "text": "BCG's Growth-Share Matrix (created by Bruce Henderson in 1968) classifies a\ncompany's business units along two axes -- relative market share and market\ngrowth rate -- into four categories. \"Stars\" (high growth, high share)\nwarrant continued heavy investment because they have high future potential.\n\"Cash cows\" (low growth, high share) generate more cash than they need and\nshould be harvested to fund growth elsewhere, not over-invested in. \"Question\nmarks\" (high growth, low share) are the ambiguous case -- worth investing in\nonly if there's a credible path to becoming a star, otherwise a candidate to\ndiscard. \"Dogs\" (low growth, low share) are candidates to divest or\nreposition. The strategic logic: market leadership in a category tends to\nproduce durable superior returns, and most business units move through this\ncycle (question mark -> star -> cash cow -> dog) as their market matures.\nApplied to a multi-segment company, the useful discipline is asking which\nquadrant each segment is actually in BEFORE judging it by the same yardstick\nas the others -- a fast-growing, lower-share segment (question mark/star\nterritory) should be evaluated on share-gain trajectory, not on the cash\ngeneration expected of a mature cash-cow segment.",
             "source": "Boston Consulting Group, \"What Is the Growth Share Matrix?\" -- https://www.bcg.com/about/overview/our-history/growth-share-matrix",
             "corpus": "consulting_best_practices",
-            "score": 0.4291
+            "score": 0.3721
           }
         ]
       }
@@ -751,9 +751,33 @@
     {
       "tool": "retrieve_knowledge",
       "input": {
-        "query": "insurance pet underwriting loss ratio improvement pricing levers",
+        "query": "pet insurance underwriting loss ratio improvement pricing discipline",
+        "corpus": "consulting_best_practices",
+        "k": 2
+      },
+      "result": {
+        "results": [
+          {
+            "text": "McKinsey's Global Insurance Report tracks combined ratio (loss ratio +\nexpense ratio) as the primary underwriting health metric for P&C insurers,\nnoting the global average combined ratio trended down to roughly 91% in\n2023 even as claims inflation pressured several markets (combined ratios\nrose 16 points in the UK and 5 points in the US between 2021-2023). A key\nMcKinsey finding worth applying broadly: only about 40% of an insurer's\nunderwriting performance is explained by which lines of business it\nparticipates in -- the other 60% is explained by HOW it operates\n(underwriting discipline, pricing sophistication, claims handling, fraud\ndetection). This matters for diagnosing a single underperforming line: the\nfirst question shouldn't be \"is this just a bad line of business\" but\n\"is this segment being operated with the same underwriting rigor as our\nbetter-performing lines\" -- the same company can have very different\nunderwriting outcomes across segments using the same playbook elsewhere.\nMcKinsey also points to underwriter training and advanced pricing analytics\nas the two highest-leverage levers for improving loss-ratio performance in\na specific segment, rather than broad-based rate increases alone.",
+            "source": "McKinsey & Company, \"How insurers can improve combined ratios by five percentage points\" and \"Global Insurance Report 2025\" -- https://www.mckinsey.com/industries/financial-services/our-insights/how-insurers-can-improve-combined-ratios-by-five-percentage-points",
+            "corpus": "consulting_best_practices",
+            "score": 0.5717
+          },
+          {
+            "text": "BCG's Growth-Share Matrix (created by Bruce Henderson in 1968) classifies a\ncompany's business units along two axes -- relative market share and market\ngrowth rate -- into four categories. \"Stars\" (high growth, high share)\nwarrant continued heavy investment because they have high future potential.\n\"Cash cows\" (low growth, high share) generate more cash than they need and\nshould be harvested to fund growth elsewhere, not over-invested in. \"Question\nmarks\" (high growth, low share) are the ambiguous case -- worth investing in\nonly if there's a credible path to becoming a star, otherwise a candidate to\ndiscard. \"Dogs\" (low growth, low share) are candidates to divest or\nreposition. The strategic logic: market leadership in a category tends to\nproduce durable superior returns, and most business units move through this\ncycle (question mark -> star -> cash cow -> dog) as their market matures.\nApplied to a multi-segment company, the useful discipline is asking which\nquadrant each segment is actually in BEFORE judging it by the same yardstick\nas the others -- a fast-growing, lower-share segment (question mark/star\nterritory) should be evaluated on share-gain trajectory, not on the cash\ngeneration expected of a mature cash-cow segment.",
+            "source": "Boston Consulting Group, \"What Is the Growth Share Matrix?\" -- https://www.bcg.com/about/overview/our-history/growth-share-matrix",
+            "corpus": "consulting_best_practices",
+            "score": 0.3345
+          }
+        ]
+      }
+    },
+    {
+      "tool": "retrieve_knowledge",
+      "input": {
+        "query": "cross-sell retention expansion revenue existing customers insurance",
         "corpus": "lemonade_approach",
-        "k": 3
+        "k": 2
       },
       "result": {
         "results": [
@@ -761,19 +785,13 @@
             "text": "Lemonade's stated growth strategy leans heavily on cross-sell -- selling\nadditional products (e.g. Pet insurance) to its existing renters/homeowners\ncustomer base, where customer acquisition cost is much lower than\nacquiring a brand-new customer from scratch. The company has also\nprogressively reduced its quota-share reinsurance cession -- from 75% of\ngross premium, to 70%, to 55% (the cession that one renewal described as\n\"stage-appropriate... as our current IFP is more than 4x where it was two\nyears ago, and we've diversified... from a monoline business to a\nmulti-product, multi-geography business\"), with a further reduction in\ncession rates effective in the third quarter of 2025 that the Q1'26\nshareholder letter credits with raising premium retention and lifting\nrevenue (up 71% YoY in Q1'26 vs. 32% IFP growth). Retaining more of its own\npremium and risk as underwriting performance improves is framed by the\ncompany as a sign of growing confidence in its own underwriting. Taken together\nwith the AI-first claims strategy and Giveback model, Lemonade's stated\nplaybook for \"how do we solve a business problem\" leans toward: (1) use the\nexisting customer base and AI-driven low-cost channels before paying for\nnew acquisition, (2) treat underwriting improvement as the gate for taking\non more retained risk rather than reinsuring it away, and (3) treat\nclaims-experience quality as a growth lever in its own right, not just a\ncost center. A candidate fix that doesn't connect to at least one of these\nthree pillars is, by the company's own stated logic, swimming against its\nplaybook rather than with it.",
             "source": "Artemis.bm, \"Lemonade renews catastrophe reinsurance, cuts quota share again\" (quota-share progression) and Lemonade Q1 2026 shareholder letter (further Q3'25 cession reduction, revenue +71% YoY) -- https://www.artemis.bm/news/lemonade-renews-catastrophe-reinsurance-cuts-quota-share-again/",
             "corpus": "lemonade_approach",
-            "score": 0.4788
+            "score": 0.5835
           },
           {
             "text": "Lemonade's stated business model takes a flat fee from premium upfront and\ngives unclaimed premium back to nonprofits chosen by customers through its\n\"Giveback\" program, rather than the traditional insurer model where profit\ncomes from paying out as little in claims as possible. The company\nexplicitly frames this as removing the structural incentive to deny or slow\nclaims, since the insurer's revenue is fixed regardless of how claims are\npaid out -- the stated goal is aligning Lemonade's profit motive with fast,\ngenerous claims handling instead of against it. This is a key piece of\ncontext when judging a loss-ratio number: a rising loss ratio in a Lemonade\nsegment is not unambiguously bad news the way it would be for a traditional\ninsurer optimizing to minimize payouts -- it can also reflect the\nbusiness doing what it says it's built to do (pay claims generously and\nfast). The more diagnostic question is whether the loss ratio is moving for\na reason consistent with the stated model (genuine claims generosity, or\nnormal book maturation) versus an unpriced/mispriced risk problem.",
             "source": "Lemonade, Inc., shareholder letters and public business-model description (SEC Form 8-K filings, investor.lemonade.com) -- https://www.lemonade.com/investor",
             "corpus": "lemonade_approach",
-            "score": 0.459
-          },
-          {
-            "text": "Lemonade's \"Synthetic Agents\" program (launched July 2023 with General\nCatalyst) is a customer-acquisition-cost (CAC) financing arrangement: in\nLemonade's own words, \"Synthetic Agents (GC) will finance up to 80% of our\nCAC spend in any given month... and will receive a 'commission' of up to\n16% from, and only from, the premiums paid by the corresponding cohort\"\n(the customers who joined that month). Lemonade frames it as \"time-shifters,\nfunneling customers' future gross profits backwards in time, so customers\neffectively finance their own CAC before we've even met them\" -- breaking\nthe usual \"growth-depletes-cash\" tension and enabling capital-light growth\nwithout ceding gross profit for the customer's lifetime the way traditional\nagents would. Lemonade pairs two symbiotic capital partners: reinsurers\nrelieve its regulatory-capital burden through the quota-share program, and\nGeneral Catalyst relieves its working-capital burden through Synthetic\nAgents. Strategically this is a financing/growth-funding lever, NOT an\nunderwriting or monetization one -- it changes how aggressively new-customer\ngrowth can be funded without straining cash, but doesn't touch loss ratio or\npremium-per-customer. So for a growth-vs-monetization gap (new customers\noutgrowing premium-per-customer), the right lever is pricing or cross-sell,\nnot CAC financing.",
-            "source": "Lemonade, Inc., \"Synthetic Agents\" (company blog) -- https://www.lemonade.com/blog/synthetic-agents/",
-            "corpus": "lemonade_approach",
-            "score": 0.2977
+            "score": 0.3809
           }
         ]
       }

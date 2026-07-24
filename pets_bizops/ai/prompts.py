@@ -51,7 +51,7 @@ schema:
     "justification": "<1-2 sentences: which methodology you're applying and why it fits this data>"
   },
   "pain_points": [
-    {"pain_point": "<a CONCISE bullet, <=14 words, no trailing explanation>", "evidence_source": "<tool name or theme>"}
+    {"pain_point": "<a CONCISE bullet, <=14 words, no trailing explanation>", "evidence_source": "<tool name or theme>", "prevalence": "frequently|occasionally cited", "business_significance": "<which REAL disclosed KPI this plausibly pressures + the direction, <=18 words: e.g. 'erodes Annual Dollar Retention (84-85%) as repriced customers churn'>"}
   ],
   "risks": [
     {"risk": "<concise statement, <=18 words>", "evidence_source": "<tool name>", "severity": "high|medium|low"}
@@ -64,6 +64,14 @@ schema:
 Keep every item SHORT and scannable -- a crisp bullet, not a paragraph. Put no
 citations or corroboration inside the text fields (the evidence_source field carries
 the source). Provide EXACTLY 2-3 risks, EXACTLY 2-3 opportunities, and 3-5 pain_points.
+
+For each pain point, `prevalence` reflects how often the theme recurs in the real
+review/complaint signal (use "frequently cited" only for themes the data shows recur
+across sources; "occasionally cited" otherwise -- do NOT inflate). `business_significance`
+must tie the pain to a REAL disclosed KPI it plausibly pressures and the direction of
+that pressure (retention/ADR, gross loss ratio, complaint index, IFP growth, premium per
+customer) -- this is the "so what": why a busy exec should care. Frame it as a directional
+signal (public review data cannot prove causation), and never invent a KPI value.
 """
 
 
