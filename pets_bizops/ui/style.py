@@ -419,6 +419,31 @@ table.pbz-table tr:last-child td {{
 .pbz-exec-kpi-num {{ font-size: 1.45rem; font-weight: 800; color: {PINK_DARK}; }}
 .pbz-exec-kpi-metric {{ display: block; font-size: 0.85rem; color: {MUTED}; margin-top: 0.2rem; }}
 
+.pbz-ot {{
+    width: 100%; border-collapse: separate; border-spacing: 0;
+    margin: 0.3rem 0 0.9rem 0; font-size: 0.88rem;
+}}
+.pbz-ot thead th {{
+    text-align: left; text-transform: uppercase; letter-spacing: 0.05em;
+    font-size: 0.66rem; font-weight: 700; color: {MUTED};
+    padding: 0.4rem 0.6rem; border-bottom: 2px solid #E7E1E4;
+}}
+.pbz-ot thead th:not(:first-child) {{ text-align: center; }}
+.pbz-ot td {{ padding: 0.6rem; border-bottom: 1px solid #EFEBED; vertical-align: top; }}
+.pbz-ot td:not(.pbz-ot-opt) {{ text-align: center; white-space: nowrap; }}
+.pbz-ot .pbz-ot-opt {{ font-weight: 700; color: {TEXT}; line-height: 1.3; }}
+.pbz-ot .pbz-ot-eff {{ display: block; font-weight: 400; font-size: 0.76rem; color: {MUTED}; margin-top: 0.2rem; }}
+.pbz-ot tr.pbz-ot-chosen td {{ background: {PINK_TINT}; }}
+.pbz-ot tr.pbz-ot-chosen td:first-child {{ border-left: 3px solid {PINK}; }}
+.pbz-ot-pill {{
+    display: inline-block; font-size: 0.72rem; font-weight: 700;
+    padding: 0.1rem 0.5rem; border-radius: 999px; text-transform: capitalize;
+}}
+.pbz-ot-rec {{
+    display: inline-block; font-size: 0.72rem; font-weight: 700;
+    padding: 0.1rem 0.55rem; border-radius: 6px;
+}}
+
 .pbz-situation {{
     background: #F4F5F8;
     border-left: 5px solid {NAVY};
@@ -721,6 +746,51 @@ def executive_takeaway(
         f'<span class="pbz-exec-val">{escape_dollar(recommended_action)}</span></div>'
         f'<div class="pbz-exec-cell kpi"><span class="pbz-exec-label">Expected KPI impact</span>{kpi_inner}</div>'
         '</div></div>',
+        unsafe_allow_html=True,
+    )
+
+
+def options_table(approaches: list[dict], chosen_approach: str = "") -> None:
+    """A consulting-style options-comparison table: one row per candidate action
+    rated on Impact / Effort / Risk, with a Recommendation badge. Colors encode
+    valence (for Impact high=good/green; for Effort & Risk high=bad/red). The
+    chosen action's row is highlighted. Ratings are the AI's own labeled
+    judgment; the $ value-at-stake stays code-computed elsewhere on the page.
+    """
+    # (bg, text) per level, valence-aware.
+    good = {"high": ("#DCF3E4", "#1B7A3D"), "medium": ("#FBEFD3", "#8A6100"), "low": ("#EDEDED", "#666")}
+    bad = {"high": ("#FBE0E2", "#B23240"), "medium": ("#FBEFD3", "#8A6100"), "low": ("#DCF3E4", "#1B7A3D")}
+    rec_c = {"implement": ("#1B7A3D", "#DCF3E4"), "test": ("#8A6100", "#FBEFD3"), "defer": ("#666", "#EDEDED")}
+
+    def pill(level: str, scale: dict) -> str:
+        bg, fg = scale.get(str(level).lower(), ("#EDEDED", "#666"))
+        return f'<span class="pbz-ot-pill" style="background:{bg};color:{fg};">{escape_dollar(str(level))}</span>'
+
+    def rec_badge(rec: str) -> str:
+        fg, bg = rec_c.get(str(rec).lower(), ("#666", "#EDEDED"))
+        return f'<span class="pbz-ot-rec" style="background:{bg};color:{fg};border:1px solid {fg};">{escape_dollar(str(rec))}</span>'
+
+    rows = ""
+    for a in approaches:
+        approach = a.get("approach", "")
+        is_chosen = approach and approach == chosen_approach
+        star = "⭐ " if is_chosen else ""
+        ai = " 🤖" if a.get("ai_first") else ""
+        cls = ' class="pbz-ot-chosen"' if is_chosen else ""
+        rows += (
+            f"<tr{cls}>"
+            f'<td class="pbz-ot-opt">{star}{escape_dollar(approach)}{ai}'
+            f'<span class="pbz-ot-eff">{escape_dollar(a.get("expected_effect", ""))}</span></td>'
+            f"<td>{pill(a.get('impact', '?'), good)}</td>"
+            f"<td>{pill(a.get('effort', '?'), bad)}</td>"
+            f"<td>{pill(a.get('risk', '?'), bad)}</td>"
+            f"<td>{rec_badge(a.get('recommendation', '—'))}</td>"
+            f"</tr>"
+        )
+    st.markdown(
+        '<table class="pbz-ot"><thead><tr>'
+        '<th>Option</th><th>Impact</th><th>Effort</th><th>Risk</th><th>Recommendation</th>'
+        f"</tr></thead><tbody>{rows}</tbody></table>",
         unsafe_allow_html=True,
     )
 

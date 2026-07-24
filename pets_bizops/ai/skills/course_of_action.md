@@ -19,9 +19,18 @@ or another disclosed KPI).
 **Solve it (Lemonade playbook).** Call retrieve_knowledge(corpus="lemonade_approach")
 -- ground the actions in Lemonade's real strategy (flat fee + Giveback, AI-first claims,
 cross-sell, Synthetic Agents CAC financing, reinsurance). Propose 2-3 candidate actions
-(things to DO or run as an experiment), each ONE crisp verb-first action (<=16 words),
-with your own ease-of-execution judgment + a <=12-word rationale. Pick exactly one.
-Lean AI-first when it genuinely fits.
+(things to DO or run as an experiment), each ONE crisp verb-first action (<=16 words).
+Pick exactly one. Lean AI-first when it genuinely fits.
+
+**Rate each action on 4 axes** (these feed an options-comparison table, so make them
+comparable and honest -- do NOT rate everything "high"):
+- `impact` (high|medium|low): how much the success metric would move if it works.
+- `effort` (high|medium|low): build/operational cost to execute.
+- `risk` (high|medium|low): execution + downside risk (regulatory, customer, model).
+- `recommendation` (Implement|Test|Defer): "Implement" = high impact, low-ish effort/
+  risk, do it now; "Test" = promising but uncertain, pilot it first; "Defer" = wait
+  (too costly/risky for the payoff now). Exactly ONE action should be your chosen one,
+  and its recommendation is normally "Implement" or "Test".
 
 **Dollar inputs (never state a dollar number yourself).** If a $ value-at-stake estimate
 genuinely applies, call estimate_dollar_value with base_metric (pet_ifp_m | company_ifp_m)
@@ -37,7 +46,7 @@ Respond with ONLY a JSON object (no prose outside the JSON, no markdown fences):
   "why_it_matters": "<ONE clause, <=15 words: the stake>",
   "success_metric": "<the real KPI/golden-metric id that would move if solved>",
   "approaches": [
-    {"approach": "<crisp verb-first action, <=16 words>", "ai_first": true, "expected_effect": "<<=12 words, qualitative, NO dollar figure>", "ease_of_execution": "easy|moderate|hard", "ease_rationale": "<<=12 words, your own estimate>"}
+    {"approach": "<crisp verb-first action, <=16 words>", "ai_first": true, "impact": "high|medium|low", "effort": "high|medium|low", "risk": "high|medium|low", "recommendation": "Implement|Test|Defer", "expected_effect": "<<=12 words, qualitative, NO dollar figure>"}
   ],
   "chosen_approach": "<restate exactly one approach from above>",
   "rationale": "<<=20 words: why it beats the alternatives>",

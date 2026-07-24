@@ -127,16 +127,10 @@ if result is not None:
             st.caption(style.escape_dollar(computed.get("formula", "")))
             st.caption(f"Assumption (AI, RAG-grounded): {computed.get('assumption_rationale', '')}")
 
-    st.markdown("**What to do — candidate actions**")
+    st.markdown("**What to do — options compared**")
     chosen = result.get("chosen_approach", "")
-    for a in result.get("approaches", []):
-        approach = a.get("approach", "")
-        ai_badge = " 🤖" if a.get("ai_first") else ""
-        st.markdown(
-            f"- **{style.escape_dollar(approach)}**{ai_badge} "
-            f"<span style='color:#9a9a9a;font-size:0.82rem;'>· {a.get('ease_of_execution','?')} to execute · {style.escape_dollar(a.get('expected_effect',''))}</span>",
-            unsafe_allow_html=True,
-        )
+    style.options_table(result.get("approaches", []), chosen)
+    st.caption("Impact / Effort / Risk are the AI's own labeled judgment; 🤖 = AI-first play. The $ value-at-stake above is code-computed.")
     if chosen:
         style.recommended_action(chosen)
         st.caption(f"Why this one: {result.get('rationale', '')} • Confidence: {result.get('confidence', '?')}")
