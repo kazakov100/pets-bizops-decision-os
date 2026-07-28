@@ -84,10 +84,16 @@ if st.button("Search", type="primary"):
         with st.spinner("🔎 Embedding your question and searching the knowledge base…"):
             retriever = get_retriever()
             results = retriever.retrieve(query, corpus=corpus_choice, k=_TOP_K)
-        st.caption("The single closest document (higher relevance = better match):")
-        for r in results:
-            st.markdown(f"**Relevance {r['score']:.3f}**")
-            st.markdown(r["text"])
-            st.caption(f"Source: {r['source']}")
+        # Persist so the result survives navigating to another page and back
+        # (Streamlit reruns the page, and a button press is only True for one run).
+        st.session_state.rag_search = {"query": query, "results": results}
     except IndexNotBuiltError as e:
         st.error(str(e))
+
+_rag = st.session_state.get("rag_search")
+if _rag:
+    st.caption(f"Closest document for “{style.escape_dollar(_rag['query'])}” (higher relevance = better match):")
+    for r in _rag["results"]:
+        st.markdown(f"**Relevance {r['score']:.3f}**")
+        st.markdown(r["text"])
+        st.caption(f"Source: {r['source']}")
