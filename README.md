@@ -1,3 +1,15 @@
+---
+title: Pets BizOps Decision OS
+emoji: 🍋
+colorFrom: pink
+colorTo: gray
+sdk: streamlit
+sdk_version: 1.58.0
+app_file: Business_Overview.py
+python_version: "3.11"
+pinned: false
+---
+
 # Pets BizOps Decision OS
 
 A Streamlit decision tool that analyzes **Lemonade, Inc. (NASDAQ: LMND)** Pet
@@ -51,6 +63,25 @@ use (or pre-build a cache with `python -m pets_bizops.rag.build_index`).
 
 > Note: `sentence-transformers` + `torch` are memory-heavy — if the free tier
 > runs tight, the defaults still work; the live RAG path is what needs the RAM.
+
+## Deploy to Hugging Face Spaces (recommended — more RAM, sleeps far less)
+
+The YAML header at the top of this README configures the Space (`sdk: streamlit`,
+`app_file: Business_Overview.py`). Free CPU Spaces get ~16 GB RAM, so the
+`torch`/`sentence-transformers` RAG path runs comfortably, and Spaces only pause
+after ~48h idle (vs. Streamlit Cloud's quick sleep).
+
+1. Create a Space at [huggingface.co/new-space](https://huggingface.co/new-space)
+   → **SDK: Streamlit**, hardware **CPU basic (free)**.
+2. Add it as a git remote and push this repo to it:
+   ```bash
+   git remote add hf https://huggingface.co/spaces/<user>/<space-name>
+   git push hf main
+   ```
+   (Auth with a Hugging Face **write** access token when prompted.)
+3. In the Space → **Settings → Variables and secrets → New secret**, add
+   `ANTHROPIC_API_KEY` = your key (exposed as an env var, which is how the app
+   reads it). Live analyses need it; the precomputed defaults render without it.
 
 ## Tests
 
