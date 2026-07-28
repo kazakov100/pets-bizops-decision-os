@@ -63,7 +63,7 @@ st.caption(
 st.divider()
 sentiment_skill = skills.load_skill("sentiment_analysis")
 style.headline("2. User pain points (AI analysis)", "The AI reads the real review/complaint signal into named pain points, risks, and opportunities -- the conclusions live here, not above.")
-style.decision_basis(["sentiment_methodology"], sentiment_skill.body)
+style.decision_basis(["sentiment_methodology"], sentiment_skill.body, model_id=client.MODEL)
 
 _JOB = "user_pain_points"
 if st.button("Analyze User Pain Points", type="primary"):

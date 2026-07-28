@@ -482,7 +482,7 @@ _ADVISOR_JOB = "framework_advisor"
 with st.container(border=True):
     style.step_header(1, "Compare frameworks for this situation", optional=True)
     st.caption("The AI weighs each lens against Lemonade's real numbers and cited frameworks — you make the call.")
-    style.decision_basis(["consulting_best_practices"], prompts.BUSINESS_FRAMEWORK_ADVISOR_SYSTEM_PROMPT)
+    style.decision_basis(["consulting_best_practices"], prompts.BUSINESS_FRAMEWORK_ADVISOR_SYSTEM_PROMPT, model_id=client.FAST_MODEL)
     if st.button("🧭 Compare frameworks"):
         try:
             jobs.submit(
@@ -542,7 +542,7 @@ with st.container(border=True):
 _RNO_JOB = "risks_opportunities"
 with st.container(border=True):
     style.step_header(3, "Map risks & opportunities")
-    style.decision_basis(["consulting_best_practices"], deep_dive_skill.body)
+    style.decision_basis(["consulting_best_practices"], deep_dive_skill.body, model_id=client.MODEL)
     _rno_clicked = st.button(f"Map Risks & Opportunities with {FRAMEWORK_LABELS[chosen_framework]}", type="primary")
 
 if _rno_clicked:

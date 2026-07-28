@@ -28,6 +28,14 @@ MAX_TOOL_TURNS = 6
 # JSON output together, so give it headroom to avoid truncating the response.
 MAX_OUTPUT_TOKENS = 8192
 
+# Concise per-model labels for the "how this decision was made" panel. The model
+# tiering (fast/cheap for helper steps, stronger for core analysis) is a
+# deliberate cost/latency choice, surfaced so it reads as intentional.
+MODEL_INFO = {
+    MODEL: {"label": "Claude Sonnet 5", "role": "core analysis"},
+    FAST_MODEL: {"label": "Claude Haiku 4.5", "role": "fast helper step"},
+}
+
 
 class MissingApiKeyError(RuntimeError):
     pass

@@ -685,21 +685,29 @@ def insight(label: str, detail: str) -> None:
     )
 
 
-def decision_basis(corpus_ids: list[str], system_prompt: str | None = None) -> None:
+def decision_basis(corpus_ids: list[str], system_prompt: str | None = None, model_id: str | None = None) -> None:
     """One clean, collapsed "how this decision was made" panel per AI stage.
 
-    Leads the surface with results; folds the machinery (the RAG grounding + the
-    analyst instructions) into a single expander. Deliberately names NO model --
-    the defensible story is "grounded in a cited RAG knowledge base, code computes
-    every number", not which LLM ran it.
+    Leads the surface with results; folds the machinery (the model, the RAG
+    grounding, and the analyst instructions) into a single expander. The model
+    tiering is stated as a deliberate cost/latency choice.
     """
     from pets_bizops.rag import corpus_loader
+    from pets_bizops.ai import client
 
     with st.expander("🔎 How this decision was made — grounded in a cited RAG knowledge base"):
         st.markdown(
             "AI analysis grounded in a purpose-built RAG knowledge base — "
             "**code computes every number; the AI explains and frames, and never invents one.**"
         )
+        if model_id:
+            info = client.MODEL_INFO.get(model_id, {"label": model_id, "role": ""})
+            st.markdown(f"🤖 **Model:** {info['label']} — {info['role']}")
+            st.caption(
+                "Model tiers are chosen deliberately — a lighter, faster model runs the "
+                "lightweight steps to keep cost and latency low; the stronger model handles "
+                "the core analysis where depth matters."
+            )
         for cid in corpus_ids:
             brief = corpus_loader.CORPUS_BRIEFS.get(cid, "")
             st.markdown(f"**📚 RAG corpus: {cid}** — {brief}")
