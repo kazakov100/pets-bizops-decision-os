@@ -11,7 +11,13 @@ import streamlit as st
 from pets_bizops.rag.corpus_loader import load_all_chunks, CORPUS_IDS
 from pets_bizops.rag.embeddings import MODEL_NAME, EMBEDDING_DIM
 from pets_bizops.rag.load_index import get_retriever, IndexNotBuiltError
-from pets_bizops.ui import style
+from pets_bizops.ai import jobs
+from pets_bizops.ui import style, jobs_ui
+
+
+def _run_rag_search(query: str, corpus: str, k: int) -> list[dict]:
+    """Top-level so it can run in the background job thread."""
+    return get_retriever().retrieve(query, corpus=corpus, k=k)
 
 st.set_page_config(page_title="RAG Deep Dive -- Pets BizOps Decision OS", page_icon=style.LEMONADE_ICON, layout="wide")
 style.inject_global_styles()
@@ -79,16 +85,17 @@ with scol2:
     corpus_choice = st.selectbox("Which knowledge base to search?", CORPUS_IDS, format_func=lambda c: CORPUS_INFO[c]["label"])
 
 _TOP_K = 1  # return the single best-matching document -- knob not exposed to the user
+_RAG_JOB = "rag_search"
 if st.button("Search", type="primary"):
-    try:
-        with st.spinner("🔎 Embedding your question and searching the knowledge base…"):
-            retriever = get_retriever()
-            results = retriever.retrieve(query, corpus=corpus_choice, k=_TOP_K)
-        # Persist so the result survives navigating to another page and back
-        # (Streamlit reruns the page, and a button press is only True for one run).
-        st.session_state.rag_search = {"query": query, "results": results}
-    except IndexNotBuiltError as e:
-        st.error(str(e))
+    # Run in the background so it completes even if you switch pages mid-search,
+    # and the result is waiting when you come back.
+    jobs.submit(_RAG_JOB, _run_rag_search, query, corpus_choice, _TOP_K)
+    st.session_state.rag_query = query
+    st.rerun()
+
+_rag_done = jobs_ui.poll_result(_RAG_JOB, running_msg="🔎 Embedding your question and searching the knowledge base…")
+if _rag_done is not None:
+    st.session_state.rag_search = {"query": st.session_state.get("rag_query", ""), "results": _rag_done}
 
 _rag = st.session_state.get("rag_search")
 if _rag:
