@@ -66,23 +66,27 @@ st.caption(
 )
 
 st.divider()
-style.headline("3. Try it yourself", "A live, deterministic search -- no LLM call, just the raw retrieval step.")
-scol1, scol2, scol3 = st.columns([2, 2, 1])
+style.headline("3. Try it yourself", "Search the knowledge base the AI uses to ground its answers.")
+st.markdown(
+    "**Ask a question about Lemonade, insurance strategy, or customer sentiment** — the topics these "
+    "corpora cover. The box returns the real, cited documents the AI would retrieve to answer it, ranked "
+    "by how closely they match your question. No AI runs here — this is purely the lookup step."
+)
+scol1, scol2 = st.columns([3, 2])
 with scol1:
-    query = st.text_input("Query", value="is a thin margin on a fast-growing segment a bad sign")
+    query = st.text_input("Your question", value="is a thin margin on a fast-growing segment a bad sign")
 with scol2:
-    corpus_choice = st.selectbox("Corpus", CORPUS_IDS, format_func=lambda c: CORPUS_INFO[c]["label"])
-with scol3:
-    k = st.number_input("k", min_value=1, max_value=10, value=3)
+    corpus_choice = st.selectbox("Which knowledge base to search?", CORPUS_IDS, format_func=lambda c: CORPUS_INFO[c]["label"])
 
+_TOP_K = 1  # return the single best-matching document -- knob not exposed to the user
 if st.button("Search", type="primary"):
     try:
         retriever = get_retriever()
-        results = retriever.retrieve(query, corpus=corpus_choice, k=int(k))
+        results = retriever.retrieve(query, corpus=corpus_choice, k=_TOP_K)
+        st.caption("The single closest document (higher relevance = better match):")
         for r in results:
-            st.markdown(f"**Score: {r['score']:.3f}**")
+            st.markdown(f"**Relevance {r['score']:.3f}**")
             st.markdown(r["text"])
             st.caption(f"Source: {r['source']}")
-            st.divider()
     except IndexNotBuiltError as e:
         st.error(str(e))
