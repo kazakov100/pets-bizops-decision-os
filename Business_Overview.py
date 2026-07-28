@@ -36,7 +36,7 @@ from pets_bizops.data import real_lemonade_data as data
 from pets_bizops.data import default_runs
 from pets_bizops.analysis import kpis, impact
 from pets_bizops.ai import tools, client, prompts, skills, jobs, full_chain
-from pets_bizops.rag import embeddings, corpus_loader
+from pets_bizops.rag import embeddings
 from pets_bizops.ui import style, validation, jobs_ui
 
 st.set_page_config(page_title="Business Overview -- Pets BizOps Decision OS", page_icon=style.LEMONADE_ICON, layout="wide")
@@ -476,28 +476,13 @@ _ids = list(FRAMEWORK_LABELS.keys())
 if "chosen_framework_select" not in st.session_state:
     st.session_state.chosen_framework_select = "bcg_growth_share"
 
-# RAG corpus behind this stage -- shown (briefly + click-to-detail) in each step.
-_CBP_SOURCES = corpus_loader.corpus_document_sources("consulting_best_practices")
-_CBP_BRIEF = "cited framework docs — SWOT, Minto Pyramid, Porter's Five Forces, PESTEL, BCG, Three Horizons"
-
-
-def _rag_expander(corpus: str, brief: str, sources: list[str]) -> None:
-    """A click-to-expand RAG bullet: the corpus + a brief of its main
-    components in the label, its real cited sources inside."""
-    with st.expander(f"📚 RAG corpus: **{corpus}** — {brief}"):
-        st.caption("Real, cited excerpts the AI retrieves to ground this stage:")
-        for s in sources:
-            st.markdown(f"- {s}")
 
 # Step 1 -- optional framework advisor.
 _ADVISOR_JOB = "framework_advisor"
 with st.container(border=True):
     style.step_header(1, "Compare frameworks for this situation", optional=True)
     st.caption("The AI weighs each lens against Lemonade's real numbers and cited frameworks — you make the call.")
-    style.model_badge(client.FAST_MODEL)
-    with st.expander("🧠 System prompt used: **Framework Advisor**"):
-        st.markdown(prompts.BUSINESS_FRAMEWORK_ADVISOR_SYSTEM_PROMPT)
-    _rag_expander("consulting_best_practices", _CBP_BRIEF, _CBP_SOURCES)
+    style.decision_basis(["consulting_best_practices"], prompts.BUSINESS_FRAMEWORK_ADVISOR_SYSTEM_PROMPT)
     if st.button("🧭 Compare frameworks"):
         try:
             jobs.submit(
@@ -557,10 +542,7 @@ with st.container(border=True):
 _RNO_JOB = "risks_opportunities"
 with st.container(border=True):
     style.step_header(3, "Map risks & opportunities")
-    style.model_badge(client.MODEL)
-    with st.expander(f"🧠 System prompt used: **{deep_dive_skill.name}**"):
-        st.markdown(deep_dive_skill.body)
-    _rag_expander("consulting_best_practices", _CBP_BRIEF, _CBP_SOURCES)
+    style.decision_basis(["consulting_best_practices"], deep_dive_skill.body)
     _rno_clicked = st.button(f"Map Risks & Opportunities with {FRAMEWORK_LABELS[chosen_framework]}", type="primary")
 
 if _rno_clicked:

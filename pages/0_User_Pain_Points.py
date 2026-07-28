@@ -14,6 +14,23 @@ from pets_bizops.ui import style, validation, jobs_ui
 st.set_page_config(page_title="User Pain Points -- Pets BizOps Decision OS", page_icon=style.LEMONADE_ICON, layout="wide")
 style.inject_global_styles()
 
+# Plain-language labels for tool-based evidence sources, so raw tool names
+# (e.g. "get_market_sentiment") never surface to the reader.
+_SOURCE_LABELS = {
+    "get_market_sentiment": "customer reviews & complaints",
+    "get_pet_segment_kpis": "Pet segment KPIs",
+    "get_company_kpis": "company KPIs",
+    "get_company_financials": "company financials",
+}
+
+
+def _friendly_source(src: str) -> str:
+    if src in _SOURCE_LABELS:
+        return _SOURCE_LABELS[src]
+    if src.startswith("get_"):
+        return src[4:].replace("_", " ")
+    return src
+
 style.headline(
     "User Pain Points",
     "Real customer-sentiment signal, analyzed into named pain points, risks, and opportunities.",
@@ -35,18 +52,15 @@ st.markdown(
     f"index. **Representativeness:** {market_sentiment.PUBLIC_SENTIMENT_LIMITATION}"
 )
 st.caption(
-    "These themes feed the AI analysis below via the get_market_sentiment tool -- they appear "
-    "verbatim in the \"Tool calls used\" panel once you run it, so every pain point stays "
-    "traceable to the real signal."
+    "These real review/complaint themes feed the AI analysis below -- they appear verbatim in "
+    "the \"Sources & grounding\" panel once you run it, so every pain point stays traceable to "
+    "the real signal."
 )
 
 st.divider()
 sentiment_skill = skills.load_skill("sentiment_analysis")
 style.headline("2. User pain points (AI analysis)", "The AI reads the real review/complaint signal into named pain points, risks, and opportunities -- the conclusions live here, not above.")
-st.caption(f"🧠 System prompt used: **{sentiment_skill.name}** • 📚 RAG corpus: **sentiment_methodology**")
-style.model_badge(client.MODEL)
-with st.expander("View system prompt (tells the AI when/how to retrieve from the RAG corpus)"):
-    st.markdown(sentiment_skill.body)
+style.decision_basis(["sentiment_methodology"], sentiment_skill.body)
 
 _JOB = "user_pain_points"
 if st.button("Analyze User Pain Points", type="primary"):
@@ -85,7 +99,7 @@ if result is not None:
 
     st.markdown("**Pain points**")
     for p in result.get("pain_points", []):
-        src = p.get("evidence_source", "")
+        src = _friendly_source(p.get("evidence_source", ""))
         prevalence = p.get("prevalence", "")
         significance = p.get("business_significance", "")
         meta = " · ".join(x for x in [prevalence, src] if x)

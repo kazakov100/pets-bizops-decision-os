@@ -15,6 +15,15 @@ _CORPUS_DIR = os.path.join(os.path.dirname(__file__), "corpus")
 
 CORPUS_IDS = ["consulting_best_practices", "sentiment_methodology", "lemonade_approach"]
 
+# A one-line, plain-language summary of what each corpus is built from -- shown
+# in the "How this decision was made" panel so a reader gets the gist without
+# opening every source.
+CORPUS_BRIEFS = {
+    "consulting_best_practices": "consulting frameworks — SWOT, Minto Pyramid, Porter's Five Forces, PESTEL, BCG, Three Horizons",
+    "sentiment_methodology": "sentiment & survey methodology — NPS, review selection bias, thematic coding",
+    "lemonade_approach": "Lemonade's stated strategy — flat fee + Giveback, AI-first claims, cross-sell, reinsurance, CAC financing",
+}
+
 
 def corpus_document_sources(corpus_id: str) -> list[str]:
     """The list of real, cited source lines for one corpus -- used to show,

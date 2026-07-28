@@ -28,21 +28,6 @@ MAX_TOOL_TURNS = 6
 # JSON output together, so give it headroom to avoid truncating the response.
 MAX_OUTPUT_TOKENS = 8192
 
-# Surfaced in the UI so the model choice (and its tradeoff) is visible per step.
-MODEL_INFO = {
-    MODEL: {
-        "label": "Claude Sonnet 5",
-        "role": "deeper reasoning — for the core analysis where depth matters.",
-        "how": "Anthropic's balanced frontier model. It reads the real data through tool "
-               "calls and reasons step-by-step before producing the structured answer.",
-    },
-    FAST_MODEL: {
-        "label": "Claude Haiku 4.5",
-        "role": "fast & low-cost — for structured helper steps.",
-        "how": "Anthropic's fastest small model — quick, cheap passes where speed beats depth.",
-    },
-}
-
 
 class MissingApiKeyError(RuntimeError):
     pass

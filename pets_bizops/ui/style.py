@@ -77,17 +77,19 @@ _CSS = f"""
 
 .pbz-card h4 {{
     margin: 0 0 0.3rem 0;
-    font-size: 0.95rem;
+    font-size: 0.72rem;
     color: {MUTED};
-    font-weight: 600;
+    font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.03em;
+    line-height: 1.25;
 }}
 
 .pbz-card .pbz-value {{
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     font-weight: 700;
     color: {TEXT};
+    white-space: nowrap;
 }}
 
 .pbz-card .pbz-delta-up {{
@@ -683,17 +685,29 @@ def insight(label: str, detail: str) -> None:
     )
 
 
-def model_badge(model_id: str) -> None:
-    """Shows which model this step uses + why -- so the model choice and its
-    pros/cons are visible, not hidden. Reads client.MODEL_INFO.
-    """
-    from pets_bizops.ai import client
+def decision_basis(corpus_ids: list[str], system_prompt: str | None = None) -> None:
+    """One clean, collapsed "how this decision was made" panel per AI stage.
 
-    info = client.MODEL_INFO.get(model_id, {"label": model_id, "role": ""})
-    line = f"⚙️ Model: **{info['label']}** — {info['role']}"
-    if info.get("how"):
-        line += f"<br/><span style='color:#9a9a9a;'>{info['how']}</span>"
-    st.caption(line, unsafe_allow_html=True)
+    Leads the surface with results; folds the machinery (the RAG grounding + the
+    analyst instructions) into a single expander. Deliberately names NO model --
+    the defensible story is "grounded in a cited RAG knowledge base, code computes
+    every number", not which LLM ran it.
+    """
+    from pets_bizops.rag import corpus_loader
+
+    with st.expander("🔎 How this decision was made — grounded in a cited RAG knowledge base"):
+        st.markdown(
+            "AI analysis grounded in a purpose-built RAG knowledge base — "
+            "**code computes every number; the AI explains and frames, and never invents one.**"
+        )
+        for cid in corpus_ids:
+            brief = corpus_loader.CORPUS_BRIEFS.get(cid, "")
+            st.markdown(f"**📚 RAG corpus: {cid}** — {brief}")
+            for src in corpus_loader.corpus_document_sources(cid):
+                st.markdown(f"- {escape_dollar(src)}")
+        if system_prompt:
+            st.markdown("**🧠 Analyst instructions (system prompt)**")
+            st.markdown(system_prompt)
 
 
 def situation_banner(text: str) -> None:

@@ -27,7 +27,6 @@ def render_validation(ai_output: dict, transcript: list[dict], state_key: str) -
 
     # Tier 2 -- optional deeper AI audit (runs on the fast model so it doesn't hang).
     st.caption("Optional second pass: a separate model re-checks every claim against the transcript.")
-    style.model_badge(client.FAST_MODEL)
     if st.button("🔬 Run Deep Hallucination Audit (AI-reviewed)", key=f"audit_btn_{state_key}"):
         try:
             user_message = (

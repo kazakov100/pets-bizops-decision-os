@@ -65,10 +65,7 @@ else:
     sel_idx = st.selectbox("Which problem do you want to solve?", range(len(labels)), format_func=lambda i: labels[i])
     selected = candidates[sel_idx]
 
-    st.caption("📚 RAG: **consulting_best_practices** (frames the problem) + **lemonade_approach** (grounds the actions).")
-    style.model_badge(client.MODEL)
-    with st.expander("View system prompt (tells the AI when/how to retrieve from the RAG corpora)"):
-        st.markdown(coa_skill.body)
+    style.decision_basis(["consulting_best_practices", "lemonade_approach"], coa_skill.body)
 
     if st.button("Frame the problem & recommend a course of action", type="primary"):
         try:
