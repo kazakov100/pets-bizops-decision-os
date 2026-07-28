@@ -81,8 +81,9 @@ with scol2:
 _TOP_K = 1  # return the single best-matching document -- knob not exposed to the user
 if st.button("Search", type="primary"):
     try:
-        retriever = get_retriever()
-        results = retriever.retrieve(query, corpus=corpus_choice, k=_TOP_K)
+        with st.spinner("🔎 Embedding your question and searching the knowledge base…"):
+            retriever = get_retriever()
+            results = retriever.retrieve(query, corpus=corpus_choice, k=_TOP_K)
         st.caption("The single closest document (higher relevance = better match):")
         for r in results:
             st.markdown(f"**Relevance {r['score']:.3f}**")
