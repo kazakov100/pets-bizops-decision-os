@@ -25,10 +25,13 @@ _SOURCE_LABELS = {
 
 
 def _friendly_source(src: str) -> str:
-    if src in _SOURCE_LABELS:
-        return _SOURCE_LABELS[src]
-    if src.startswith("get_"):
-        return src[4:].replace("_", " ")
+    if not src:
+        return src
+    token = src.split()[0]  # the AI may append prose after the tool name; take the tool token
+    if token in _SOURCE_LABELS:
+        return _SOURCE_LABELS[token]
+    if token.startswith("get_"):
+        return token[4:].replace("_", " ")
     return src
 
 style.headline(
