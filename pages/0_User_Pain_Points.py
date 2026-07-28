@@ -100,31 +100,24 @@ if result is not None:
     if is_default:
         st.info("📌 Showing a precomputed example analysis (a real prior run). Click **Analyze User Pain Points** above to generate a fresh one live.")
 
-    st.markdown("**Pain points**")
-    for p in result.get("pain_points", []):
-        src = _friendly_source(p.get("evidence_source", ""))
-        prevalence = p.get("prevalence", "")
-        significance = p.get("business_significance", "")
-        meta = " · ".join(x for x in [prevalence, src] if x)
-        line = f"- **{style.escape_dollar(p['pain_point'])}**"
-        if meta:
-            line += f" &nbsp;<span style='color:#9a9a9a;font-size:0.8rem;'>· {style.escape_dollar(meta)}</span>"
-        st.markdown(line, unsafe_allow_html=True)
-        if significance:
-            st.markdown(
-                f"&nbsp;&nbsp;&nbsp;<span style='color:#B23240;font-size:0.82rem;'>↳ So what: {style.escape_dollar(significance)}</span>",
-                unsafe_allow_html=True,
-            )
+    st.markdown("**🗣 Pain points**")
+    for i, p in enumerate(result.get("pain_points", []), 1):
+        style.pain_point_card(
+            i, p.get("pain_point", ""),
+            prevalence=p.get("prevalence", ""),
+            significance=p.get("business_significance", ""),
+            source=_friendly_source(p.get("evidence_source", "")),
+        )
 
     rcol, ocol = st.columns(2)
     with rcol:
-        st.markdown("**Risks**")
-        for r in result.get("risks", []):
-            st.markdown(f"- ⚠ **{r.get('severity', '')}** — {style.escape_dollar(r['risk'])}")
+        st.markdown("**⚠ Risks**")
+        for i, r in enumerate(result.get("risks", []), 1):
+            style.risk_opportunity_card(i, "risk", r.get("risk", ""), impact=r.get("severity", ""))
     with ocol:
-        st.markdown("**Opportunities**")
-        for o in result.get("opportunities", []):
-            st.markdown(f"- ↑ **{o.get('potential_impact', '')}** — {style.escape_dollar(o['opportunity'])}")
+        st.markdown("**↑ Opportunities**")
+        for i, o in enumerate(result.get("opportunities", []), 1):
+            style.risk_opportunity_card(i, "opportunity", o.get("opportunity", ""), impact=o.get("potential_impact", ""))
 
     validation.render_validation(result, transcript, "user_pain_points")
     style.rag_sources_used(transcript)

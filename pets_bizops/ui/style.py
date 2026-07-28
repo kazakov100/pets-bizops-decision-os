@@ -317,6 +317,10 @@ table.pbz-table tr:last-child td {{
 .pbz-ro-tag {{ font-size: 0.66rem; color: #999; font-style: italic; }}
 .pbz-ro-detail {{ font-size: 0.81rem; color: #4A4A4A; margin-top: 0.35rem; line-height: 1.4; }}
 .pbz-ro-src {{ font-size: 0.63rem; color: #B0B0B0; margin-top: 0.3rem; }}
+.pbz-ro.pain {{ border-left-color: #C77700; background: #FBF3E4; }}
+.pbz-ro.pain .pbz-ro-num {{ background: #C77700; }}
+.pbz-ro-sowhat {{ font-size: 0.8rem; color: #B23240; margin-top: 0.4rem; line-height: 1.4; }}
+.pbz-ro-sowhat b {{ color: #B23240; }}
 
 .pbz-section-emphasis {{
     border-left: 4px solid {PINK};
@@ -849,30 +853,56 @@ def note(text: str) -> None:
     st.markdown(f'<div class="pbz-note">{escape_dollar(text)}</div>', unsafe_allow_html=True)
 
 
+def pain_point_card(n: int, title: str, prevalence: str = "", significance: str = "", source: str = "") -> None:
+    """An amber-accented card for one user pain point: number badge, the pain,
+    a prevalence pill + source, and a red "So what -> KPI" business-significance
+    line. Same card family as risk_opportunity_card, different accent."""
+    pills = ""
+    if prevalence:
+        pills += f'<span class="pbz-ro-pill">{escape_dollar(prevalence)}</span>'
+    if source:
+        pills += f'<span class="pbz-ro-tag">{escape_dollar(source)}</span>'
+    meta = f'<div class="pbz-ro-meta">{pills}</div>' if pills else ""
+    sowhat = f'<div class="pbz-ro-sowhat"><b>↳ So what:</b> {escape_dollar(significance)}</div>' if significance else ""
+    st.markdown(
+        f'<div class="pbz-ro pain">'
+        f'<div class="pbz-ro-head"><span class="pbz-ro-num">{n}</span>'
+        f'<span class="pbz-ro-title">{escape_dollar(title)}</span></div>'
+        f'{meta}{sowhat}'
+        f'</div>',
+        unsafe_allow_html=True,
+    )
+
+
 def risk_opportunity_card(
-    n: int, kind: str, title: str, framework_element: str,
-    impact: str, confidence: str, detail: str, source: str,
+    n: int, kind: str, title: str, framework_element: str = "",
+    impact: str = "", confidence: str = "", detail: str = "", source: str = "",
 ) -> None:
-    """A scannable color-coded card for one risk/opportunity item: number badge
-    matching the bubble map, title, impact/confidence pills (high = accent), the
-    framework element tag, a tight detail line, and a muted source.
+    """A scannable color-coded card for one risk/opportunity item: number badge,
+    title, impact/confidence pills (high = accent), an optional framework tag, a
+    tight detail line, and a muted source. Optional fields are omitted when empty,
+    so the same card works for framework-tagged items and plain sentiment ones.
     """
     cls = "risk" if kind == "risk" else "opp"
-    imp_hi = "hi" if str(impact).lower() == "high" else ""
-    conf_hi = "hi" if str(confidence).lower() == "high" else ""
+    pills = ""
+    if impact:
+        hi = "hi" if str(impact).lower() == "high" else ""
+        pills += f'<span class="pbz-ro-pill {hi}">impact {escape_dollar(impact)}</span>'
+    if confidence:
+        hi = "hi" if str(confidence).lower() == "high" else ""
+        pills += f'<span class="pbz-ro-pill {hi}">conf {escape_dollar(confidence)}</span>'
+    if framework_element:
+        pills += f'<span class="pbz-ro-tag">{escape_dollar(framework_element)}</span>'
+    meta = f'<div class="pbz-ro-meta">{pills}</div>' if pills else ""
+    detail_html = f'<div class="pbz-ro-detail">{escape_dollar(detail)}</div>' if detail else ""
+    src_html = f'<div class="pbz-ro-src">{escape_dollar(source)}</div>' if source else ""
     st.markdown(
         f'<div class="pbz-ro {cls}">'
         f'<div class="pbz-ro-head">'
         f'<span class="pbz-ro-num">{n}</span>'
         f'<span class="pbz-ro-title">{escape_dollar(title)}</span>'
         f'</div>'
-        f'<div class="pbz-ro-meta">'
-        f'<span class="pbz-ro-pill {imp_hi}">impact {escape_dollar(impact)}</span>'
-        f'<span class="pbz-ro-pill {conf_hi}">conf {escape_dollar(confidence)}</span>'
-        f'<span class="pbz-ro-tag">{escape_dollar(framework_element)}</span>'
-        f'</div>'
-        f'<div class="pbz-ro-detail">{escape_dollar(detail)}</div>'
-        f'<div class="pbz-ro-src">{escape_dollar(source)}</div>'
+        f'{meta}{detail_html}{src_html}'
         f'</div>',
         unsafe_allow_html=True,
     )
