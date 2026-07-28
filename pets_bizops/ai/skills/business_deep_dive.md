@@ -73,7 +73,10 @@ make it the sharpest, most decision-ready synthesis of the items below:
   to pull), NOT "keep monitoring".
 - `kpi_impact.dollar_estimate`: you supply ONLY the inputs -- a real `base_metric` key
   (`pet_ifp_m` or `company_ifp_m`) and the assumed percentage-point range
-  (low/base/high) you believe the recommended action could move. CODE multiplies it
+  (low/base/high) you believe the recommended action could move. Keep the band TIGHT
+  and conservative -- low/base/high should be a credible consulting range around a
+  central estimate (roughly base +/- 1-2 points, e.g. 3/4/5), NOT a 3x span like
+  2/4/7; when in doubt, understate. CODE multiplies it
   out; you must NEVER state the dollar figure yourself. Set `applies: false` only if no
   point-range improvement on in-force premium is a sensible way to size the action.
 

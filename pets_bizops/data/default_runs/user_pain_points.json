@@ -1,72 +1,66 @@
 {
   "result": {
     "framework_choice": {
-      "document_used": "Hu, N., Pavlou, P.A., Zhang, J., \"On Self-Selection Biases in Online Product Reviews,\" MIS Quarterly, 2017 -- https://misq.umn.edu/misq/article/41/2/449/335/On-Self-Selection-Biases-in-Online-Product",
-      "justification": "The Hu et al. J-shaped distribution framework is most applicable here: Trustpilot's 5,750-review sample skews toward extreme reactions in both directions, so recurring negative themes represent real signal about a vocal upset minority \u2014 but the silent majority's experience is likely better than the raw complaint mix implies. Braun & Clarke's thematic credibility check (step 4) further tempers any single theme that may be driven by only a handful of loud reviews."
+      "document_used": "Hu, N., Pavlou, P.A., Zhang, J., \"On Self-Selection Biases in Online Product Reviews,\" MIS Quarterly, 2017",
+      "justification": "Trustpilot's 5,750-review sample and the complaint themes are exactly the acquisition/underreporting-bias case this paper describes, so recurring negative themes should be read as signal about a vocal minority, not the full customer base."
     },
     "pain_points": [
       {
-        "pain_point": "Unexpected premium spikes at renewal after pet ages or files a claim",
-        "evidence_source": "get_market_sentiment \u2014 theme: 'Premium increases after the first 12 months'",
+        "pain_point": "Premium jumps after first 12 months surprise customers",
+        "evidence_source": "get_market_sentiment complaint theme: premium increases after 12 months",
         "prevalence": "frequently cited",
-        "business_significance": "Plausibly pressures Annual Dollar Retention downward as repriced customers churn at year-one renewal"
+        "business_significance": "Directional pressure on Annual Dollar Retention (85% in Q1'26) if repriced customers churn at renewal"
       },
       {
-        "pain_point": "Pre-existing-condition denials feel arbitrary and poorly communicated",
-        "evidence_source": "get_market_sentiment \u2014 theme: 'Claim denials tied to pre-existing-condition enforcement'",
+        "pain_point": "Claim denials over pre-existing-condition definitions",
+        "evidence_source": "get_market_sentiment complaint theme: claim denials tied to pre-existing-condition enforcement",
         "prevalence": "frequently cited",
-        "business_significance": "Plausibly elevates NAIC complaint index (already 3.85x industry baseline) and draws regulatory attention"
+        "business_significance": "Directional pressure on NAIC complaint index, already ~3.85x industry baseline"
       },
       {
-        "pain_point": "No easy human escalation path for complex, multi-step claims",
-        "evidence_source": "get_market_sentiment \u2014 themes: 'Slow processing on complex/multi-step claims'; NAIC complaint data",
+        "pain_point": "Slow handling of complex, multi-step claims",
+        "evidence_source": "get_market_sentiment complaint theme: slow processing on complex claims",
         "prevalence": "frequently cited",
-        "business_significance": "Directional pressure on gross loss ratio if unresolved disputes linger and on IFP growth via negative word-of-mouth"
+        "business_significance": "Directional risk to Pet gross loss ratio narrative (69% Q1'26) if complex-claim friction drives disputes/appeals costs"
       },
       {
-        "pain_point": "Mismatch between marketed coverage breadth and enforced exclusions at claim time",
-        "evidence_source": "get_market_sentiment \u2014 NAIC complaint index at 3.85x baseline (2024); pre-existing theme",
+        "pain_point": "Difficulty reaching a human for escalations",
+        "evidence_source": "get_market_sentiment NAIC-echoed theme: difficulty reaching a human",
         "prevalence": "occasionally cited",
-        "business_significance": "Trust/transparency gap plausibly suppresses premium per customer ($822) as customers select lower-tier plans to limit risk"
-      },
-      {
-        "pain_point": "Review-visible dissatisfaction concentrated around policy repricing after first claim",
-        "evidence_source": "get_market_sentiment \u2014 complaint theme notes; Trustpilot 4.1/5 with 5,750 reviews",
-        "prevalence": "occasionally cited",
-        "business_significance": "Churn risk at renewal could dampen YoY IFP growth (currently +56% YoY) as cohort ages out of first policy year"
+        "business_significance": "Directional driver of the elevated NAIC complaint index (3.85 vs 1.0 baseline), a regulatory-visibility metric"
       }
     ],
     "risks": [
       {
-        "risk": "NAIC complaint index at 3.85x baseline and rising risks regulatory scrutiny or mandated process changes",
-        "evidence_source": "get_market_sentiment \u2014 NAIC Consumer Information Source (2024)",
+        "risk": "Elevated NAIC complaint index invites regulatory scrutiny in Pet-heavy states",
+        "evidence_source": "get_market_sentiment NAIC consumer complaint index",
         "severity": "high"
       },
       {
-        "risk": "Renewal-pricing and denial complaints drive negative word-of-mouth, inflating customer acquisition cost over time",
-        "evidence_source": "get_market_sentiment \u2014 Trustpilot; Hu et al. MIS Quarterly 2017 (self-selection bias)",
-        "severity": "high"
+        "risk": "Repricing complaints compound at renewal, denting Annual Dollar Retention",
+        "evidence_source": "get_company_financials annual_dollar_retention (85% Q1'26, down from 88% Q1'24)",
+        "severity": "medium"
       },
       {
-        "risk": "AI-only claims flow alienates complex-claim customers, creating retention leakage as pet cohorts age and claims grow more complex",
-        "evidence_source": "get_market_sentiment \u2014 theme: 'Slow processing on complex/multi-step claims'; get_pet_segment_kpis (Q1'26 gross loss ratio 69%)",
+        "risk": "Negative claims-themed reviews could inflate CAC as Pet scales cross-sell",
+        "evidence_source": "get_pet_segment_kpis pet_ifp_from_existing_customer_cross_sell_m",
         "severity": "medium"
       }
     ],
     "opportunities": [
       {
-        "opportunity": "Double down on AI-first simple claims as a marketing differentiator where positive signal is strongest",
-        "evidence_source": "get_market_sentiment \u2014 theme: 'Fast reimbursement and ease of use for simple claims'",
+        "opportunity": "Lean into AI-first 'Jim' claims flow as a marketing differentiator for simple claims",
+        "evidence_source": "get_market_sentiment positive theme: fast reimbursement for simple claims",
         "potential_impact": "high"
       },
       {
-        "opportunity": "Proactive renewal-pricing transparency tool could convert at-risk renewers into cross-sell retention wins",
-        "evidence_source": "get_market_sentiment \u2014 pricing theme; get_pet_segment_kpis ($85M IFP from cross-sell existing customers)",
-        "potential_impact": "high"
+        "opportunity": "Extend AI claims automation to complex/multi-step claims to close the gap",
+        "evidence_source": "get_market_sentiment complaint theme: slow complex-claim processing",
+        "potential_impact": "medium"
       },
       {
-        "opportunity": "Structured human-escalation tier for complex claims could reduce NAIC complaint index and improve ADR",
-        "evidence_source": "get_market_sentiment \u2014 NAIC index 3.85x; complex-claim theme",
+        "opportunity": "Use strong simple-claims sentiment to support continued Pet cross-sell push",
+        "evidence_source": "get_pet_segment_kpis pet_ifp_from_existing_customer_cross_sell_m ($85M)",
         "potential_impact": "medium"
       }
     ]
@@ -151,7 +145,7 @@
     {
       "tool": "retrieve_knowledge",
       "input": {
-        "query": "review self-selection bias NPS methodology small sample thematic coding",
+        "query": "review self-selection bias sample size thematic coding NPS methodology",
         "corpus": "sentiment_methodology"
       },
       "result": {
@@ -160,19 +154,150 @@
             "text": "Fred Reichheld's 2003 Harvard Business Review article \"The One Number You\nNeed to Grow\" introduced the Net Promoter Score after two years of research\nlinking survey responses to actual customer behavior (repurchasing,\nreferrals) and ultimately to company growth. The core finding: across most\nindustries studied, a single question -- \"How likely are you to recommend\nthis company to a friend or colleague?\" (0-10 scale) -- was a stronger\npredictor of growth than most longer satisfaction surveys. Customers are\nbucketed into promoters (9-10), passives (7-8), and detractors (0-6); NPS =\n%promoters - %detractors. The methodological lesson for reading any public\nsentiment signal (Trustpilot rating, app-store rating, etc.) even when you\ndon't have the raw NPS survey: a single aggregate score is a legitimate,\nresearch-backed proxy for word-of-mouth growth risk, but it should be read\nalongside the volume and recency of responses, not in isolation -- a\n4.1/5 rating from a small or stale sample carries much less signal than the\nsame score from a large, recent sample, since the original NPS research\ndepended on having enough responses to be statistically meaningful.",
             "source": "Fred Reichheld, \"The One Number You Need to Grow,\" Harvard Business Review, Dec 2003 -- https://hbr.org/2003/12/the-one-number-you-need-to-grow",
             "corpus": "sentiment_methodology",
-            "score": 0.4565
+            "score": 0.4664
           },
           {
             "text": "Hu, Pavlou, and Zhang's research (\"Why Do Online Product Reviews Have a\nJ-Shaped Distribution?\", Communications of the ACM 2009; expanded as \"On\nSelf-Selection Biases in Online Product Reviews,\" MIS Quarterly 2017)\nidentifies two structural biases in any public review/complaint dataset.\n\"Acquisition bias\": people who already had a favorable predisposition toward\na product are more likely to have bought it and thus more likely to be among\nthe reviewers at all. \"Underreporting bias\": people with extreme experiences\n(very good or very bad) are far more likely to write a review than people\nwith a moderate, unremarkable experience -- producing the characteristic\nJ-shaped (bimodal, skewed) distribution of online ratings rather than a\nnormal distribution centered on the \"typical\" customer experience. The\npractical implication for reading Trustpilot-style data or complaint themes:\ntreat the sample as systematically over-representing strong reactions in\nboth directions, not as a representative cross-section of all customers --\nrecurring negative themes are real signal about what upsets the most vocal\nminority, but the underlying base rate among silent, moderately-satisfied\ncustomers is almost certainly better than the raw review mix suggests.",
             "source": "Hu, N., Pavlou, P.A., Zhang, J., \"On Self-Selection Biases in Online Product Reviews,\" MIS Quarterly, 2017 -- https://misq.umn.edu/misq/article/41/2/449/335/On-Self-Selection-Biases-in-Online-Product",
             "corpus": "sentiment_methodology",
-            "score": 0.3786
+            "score": 0.3592
           },
           {
             "text": "Braun and Clarke's six-phase thematic analysis method is the standard\nacademic approach for turning unstructured qualitative feedback (reviews,\ncomplaint text, open-ended survey answers) into reliable named themes\nrather than impressionistic summaries. The six phases: (1) familiarize\nyourself with the full dataset before coding anything, (2) generate initial\ncodes -- short labels applied consistently across the data, (3) search for\ncandidate themes by grouping related codes, (4) review themes against the\nfull dataset to check they actually hold up and aren't just one or two loud\nexamples, (5) clearly define and name each theme so it has one core\nmeaning, not several blended ideas, (6) produce the write-up connecting\neach theme back to specific supporting examples. The discipline this\nimposes when reading a small set of public complaint themes: a theme is\nonly as credible as its review (step 4) -- if a \"theme\" is really just one\nvivid complaint generalized into a pattern, it should be labeled as an\nisolated anecdote, not presented with the same confidence as a theme that\nrecurs across many independent reviews. The process is explicitly iterative,\nnot a one-pass classification -- themes should be revisited as more\nevidence comes in.",
             "source": "Braun, V. & Clarke, V., reflexive thematic analysis six-phase framework (Qualitative Research in Psychology, 2006; subsequent methodology papers) -- https://www.thedegreedoctor.com/blog/braun-and-clarke-thematic-analysis-how-to-do-the-six-step-process-in-your-qualitative-research-project",
             "corpus": "sentiment_methodology",
-            "score": 0.3044
+            "score": 0.294
+          }
+        ]
+      }
+    },
+    {
+      "tool": "get_company_financials",
+      "input": {},
+      "result": {
+        "latest": {
+          "quarter": "Q1'26",
+          "revenue_m": 258.0,
+          "gross_earned_premium_m": 306.2,
+          "gross_profit_m": 100.1,
+          "adjusted_gross_profit_m": 100.8,
+          "adjusted_ebitda_m": -17.1,
+          "gross_profit_margin": 0.39,
+          "annual_dollar_retention": 0.85,
+          "gross_loss_ratio": 0.62,
+          "net_loss_ratio": 0.63,
+          "yoy_quarter": "Q1'25",
+          "yoy_revenue_growth_pct": 0.7063,
+          "yoy_adjusted_ebitda_improvement_m": 29.9
+        },
+        "quarters": [
+          {
+            "quarter": "Q1'24",
+            "revenue_m": 119.1,
+            "gross_earned_premium_m": 187.9,
+            "gross_profit_m": 34.7,
+            "adjusted_gross_profit_m": 36.7,
+            "adjusted_ebitda_m": -33.9,
+            "gross_profit_margin": 0.29,
+            "annual_dollar_retention": 0.88,
+            "gross_loss_ratio": 0.79,
+            "net_loss_ratio": 0.78
+          },
+          {
+            "quarter": "Q2'24",
+            "revenue_m": 122.0,
+            "gross_earned_premium_m": 199.9,
+            "gross_profit_m": 30.8,
+            "adjusted_gross_profit_m": 33.4,
+            "adjusted_ebitda_m": -43.0,
+            "gross_profit_margin": 0.25,
+            "annual_dollar_retention": 0.88,
+            "gross_loss_ratio": 0.79,
+            "net_loss_ratio": 0.79
+          },
+          {
+            "quarter": "Q3'24",
+            "revenue_m": 136.6,
+            "gross_earned_premium_m": 213.1,
+            "gross_profit_m": 37.5,
+            "adjusted_gross_profit_m": 38.6,
+            "adjusted_ebitda_m": -49.0,
+            "gross_profit_margin": 0.27,
+            "annual_dollar_retention": 0.87,
+            "gross_loss_ratio": 0.73,
+            "net_loss_ratio": 0.81
+          },
+          {
+            "quarter": "Q4'24",
+            "revenue_m": 148.8,
+            "gross_earned_premium_m": 226.4,
+            "gross_profit_m": 63.9,
+            "adjusted_gross_profit_m": 66.2,
+            "adjusted_ebitda_m": -23.8,
+            "gross_profit_margin": 0.43,
+            "annual_dollar_retention": 0.86,
+            "gross_loss_ratio": 0.63,
+            "net_loss_ratio": 0.62
+          },
+          {
+            "quarter": "Q1'25",
+            "revenue_m": 151.2,
+            "gross_earned_premium_m": 233.6,
+            "gross_profit_m": 38.6,
+            "adjusted_gross_profit_m": 46.0,
+            "adjusted_ebitda_m": -47.0,
+            "gross_profit_margin": 0.26,
+            "annual_dollar_retention": 0.84,
+            "gross_loss_ratio": 0.78,
+            "net_loss_ratio": 0.82
+          },
+          {
+            "quarter": "Q2'25",
+            "revenue_m": 164.1,
+            "gross_earned_premium_m": 252.3,
+            "gross_profit_m": 64.3,
+            "adjusted_gross_profit_m": 65.6,
+            "adjusted_ebitda_m": -40.9,
+            "gross_profit_margin": 0.39,
+            "annual_dollar_retention": 0.84,
+            "gross_loss_ratio": 0.67,
+            "net_loss_ratio": 0.69
+          },
+          {
+            "quarter": "Q3'25",
+            "revenue_m": 194.5,
+            "gross_earned_premium_m": 274.7,
+            "gross_profit_m": 79.9,
+            "adjusted_gross_profit_m": 80.9,
+            "adjusted_ebitda_m": -25.6,
+            "gross_profit_margin": 0.41,
+            "annual_dollar_retention": 0.85,
+            "gross_loss_ratio": 0.62,
+            "net_loss_ratio": 0.64
+          },
+          {
+            "quarter": "Q4'25",
+            "revenue_m": 228.1,
+            "gross_earned_premium_m": 290.2,
+            "gross_profit_m": 110.6,
+            "adjusted_gross_profit_m": 112.0,
+            "adjusted_ebitda_m": -4.6,
+            "gross_profit_margin": 0.48,
+            "annual_dollar_retention": 0.85,
+            "gross_loss_ratio": 0.52,
+            "net_loss_ratio": 0.53
+          },
+          {
+            "quarter": "Q1'26",
+            "revenue_m": 258.0,
+            "gross_earned_premium_m": 306.2,
+            "gross_profit_m": 100.1,
+            "adjusted_gross_profit_m": 100.8,
+            "adjusted_ebitda_m": -17.1,
+            "gross_profit_margin": 0.39,
+            "annual_dollar_retention": 0.85,
+            "gross_loss_ratio": 0.62,
+            "net_loss_ratio": 0.63
           }
         ]
       }
