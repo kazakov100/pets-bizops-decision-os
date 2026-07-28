@@ -38,21 +38,14 @@ if business_deep_dive is None or user_pain_points is None:
 # Make the chain explicit: show the main inputs carried over from the prior two
 # stages as color-coded chips, so the reader sees this page synthesizes them.
 st.markdown("**📥 Inputs carried over from the prior stages**")
-_icol1, _icol2 = st.columns(2)
-with _icol1:
-    with st.container(border=True):
-        st.caption("📊 From **Business Overview** — Risks & Opportunities")
-        style.input_chips([
-            ("risk" if _it.get("type") == "risk" else "opp", _it["title"])
-            for _it in business_deep_dive.get("items", []) if _it.get("title")
-        ])
-with _icol2:
-    with st.container(border=True):
-        st.caption("🗣 From **User Pain Points**")
-        style.input_chips([
-            ("pain", _p["pain_point"])
-            for _p in user_pain_points.get("pain_points", []) if _p.get("pain_point")
-        ])
+style.input_panels(
+    "📊 From <b>Business Overview</b> — Risks &amp; Opportunities",
+    [("risk" if _it.get("type") == "risk" else "opp", _it["title"])
+     for _it in business_deep_dive.get("items", []) if _it.get("title")],
+    "🗣 From <b>User Pain Points</b>",
+    [("pain", _p["pain_point"])
+     for _p in user_pain_points.get("pain_points", []) if _p.get("pain_point")],
+)
 st.caption("Pick any one of these below to frame into a sharp problem and a recommended course of action.")
 
 # Gather every identified risk/opportunity/pain-point into a selectable list.
@@ -60,7 +53,7 @@ candidates = []
 for it in business_deep_dive.get("items", business_deep_dive.get("key_implications", [])):
     label = it.get("title") or it.get("implication", "")
     if label:
-        candidates.append({"label": label, "type": it.get("type", "risk"), "source": "Business Deep Dive", "detail": it.get("detail", "")})
+        candidates.append({"label": label, "type": it.get("type", "risk"), "source": "Risks & Opportunities", "detail": it.get("detail", "")})
 for p in user_pain_points.get("pain_points", []):
     candidates.append({"label": p.get("pain_point", ""), "type": "pain point", "source": "User Pain Points", "detail": ""})
 for r in user_pain_points.get("risks", []):
@@ -74,7 +67,6 @@ candidates = [c for c in candidates if c["label"]]
 # One step: pick a problem -> AI frames it (consulting RAG) AND recommends a
 # course of action (Lemonade RAG) in a single pass.
 # ---------------------------------------------------------------------------
-st.divider()
 coa_skill = skills.load_skill("course_of_action")
 
 _COA_JOB = "course_of_action"

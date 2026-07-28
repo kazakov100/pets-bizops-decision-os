@@ -329,6 +329,13 @@ table.pbz-table tr:last-child td {{
 .pbz-chip.risk {{ background: #FDEDEF; border-color: #F3C6CC; color: #B23240; }}
 .pbz-chip.opp  {{ background: #E9F6F0; border-color: #BFE6D3; color: #0A8754; }}
 .pbz-chip.pain {{ background: #FBF3E4; border-color: #EAD9B0; color: #8A5A00; }}
+.pbz-inpanels {{ display: flex; gap: 0.8rem; align-items: stretch; margin: 0.3rem 0 0.2rem 0; }}
+.pbz-inpanel {{
+    flex: 1; border: 1px solid #E6E1E4; border-radius: 12px;
+    padding: 0.7rem 0.9rem 0.85rem 0.9rem; background: #fff;
+}}
+.pbz-inpanel-h {{ font-size: 0.8rem; color: {MUTED}; }}
+@media (max-width: 640px) {{ .pbz-inpanels {{ flex-direction: column; }} }}
 
 .pbz-section-emphasis {{
     border-left: 4px solid {PINK};
@@ -861,15 +868,25 @@ def note(text: str) -> None:
     st.markdown(f'<div class="pbz-note">{escape_dollar(text)}</div>', unsafe_allow_html=True)
 
 
-def input_chips(items: list[tuple[str, str]]) -> None:
-    """A row of small color-coded chips (risk=red, opp=green, pain=amber) --
-    used to show, compactly, the items carried into a stage from prior stages."""
-    html = '<div class="pbz-chips">'
-    for kind, text in items:
-        cls = kind if kind in ("risk", "opp", "pain") else "pain"
-        html += f'<span class="pbz-chip {cls}">{escape_dollar(text)}</span>'
-    html += "</div>"
-    st.markdown(html, unsafe_allow_html=True)
+def _chips_html(items: list[tuple[str, str]]) -> str:
+    chips = "".join(
+        f'<span class="pbz-chip {k if k in ("risk", "opp", "pain") else "pain"}">{escape_dollar(t)}</span>'
+        for k, t in items
+    )
+    return f'<div class="pbz-chips">{chips}</div>'
+
+
+def input_panels(left_title: str, left_items: list[tuple[str, str]],
+                 right_title: str, right_items: list[tuple[str, str]]) -> None:
+    """Two equal-height side-by-side panels of color-coded chips (risk=red,
+    opp=green, pain=amber). Rendered as one flex row so the panels always align
+    top and bottom regardless of how many chips each holds. Titles may be HTML."""
+    def panel(title: str, items: list[tuple[str, str]]) -> str:
+        return f'<div class="pbz-inpanel"><div class="pbz-inpanel-h">{title}</div>{_chips_html(items)}</div>'
+    st.markdown(
+        f'<div class="pbz-inpanels">{panel(left_title, left_items)}{panel(right_title, right_items)}</div>',
+        unsafe_allow_html=True,
+    )
 
 
 def pain_point_card(n: int, title: str, prevalence: str = "", significance: str = "", source: str = "") -> None:
