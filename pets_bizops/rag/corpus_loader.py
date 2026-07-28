@@ -16,6 +16,12 @@ _CORPUS_DIR = os.path.join(os.path.dirname(__file__), "corpus")
 CORPUS_IDS = ["consulting_best_practices", "sentiment_methodology", "lemonade_approach"]
 
 
+def corpus_document_sources(corpus_id: str) -> list[str]:
+    """The list of real, cited source lines for one corpus -- used to show,
+    at a glance, what a RAG corpus is built from without loading full chunks."""
+    return [c.source for c in load_all_chunks() if c.corpus == corpus_id]
+
+
 def load_all_chunks() -> list[Chunk]:
     chunks: list[Chunk] = []
     for corpus_id in CORPUS_IDS:

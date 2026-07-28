@@ -33,10 +33,13 @@ MODEL_INFO = {
     MODEL: {
         "label": "Claude Sonnet 5",
         "role": "deeper reasoning — for the core analysis where depth matters.",
+        "how": "Anthropic's balanced frontier model. It reads the real data through tool "
+               "calls and reasons step-by-step before producing the structured answer.",
     },
     FAST_MODEL: {
         "label": "Claude Haiku 4.5",
         "role": "fast & low-cost — for structured helper steps.",
+        "how": "Anthropic's fastest small model — quick, cheap passes where speed beats depth.",
     },
 }
 

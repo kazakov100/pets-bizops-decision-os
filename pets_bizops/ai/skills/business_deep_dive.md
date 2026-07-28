@@ -33,7 +33,7 @@ Respond with ONLY a JSON object (no prose outside the JSON, no markdown fences):
   "framework_id": "<echo back the framework_id you were given>",
   "rag_source": "<the 'source' field from the consulting_best_practices chunk you used>",
   "bottom_line": "<1 punchy headline sentence: the single most important risk-or-opportunity takeaway>",
-  "narrative": "<2-3 sentences max, citing real numbers, framing where the risks/opps concentrate through this lens>",
+  "narrative": "<2-3 sentences max, citing real numbers, framing where the risks/opps concentrate through this lens -- do NOT name tools (e.g. get_company_financials) OR the framework source (e.g. McKinsey '...') in this prose; those are shown separately>",
   "executive_summary": {
     "key_takeaway": "<1 sharp sentence: the single most important conclusion a busy exec must grasp in 10 seconds>",
     "why_it_matters": "<1 short clause, <=12 words: the stake -- why act now>",

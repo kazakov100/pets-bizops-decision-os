@@ -690,7 +690,10 @@ def model_badge(model_id: str) -> None:
     from pets_bizops.ai import client
 
     info = client.MODEL_INFO.get(model_id, {"label": model_id, "role": ""})
-    st.caption(f"⚙️ Model: **{info['label']}** — {info['role']}")
+    line = f"⚙️ Model: **{info['label']}** — {info['role']}"
+    if info.get("how"):
+        line += f"<br/><span style='color:#9a9a9a;'>{info['how']}</span>"
+    st.caption(line, unsafe_allow_html=True)
 
 
 def situation_banner(text: str) -> None:
