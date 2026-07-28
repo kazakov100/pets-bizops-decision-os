@@ -321,6 +321,14 @@ table.pbz-table tr:last-child td {{
 .pbz-ro.pain .pbz-ro-num {{ background: #C77700; }}
 .pbz-ro-sowhat {{ font-size: 0.8rem; color: #B23240; margin-top: 0.4rem; line-height: 1.4; }}
 .pbz-ro-sowhat b {{ color: #B23240; }}
+.pbz-chips {{ display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.5rem; }}
+.pbz-chip {{
+    font-size: 0.8rem; padding: 0.28rem 0.62rem; border-radius: 999px;
+    border: 1px solid; line-height: 1.2; font-weight: 600;
+}}
+.pbz-chip.risk {{ background: #FDEDEF; border-color: #F3C6CC; color: #B23240; }}
+.pbz-chip.opp  {{ background: #E9F6F0; border-color: #BFE6D3; color: #0A8754; }}
+.pbz-chip.pain {{ background: #FBF3E4; border-color: #EAD9B0; color: #8A5A00; }}
 
 .pbz-section-emphasis {{
     border-left: 4px solid {PINK};
@@ -851,6 +859,17 @@ def step_header(num: int, title: str, optional: bool = False) -> None:
 
 def note(text: str) -> None:
     st.markdown(f'<div class="pbz-note">{escape_dollar(text)}</div>', unsafe_allow_html=True)
+
+
+def input_chips(items: list[tuple[str, str]]) -> None:
+    """A row of small color-coded chips (risk=red, opp=green, pain=amber) --
+    used to show, compactly, the items carried into a stage from prior stages."""
+    html = '<div class="pbz-chips">'
+    for kind, text in items:
+        cls = kind if kind in ("risk", "opp", "pain") else "pain"
+        html += f'<span class="pbz-chip {cls}">{escape_dollar(text)}</span>'
+    html += "</div>"
+    st.markdown(html, unsafe_allow_html=True)
 
 
 def pain_point_card(n: int, title: str, prevalence: str = "", significance: str = "", source: str = "") -> None:

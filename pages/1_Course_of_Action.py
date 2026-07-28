@@ -36,20 +36,23 @@ if business_deep_dive is None or user_pain_points is None:
     st.stop()
 
 # Make the chain explicit: show the main inputs carried over from the prior two
-# stages, so the reader sees this page synthesizes them (not a standalone step).
+# stages as color-coded chips, so the reader sees this page synthesizes them.
 st.markdown("**📥 Inputs carried over from the prior stages**")
 _icol1, _icol2 = st.columns(2)
 with _icol1:
-    st.caption("From **Business Overview → Risks & Opportunities**")
-    for _it in business_deep_dive.get("items", []):
-        _icon = "⚠" if _it.get("type") == "risk" else "↑"
-        if _it.get("title"):
-            st.markdown(f"- {_icon} {style.escape_dollar(_it['title'])}")
+    with st.container(border=True):
+        st.caption("📊 From **Business Overview** — Risks & Opportunities")
+        style.input_chips([
+            ("risk" if _it.get("type") == "risk" else "opp", _it["title"])
+            for _it in business_deep_dive.get("items", []) if _it.get("title")
+        ])
 with _icol2:
-    st.caption("From **User Pain Points**")
-    for _p in user_pain_points.get("pain_points", []):
-        if _p.get("pain_point"):
-            st.markdown(f"- 🗣 {style.escape_dollar(_p['pain_point'])}")
+    with st.container(border=True):
+        st.caption("🗣 From **User Pain Points**")
+        style.input_chips([
+            ("pain", _p["pain_point"])
+            for _p in user_pain_points.get("pain_points", []) if _p.get("pain_point")
+        ])
 st.caption("Pick any one of these below to frame into a sharp problem and a recommended course of action.")
 
 # Gather every identified risk/opportunity/pain-point into a selectable list.
