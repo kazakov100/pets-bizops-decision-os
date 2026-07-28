@@ -18,17 +18,20 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-MODEL = "claude-sonnet-4-6"
+MODEL = "claude-sonnet-5"
 # A faster, cheaper model for lightweight "helper" calls (framework advisor,
 # problem framing) where speed matters more than analytical depth. Core
 # analytical calls stay on MODEL.
 FAST_MODEL = "claude-haiku-4-5-20251001"
 MAX_TOOL_TURNS = 6
+# Sonnet 5 runs adaptive thinking by default; max_tokens caps thinking + the
+# JSON output together, so give it headroom to avoid truncating the response.
+MAX_OUTPUT_TOKENS = 8192
 
 # Surfaced in the UI so the model choice (and its tradeoff) is visible per step.
 MODEL_INFO = {
     MODEL: {
-        "label": "Claude Sonnet 4.6",
+        "label": "Claude Sonnet 5",
         "role": "deeper reasoning — for the core analysis where depth matters.",
     },
     FAST_MODEL: {
@@ -71,7 +74,7 @@ def run_tool_loop(
     transcript: list[dict] = []
 
     for _ in range(max_turns):
-        create_kwargs = dict(model=model or MODEL, max_tokens=4096, system=system_prompt, messages=messages)
+        create_kwargs = dict(model=model or MODEL, max_tokens=MAX_OUTPUT_TOKENS, system=system_prompt, messages=messages)
         if tool_schemas:
             create_kwargs["tools"] = tool_schemas
         response = client.messages.create(**create_kwargs)

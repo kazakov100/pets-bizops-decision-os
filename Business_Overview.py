@@ -37,10 +37,9 @@ with st.expander("ℹ️ How this works — the approach", expanded=False):
     st.markdown(
         "- **The flow:** read the company's status → surface the main **risks & opportunities** → "
         "examine **user pain points** → merge it all into a **course of action**.\n"
-        "- **Every stage is LLM-driven, each grounded in its own purpose-built RAG corpus** + a "
-        "tailored prompt telling the model what to retrieve: *consulting frameworks* (risks & "
-        "opportunities), *sentiment-analysis methodology* (user pains), and *Lemonade's own stated "
-        "strategy* (course of action).\n"
+        "- **Each stage is LLM-driven, grounded in its own RAG corpus:** *consulting frameworks* "
+        "(risks & opportunities), *sentiment methodology* (user pains), *Lemonade's strategy* "
+        "(course of action).\n"
         "- **Real data only:** every figure comes from Lemonade's SEC disclosures via tools — the AI "
         "explains and frames, code computes; it never invents a number.\n"
         "- **Hallucination safeguard:** each run is checked by a separate validator — a deterministic "
@@ -463,69 +462,77 @@ if "chosen_framework_select" not in st.session_state:
     st.session_state.chosen_framework_select = "bcg_growth_share"
 
 # Step 1 -- optional framework advisor.
-st.caption("The AI weighs each lens against Lemonade's real numbers and cited frameworks — you make the call.")
-style.model_badge(client.FAST_MODEL)
 _ADVISOR_JOB = "framework_advisor"
-if st.button("🧭 Step 1 (optional): compare frameworks for this situation"):
-    try:
-        jobs.submit(
-            _ADVISOR_JOB, client.run_tool_loop,
-            system_prompt=prompts.BUSINESS_FRAMEWORK_ADVISOR_SYSTEM_PROMPT,
-            user_message="Compare the frameworks for Lemonade's current business data as instructed.",
-            tool_schemas=tools.TOOL_SCHEMAS,
-            tool_executor=tools.build_tool_executor(),
-            model=client.FAST_MODEL,
-        )
-        st.rerun()
-    except client.MissingApiKeyError as e:
-        st.error(str(e))
-
-_adv_done = jobs_ui.poll_result(_ADVISOR_JOB)
-if _adv_done is not None:
-    text, _ = _adv_done
-    try:
-        advice = client.parse_json_response(text)
-        st.session_state.framework_advice = advice
-        # The recommendation sets (pre-selects) the dropdown below; the user can still override.
-        if advice.get("suggested_default") in _ids:
-            st.session_state.chosen_framework_select = advice["suggested_default"]
-    except ValueError as e:
-        st.error(f"Could not parse the model's response: {e}")
-
-advice = st.session_state.get("framework_advice")
-if advice:
-    rec_id = advice.get("suggested_default")
-    if rec_id in FRAMEWORK_LABELS:
-        style.insight(
-            f"✅ AI-recommended lens: {FRAMEWORK_LABELS[rec_id]}",
-            advice.get("recommendation_reason", "") + "  — pre-selected below; override if you disagree.",
-        )
-    with st.expander("See the full pros/cons the AI weighed for every framework"):
-        for opt in advice.get("framework_options", []):
-            fid = opt.get("framework_id", "")
-            tag = " &nbsp;✅ <strong>recommended</strong>" if fid == rec_id else ""
-            style.note(
-                f"<strong>{FRAMEWORK_LABELS.get(fid, fid)}</strong>{tag} — best for: {opt.get('best_for','')}<br/>"
-                f"👍 {opt.get('pro_for_this_situation','')}<br/>👎 {opt.get('con_for_this_situation','')}<br/>"
-                f"<em>{opt.get('rag_source','')}</em>"
+with st.container(border=True):
+    style.step_header(1, "Compare frameworks for this situation", optional=True)
+    st.caption("The AI weighs each lens against Lemonade's real numbers and cited frameworks — you make the call.")
+    style.model_badge(client.FAST_MODEL)
+    if st.button("🧭 Compare frameworks"):
+        try:
+            jobs.submit(
+                _ADVISOR_JOB, client.run_tool_loop,
+                system_prompt=prompts.BUSINESS_FRAMEWORK_ADVISOR_SYSTEM_PROMPT,
+                user_message="Compare the frameworks for Lemonade's current business data as instructed.",
+                tool_schemas=tools.TOOL_SCHEMAS,
+                tool_executor=tools.build_tool_executor(),
+                model=client.FAST_MODEL,
             )
+            st.rerun()
+        except client.MissingApiKeyError as e:
+            st.error(str(e))
+
+    _adv_done = jobs_ui.poll_result(_ADVISOR_JOB)
+    if _adv_done is not None:
+        text, _ = _adv_done
+        try:
+            advice = client.parse_json_response(text)
+            st.session_state.framework_advice = advice
+            # The recommendation sets (pre-selects) the dropdown below; the user can still override.
+            if advice.get("suggested_default") in _ids:
+                st.session_state.chosen_framework_select = advice["suggested_default"]
+        except ValueError as e:
+            st.error(f"Could not parse the model's response: {e}")
+
+    advice = st.session_state.get("framework_advice")
+    if advice:
+        rec_id = advice.get("suggested_default")
+        if rec_id in FRAMEWORK_LABELS:
+            style.insight(
+                f"✅ AI-recommended lens: {FRAMEWORK_LABELS[rec_id]}",
+                advice.get("recommendation_reason", "") + "  — pre-selected below; override if you disagree.",
+            )
+        with st.expander("See the full pros/cons the AI weighed for every framework"):
+            for opt in advice.get("framework_options", []):
+                fid = opt.get("framework_id", "")
+                tag = " &nbsp;✅ <strong>recommended</strong>" if fid == rec_id else ""
+                style.note(
+                    f"<strong>{FRAMEWORK_LABELS.get(fid, fid)}</strong>{tag} — best for: {opt.get('best_for','')}<br/>"
+                    f"👍 {opt.get('pro_for_this_situation','')}<br/>👎 {opt.get('con_for_this_situation','')}<br/>"
+                    f"<em>{opt.get('rag_source','')}</em>"
+                )
 
 # Step 2 -- user chooses (defaults to the AI's recommendation when present).
-chosen_framework = st.selectbox(
-    "Step 2: choose the framework to apply",
-    _ids,
-    format_func=lambda fid: FRAMEWORK_LABELS[fid],
-    key="chosen_framework_select",
-)
-
-st.caption(f"🧠 System prompt used: **{deep_dive_skill.name}** • 📚 RAG corpus: **consulting_best_practices**")
-style.model_badge(client.MODEL)
-with st.expander("View system prompt (tells the AI when/how to retrieve from the RAG corpus)"):
-    st.markdown(deep_dive_skill.body)
+with st.container(border=True):
+    style.step_header(2, "Choose the framework to apply")
+    chosen_framework = st.selectbox(
+        "Choose the framework to apply",
+        _ids,
+        format_func=lambda fid: FRAMEWORK_LABELS[fid],
+        key="chosen_framework_select",
+        label_visibility="collapsed",
+    )
 
 # Step 3 -- apply.
 _RNO_JOB = "risks_opportunities"
-if st.button(f"Step 3: Map Risks & Opportunities with {FRAMEWORK_LABELS[chosen_framework]}", type="primary"):
+with st.container(border=True):
+    style.step_header(3, "Map risks & opportunities")
+    st.caption(f"🧠 System prompt used: **{deep_dive_skill.name}** • 📚 RAG corpus: **consulting_best_practices**")
+    style.model_badge(client.MODEL)
+    with st.expander("View system prompt (tells the AI when/how to retrieve from the RAG corpus)"):
+        st.markdown(deep_dive_skill.body)
+    _rno_clicked = st.button(f"Map Risks & Opportunities with {FRAMEWORK_LABELS[chosen_framework]}", type="primary")
+
+if _rno_clicked:
     try:
         system_prompt = prompts.SHARED_GUARDRAILS + "\n\n" + deep_dive_skill.body
         st.session_state._rno_framework = chosen_framework  # capture at submit, not at done

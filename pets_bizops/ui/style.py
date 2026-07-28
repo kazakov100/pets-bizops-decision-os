@@ -444,6 +444,15 @@ table.pbz-table tr:last-child td {{
     padding: 0.1rem 0.55rem; border-radius: 6px;
 }}
 
+.pbz-step {{ border-left: 4px solid {PINK}; padding-left: 0.6rem; margin: 0.1rem 0 0.6rem 0; }}
+.pbz-step-num {{
+    display: inline-block; background: {PINK}; color: #fff;
+    font-size: 0.64rem; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase;
+    padding: 0.1rem 0.5rem; border-radius: 999px; vertical-align: middle;
+}}
+.pbz-step-title {{ font-weight: 700; color: {TEXT}; font-size: 0.98rem; margin-left: 0.35rem; }}
+.pbz-step-opt {{ font-size: 0.7rem; color: {MUTED}; font-style: italic; margin-left: 0.3rem; }}
+
 .pbz-situation {{
     background: #F4F5F8;
     border-left: 5px solid {NAVY};
@@ -791,6 +800,17 @@ def options_table(approaches: list[dict], chosen_approach: str = "") -> None:
         '<table class="pbz-ot"><thead><tr>'
         '<th>Option</th><th>Impact</th><th>Effort</th><th>Risk</th><th>Recommendation</th>'
         f"</tr></thead><tbody>{rows}</tbody></table>",
+        unsafe_allow_html=True,
+    )
+
+
+def step_header(num: int, title: str, optional: bool = False) -> None:
+    """A consistent numbered step label (pink badge + title) so every step in a
+    multi-step flow reads as the same design regardless of which widget follows."""
+    opt = '<span class="pbz-step-opt">optional</span>' if optional else ""
+    st.markdown(
+        f'<div class="pbz-step"><span class="pbz-step-num">Step {num}</span>'
+        f'<span class="pbz-step-title">{escape_dollar(title)}</span>{opt}</div>',
         unsafe_allow_html=True,
     )
 
