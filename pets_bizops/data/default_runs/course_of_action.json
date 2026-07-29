@@ -1,65 +1,65 @@
 {
   "result": {
-    "core_question": "How should Lemonade break Pet's loss-ratio plateau so scale finally converts into underwriting leverage?",
-    "situation": "Pet IFP grew from $201M to $490M (Q1'24-Q1'26), yet gross loss ratio (get_pet_segment_kpis) sits at 69% in Q1'26.",
-    "complication": "Full 9-quarter trend (get_pet_loss_ratio_trend) shows loss ratio oscillating 63-72% with no sustained decline despite ~2.4x scale.",
-    "why_it_matters": "Pet is becoming Lemonade's largest line, so flat underwriting caps company margin upside.",
+    "core_question": "Should Lemonade run a cohort-level underwriting/repricing pilot to break Pet's loss-ratio plateau as it scales?",
+    "situation": "Pet IFP grew from $201M to $490M (Q1'24-Q1'26) while gross loss ratio stayed range-bound 63-72%.",
+    "complication": "Loss ratio is 69% in Q1'26, up 1pt YoY, showing no clear downward trend despite 2.4x volume growth.",
+    "why_it_matters": "Margin drag risk as Pet becomes Lemonade's largest product line",
     "success_metric": "pet_gross_loss_ratio",
     "approaches": [
       {
-        "approach": "Deploy AI-driven dynamic pricing and risk-segmentation model for Pet renewals",
-        "ai_first": true,
+        "approach": "Run cohort underwriting review benchmarking Pet claims/fraud rigor vs Homeowners, Car lines",
+        "ai_first": false,
+        "impact": "medium",
+        "effort": "low",
+        "risk": "low",
+        "recommendation": "Implement",
+        "expected_effect": "Identifies discipline gaps driving plateaued loss ratio"
+      },
+      {
+        "approach": "Launch controlled repricing pilot for mature 18-24mo Pet cohorts in select states",
+        "ai_first": false,
         "impact": "high",
         "effort": "medium",
         "risk": "medium",
         "recommendation": "Test",
-        "expected_effect": "Sharper risk-based pricing could bend loss ratio downward over renewal cycles"
+        "expected_effect": "Tests whether pricing sophistication lowers loss ratio points"
       },
       {
-        "approach": "Audit Pet underwriting rigor against better-performing Lemonade lines for parity",
-        "ai_first": false,
-        "impact": "medium",
-        "effort": "medium",
-        "risk": "low",
-        "recommendation": "Test",
-        "expected_effect": "Identifies operating gaps rather than assuming line is inherently worse"
-      },
-      {
-        "approach": "Further cut Pet quota-share cession before loss ratio shows sustained decline",
+        "approach": "Defer further Pet reinsurance quota-share cession cuts until loss ratio trends down",
         "ai_first": false,
         "impact": "low",
         "effort": "low",
-        "risk": "high",
+        "risk": "low",
         "recommendation": "Defer",
-        "expected_effect": "Premature risk retention could amplify margin drag if ratio stays flat"
+        "expected_effect": "Protects retained-risk downside until underwriting proves out"
       }
     ],
-    "chosen_approach": "Deploy AI-driven dynamic pricing and risk-segmentation model for Pet renewals",
-    "rationale": "McKinsey finds pricing sophistication is a top underwriting lever; matches Lemonade's AI-first playbook and highest impact potential.",
+    "chosen_approach": "Launch controlled repricing pilot for mature 18-24mo Pet cohorts in select states",
+    "rationale": "Bounded pilot on mature cohorts moves pet_gross_loss_ratio; guardrail: state rate-filing approval and monitor churn/ADR before wider rollout.",
     "confidence": "medium",
     "dollar_estimate": {
       "applies": true,
       "base_metric": "pet_ifp_m",
       "low_points": 1,
-      "base_points": 3,
-      "high_points": 5,
-      "assumption_rationale": "McKinsey documents ~5-point combined-ratio gains achievable via pricing analytics and underwriting discipline (consulting_best_practices)."
+      "base_points": 2,
+      "high_points": 4,
+      "assumption_rationale": "McKinsey notes pricing sophistication/underwriting rigor are top levers for multi-point combined-ratio gains (McKinsey, 'How insurers can improve combined ratios by five percentage points')."
     },
     "grounding": [
       {
         "step": "framing",
-        "document_used": "McKinsey & Company, 'How insurers can improve combined ratios by five percentage points' / 'Global Insurance Report 2025'"
+        "document_used": "McKinsey & Company, 'How insurers can improve combined ratios by five percentage points' and 'Global Insurance Report 2025'"
       },
       {
         "step": "actions",
-        "document_used": "Lemonade, Inc. public statements and shareholder letters on AI-first claims automation -- https://www.lemonade.com/blog/two-years-transparency/"
+        "document_used": "Artemis.bm / Lemonade Q1 2026 shareholder letter on reinsurance cession progression and underwriting-confidence gating"
       }
     ],
-    "bottom_line": "Pilot AI-driven pricing/risk-segmentation for Pet renewals now -- scale alone hasn't cut the loss ratio, and McKinsey's evidence says pricing sophistication, not volume, is the real lever.",
+    "bottom_line": "Pilot a bounded repricing test on mature Pet cohorts to see if pricing rigor -- not just volume -- can finally bend the 63-72% loss ratio band downward, while holding reinsurance cession steady until it does.",
     "computed_dollar": {
-      "range": "$4.9-24.5M/year (base $14.7M)",
+      "range": "$4.9-19.6M/year (base $9.8M)",
       "formula": "value_usd_m = pet_ifp_m ($490M) * (assumed_points / 100)",
-      "assumption_rationale": "McKinsey documents ~5-point combined-ratio gains achievable via pricing analytics and underwriting discipline (consulting_best_practices)."
+      "assumption_rationale": "McKinsey notes pricing sophistication/underwriting rigor are top levers for multi-point combined-ratio gains (McKinsey, 'How insurers can improve combined ratios by five percentage points')."
     }
   },
   "transcript": [
@@ -152,28 +152,28 @@
     {
       "tool": "retrieve_knowledge",
       "input": {
-        "query": "loss ratio benchmarking underwriting margin levers scale economies",
+        "query": "loss ratio benchmarking underwriting margin maturity scale",
         "corpus": "consulting_best_practices"
       },
       "result": {
         "results": [
           {
-            "text": "Michael E. Porter's Five Forces framework (introduced in \"How Competitive\nForces Shape Strategy,\" Harvard Business Review, 1979; revisited in \"The Five\nCompetitive Forces That Shape Strategy,\" HBR 2008) explains the long-run\nprofitability of an industry through five structural forces: (1) threat of new\nentrants, (2) bargaining power of suppliers, (3) bargaining power of buyers,\n(4) threat of substitute products or services, and (5) rivalry among existing\ncompetitors. The core logic: the economic value an industry creates gets\napportioned -- drained by rivalry, bargained away by powerful suppliers or\nbuyers, or constrained by entrants and substitutes -- so the configuration of\nthe five forces, not just a single competitor, determines how much margin is\nactually available to capture.\n\nWhen Five Forces is the right lens: it is best for assessing the structural\nattractiveness and competitive dynamics of a market a company operates in --\n\"how hard is it to make durable margin here, and why\" -- rather than for\npositioning one company's segments against each other (that's BCG/Three\nHorizons) or auditing one company's internal factors (that's SWOT). For an\nAI-first insurer, the most diagnostic forces are usually buyer power (price\ntransparency and easy switching in personal lines), threat of substitutes and\nnew entrants (low-friction digital competitors and embedded insurance), and\nrivalry intensity. Its weakness: it is a snapshot of industry structure, not a\nplan -- it tells you where pressure comes from, not what to do, and it\nunder-weights fast-moving technology disruption unless explicitly read into\nthe entrant/substitute forces.",
-            "source": "Michael E. Porter, \"How Competitive Forces Shape Strategy,\" Harvard Business Review, 1979 -- https://hbr.org/1979/03/how-competitive-forces-shape-strategy",
-            "corpus": "consulting_best_practices",
-            "score": 0.4372
-          },
-          {
             "text": "McKinsey's Global Insurance Report tracks combined ratio (loss ratio +\nexpense ratio) as the primary underwriting health metric for P&C insurers,\nnoting the global average combined ratio trended down to roughly 91% in\n2023 even as claims inflation pressured several markets (combined ratios\nrose 16 points in the UK and 5 points in the US between 2021-2023). A key\nMcKinsey finding worth applying broadly: only about 40% of an insurer's\nunderwriting performance is explained by which lines of business it\nparticipates in -- the other 60% is explained by HOW it operates\n(underwriting discipline, pricing sophistication, claims handling, fraud\ndetection). This matters for diagnosing a single underperforming line: the\nfirst question shouldn't be \"is this just a bad line of business\" but\n\"is this segment being operated with the same underwriting rigor as our\nbetter-performing lines\" -- the same company can have very different\nunderwriting outcomes across segments using the same playbook elsewhere.\nMcKinsey also points to underwriter training and advanced pricing analytics\nas the two highest-leverage levers for improving loss-ratio performance in\na specific segment, rather than broad-based rate increases alone.",
             "source": "McKinsey & Company, \"How insurers can improve combined ratios by five percentage points\" and \"Global Insurance Report 2025\" -- https://www.mckinsey.com/industries/financial-services/our-insights/how-insurers-can-improve-combined-ratios-by-five-percentage-points",
             "corpus": "consulting_best_practices",
-            "score": 0.4258
+            "score": 0.4145
           },
           {
             "text": "McKinsey's 2014 \"Grow Fast or Die Slow\" study examined thousands of software\nand technology companies from 1980-2012 and found that revenue growth rate\nis a far stronger predictor of long-term market-cap gain than margin\nimprovement, for companies under roughly $4 billion in revenue: growth\ncontributes roughly twice as much to market-cap gain as margin does at that\nscale. \"Supergrowers\" (50%+ CAGR) had materially lower EBITDA margins early\non (around 5% at $100M revenue) than slower growers, but that gap closes as\nthey scale past $1B in revenue (around 24% EBITDA margin). The practical\ntakeaway for reading a growth-stage company's numbers: a young, fast-growing\nsegment showing thin or negative margins is not automatically a red flag --\nit can be the expected, even desirable, shape of a company in its\nsupergrowth phase. The flag worth watching for is growth decelerating\nwithout margin improving to compensate -- that combination has no offsetting\nupside. Note the important exception: once a company passes roughly $4\nbillion in revenue, margin becomes the more important lever than growth.",
             "source": "McKinsey & Company, \"Grow fast or die slow: The role of profitability in sustainable growth\" -- https://www.mckinsey.com/industries/technology-media-and-telecommunications/our-insights/grow-fast-or-die-slow-the-role-of-profitability-in-sustainable-growth",
             "corpus": "consulting_best_practices",
-            "score": 0.4127
+            "score": 0.3974
+          },
+          {
+            "text": "McKinsey's \"Three Horizons of Growth\" framework (from Baghai, Coley, and\nWhite's 2000 book \"The Alchemy of Growth\") argues that a company should\nmanage three kinds of business simultaneously rather than judging its whole\nportfolio by one growth number. Horizon 1 is the core business that\nprovides the greatest current profit and cash flow -- the focus there is\ndefending and extracting maximum value through performance improvement.\nHorizon 2 is emerging, fast-growing lines that aren't yet the largest\nprofit contributor but could become Horizon-1-scale -- these need\ninvestment, not just monitoring. Horizon 3 is early-stage options for\nfuture growth. When analyzing a multi-segment business, this means a\nsegment that is small but accelerating (Horizon 2) should be judged on\ntrajectory and unit economics, not on its current share of company profit\n-- the mistake is applying Horizon-1 profitability standards to a\nHorizon-2 business and concluding it's underperforming.",
+            "source": "McKinsey & Company, \"Enduring Ideas: The three horizons of growth\" -- https://www.mckinsey.com/capabilities/strategy-and-corporate-finance/our-insights/enduring-ideas-the-three-horizons-of-growth",
+            "corpus": "consulting_best_practices",
+            "score": 0.3673
           }
         ]
       }
@@ -181,28 +181,28 @@
     {
       "tool": "retrieve_knowledge",
       "input": {
-        "query": "AI underwriting pricing claims automation loss ratio improvement",
+        "query": "pricing underwriting cohort repricing reinsurance loss ratio improvement",
         "corpus": "lemonade_approach"
       },
       "result": {
         "results": [
           {
-            "text": "Lemonade's stated strategy is to run the full insurance lifecycle -- quotes,\npolicy setup, claims, payment -- through AI chatbots (\"Maya\" for\nonboarding, \"AI Jim\" for claims) rather than human agents as the default\npath. AI Jim asks clarifying questions, checks the policy, runs anti-fraud\nchecks, and approves or denies many claims within seconds rather than days.\nAs of recent disclosures, the large majority of first notices of loss are\nhandled by chatbots without human intervention, and roughly half of all\nclaims are fully automated start to finish. The stated strategic rationale\nis twofold: (1) faster, friendlier claims experience as a differentiator\nand word-of-mouth driver, and (2) materially lower claims-handling cost per\npolicy than a human-staffed claims org, which the company frames as core to\nits unit-economics advantage at scale. When evaluating a customer pain\npoint about claims (e.g. complex or multi-step claims being slow), the\nrelevant strategic question is whether the issue is happening WITHIN the\nAI-first flow (a gap in Jim's automation coverage) or because the case\nescalated OUT of the AI-first flow to a slower manual process -- these call\nfor different fixes given the company's stated AI-first investment thesis.",
-            "source": "Lemonade, Inc. public statements and shareholder letters on AI-first claims automation (investor.lemonade.com, lemonade.com/blog) -- https://www.lemonade.com/blog/two-years-transparency/",
-            "corpus": "lemonade_approach",
-            "score": 0.5133
-          },
-          {
             "text": "Lemonade's stated growth strategy leans heavily on cross-sell -- selling\nadditional products (e.g. Pet insurance) to its existing renters/homeowners\ncustomer base, where customer acquisition cost is much lower than\nacquiring a brand-new customer from scratch. The company has also\nprogressively reduced its quota-share reinsurance cession -- from 75% of\ngross premium, to 70%, to 55% (the cession that one renewal described as\n\"stage-appropriate... as our current IFP is more than 4x where it was two\nyears ago, and we've diversified... from a monoline business to a\nmulti-product, multi-geography business\"), with a further reduction in\ncession rates effective in the third quarter of 2025 that the Q1'26\nshareholder letter credits with raising premium retention and lifting\nrevenue (up 71% YoY in Q1'26 vs. 32% IFP growth). Retaining more of its own\npremium and risk as underwriting performance improves is framed by the\ncompany as a sign of growing confidence in its own underwriting. Taken together\nwith the AI-first claims strategy and Giveback model, Lemonade's stated\nplaybook for \"how do we solve a business problem\" leans toward: (1) use the\nexisting customer base and AI-driven low-cost channels before paying for\nnew acquisition, (2) treat underwriting improvement as the gate for taking\non more retained risk rather than reinsuring it away, and (3) treat\nclaims-experience quality as a growth lever in its own right, not just a\ncost center. A candidate fix that doesn't connect to at least one of these\nthree pillars is, by the company's own stated logic, swimming against its\nplaybook rather than with it.",
             "source": "Artemis.bm, \"Lemonade renews catastrophe reinsurance, cuts quota share again\" (quota-share progression) and Lemonade Q1 2026 shareholder letter (further Q3'25 cession reduction, revenue +71% YoY) -- https://www.artemis.bm/news/lemonade-renews-catastrophe-reinsurance-cuts-quota-share-again/",
             "corpus": "lemonade_approach",
-            "score": 0.4811
+            "score": 0.5446
           },
           {
             "text": "Lemonade's stated business model takes a flat fee from premium upfront and\ngives unclaimed premium back to nonprofits chosen by customers through its\n\"Giveback\" program, rather than the traditional insurer model where profit\ncomes from paying out as little in claims as possible. The company\nexplicitly frames this as removing the structural incentive to deny or slow\nclaims, since the insurer's revenue is fixed regardless of how claims are\npaid out -- the stated goal is aligning Lemonade's profit motive with fast,\ngenerous claims handling instead of against it. This is a key piece of\ncontext when judging a loss-ratio number: a rising loss ratio in a Lemonade\nsegment is not unambiguously bad news the way it would be for a traditional\ninsurer optimizing to minimize payouts -- it can also reflect the\nbusiness doing what it says it's built to do (pay claims generously and\nfast). The more diagnostic question is whether the loss ratio is moving for\na reason consistent with the stated model (genuine claims generosity, or\nnormal book maturation) versus an unpriced/mispriced risk problem.",
             "source": "Lemonade, Inc., shareholder letters and public business-model description (SEC Form 8-K filings, investor.lemonade.com) -- https://www.lemonade.com/investor",
             "corpus": "lemonade_approach",
-            "score": 0.4611
+            "score": 0.5245
+          },
+          {
+            "text": "Lemonade's stated strategy is to run the full insurance lifecycle -- quotes,\npolicy setup, claims, payment -- through AI chatbots (\"Maya\" for\nonboarding, \"AI Jim\" for claims) rather than human agents as the default\npath. AI Jim asks clarifying questions, checks the policy, runs anti-fraud\nchecks, and approves or denies many claims within seconds rather than days.\nAs of recent disclosures, the large majority of first notices of loss are\nhandled by chatbots without human intervention, and roughly half of all\nclaims are fully automated start to finish. The stated strategic rationale\nis twofold: (1) faster, friendlier claims experience as a differentiator\nand word-of-mouth driver, and (2) materially lower claims-handling cost per\npolicy than a human-staffed claims org, which the company frames as core to\nits unit-economics advantage at scale. When evaluating a customer pain\npoint about claims (e.g. complex or multi-step claims being slow), the\nrelevant strategic question is whether the issue is happening WITHIN the\nAI-first flow (a gap in Jim's automation coverage) or because the case\nescalated OUT of the AI-first flow to a slower manual process -- these call\nfor different fixes given the company's stated AI-first investment thesis.",
+            "source": "Lemonade, Inc. public statements and shareholder letters on AI-first claims automation (investor.lemonade.com, lemonade.com/blog) -- https://www.lemonade.com/blog/two-years-transparency/",
+            "corpus": "lemonade_approach",
+            "score": 0.2973
           }
         ]
       }

@@ -439,6 +439,7 @@ table.pbz-table tr:last-child td {{
 .pbz-exec-val {{ font-size: 1.0rem; color: {TEXT}; line-height: 1.45; }}
 .pbz-exec-kpi-num {{ font-size: 1.45rem; font-weight: 800; color: {PINK_DARK}; }}
 .pbz-exec-kpi-metric {{ display: block; font-size: 0.85rem; color: {MUTED}; margin-top: 0.2rem; }}
+.pbz-exec-kpi-assume {{ display: block; font-size: 0.72rem; color: {MUTED}; font-style: italic; margin-top: 0.3rem; line-height: 1.3; }}
 
 .pbz-ot {{
     width: 100%; border-collapse: separate; border-spacing: 0;
@@ -779,17 +780,19 @@ def recommendation_hero(text: str) -> None:
 
 def executive_takeaway(
     key_takeaway: str, why_it_matters: str, recommended_action: str,
-    kpi_metric_label: str, computed_dollar: dict | None,
+    kpi_metric_label: str, computed_dollar: dict | None, kpi_assumption: str = "",
 ) -> None:
     """The answer-first hero at the top of the page: one sharp takeaway, then a
-    row of Why it matters / Recommended action / Expected KPI impact. The KPI
-    impact shows the code-computed $ range (never an AI-stated figure); the
-    formula + assumption are surfaced by the caller in an expander beneath.
+    row of Why it matters / Recommended action / Illustrative value at stake. The
+    $ range is code-computed (never AI-stated) and explicitly flagged illustrative,
+    with the assumption shown inline; the full formula is in an expander beneath.
     """
     if computed_dollar and computed_dollar.get("range"):
+        assume = f'<span class="pbz-exec-kpi-assume">{escape_dollar(kpi_assumption)}</span>' if kpi_assumption else ""
         kpi_inner = (
             f'<span class="pbz-exec-kpi-num">{escape_dollar(computed_dollar["range"])}</span>'
             f'<span class="pbz-exec-kpi-metric">{escape_dollar(kpi_metric_label)}</span>'
+            f'{assume}'
         )
     else:
         kpi_inner = f'<span class="pbz-exec-val">{escape_dollar(kpi_metric_label or "—")}</span>'
@@ -802,7 +805,7 @@ def executive_takeaway(
         f'<span class="pbz-exec-val">{escape_dollar(why_it_matters)}</span></div>'
         f'<div class="pbz-exec-cell action"><span class="pbz-exec-label">Recommended action</span>'
         f'<span class="pbz-exec-val">{escape_dollar(recommended_action)}</span></div>'
-        f'<div class="pbz-exec-cell kpi"><span class="pbz-exec-label">Expected KPI impact</span>{kpi_inner}</div>'
+        f'<div class="pbz-exec-cell kpi"><span class="pbz-exec-label">Illustrative value at stake</span>{kpi_inner}</div>'
         '</div></div>',
         unsafe_allow_html=True,
     )

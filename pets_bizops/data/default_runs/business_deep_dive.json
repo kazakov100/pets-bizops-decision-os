@@ -2,21 +2,21 @@
   "result": {
     "framework_id": "three_horizons",
     "rag_source": "McKinsey & Company, \"Enduring Ideas: The three horizons of growth\" -- https://www.mckinsey.com/capabilities/strategy-and-corporate-finance/our-insights/enduring-ideas-the-three-horizons-of-growth",
-    "bottom_line": "Pet has crossed into Horizon-1 scale (largest line as of early Q2'26, $490M IFP) but still carries Horizon-2 underwriting volatility -- the risk/opportunity map hinges on whether its 68-72% loss ratio can stabilize as it becomes the core engine.",
-    "narrative": "Pet's in-force premium more than doubled from $201M (Q1'24) to $490M (Q1'26) and now rivals Homeowners ($540M) for largest segment, while its gross loss ratio has stayed range-bound between 63% and 72% across nine quarters rather than trending down with scale. Meanwhile Homeowners (the historical core) shows a sharply improving margin picture (39% company-wide gross profit margin, Adjusted EBITDA improving from -$33.9M to -$17.1M) that can fund continued investment in Horizon-2/3 bets like Pet, Car, and Europe, even as Annual Dollar Retention has slipped from 88% to 85%.",
+    "bottom_line": "Pet, poised to become Lemonade's largest product line, is the clearest Horizon-2 growth engine -- but its loss ratio hasn't improved in two years even as scale tripled, while core Homeowners retention is quietly eroding.",
+    "narrative": "Pet's in-force premium grew 56% YoY to $490M while its gross loss ratio has oscillated between 63% and 72% across nine straight quarters, suggesting underwriting hasn't kept pace with scale. Over the same stretch, company-wide annual dollar retention slipped from 88% to 85%, even as consolidated Adjusted EBITDA improved from -$33.9M to -$17.1M. Smaller bets show contrasting horizon dynamics: Europe grew from $12M to $67M IFP with volatile underwriting, while Car's loss ratio fell from 99% to 74% alongside solid growth.",
     "executive_summary": {
-      "key_takeaway": "Pet is now Lemonade's de facto core business by size but still behaves like a Horizon-2 asset on loss ratio, so it needs Horizon-1-grade underwriting discipline, not just growth capital.",
-      "why_it_matters": "Pet is now the largest line but margin discipline hasn't caught up",
-      "recommended_action": "Prioritize tightening Pet's pricing/underwriting cadence (rate filings, claims triage) to convert its scale into a durable loss-ratio improvement before treating it as a stabilized Horizon-1 cash generator.",
+      "key_takeaway": "Pet is tracking to become Lemonade's largest segment, but public disclosures suggest its underwriting margin has plateaued rather than improved as it scaled.",
+      "why_it_matters": "Margin dilution risk compounds once Pet reaches core-business scale.",
+      "recommended_action": "Commission a cohort-level underwriting review of Pet policies by tenure and geography, and run a controlled repricing pilot on the oldest, largest cohorts before Pet becomes the largest book.",
       "kpi_impact": {
         "metric_label": "Pet gross loss ratio",
         "dollar_estimate": {
           "applies": true,
           "base_metric": "pet_ifp_m",
-          "low_points": 1,
-          "base_points": 2,
-          "high_points": 3,
-          "assumption_rationale": "Pet's gross loss ratio has ranged 63-72% over 9 disclosed quarters (get_pet_loss_ratio_trend), so a conservative 1-3 point underwriting improvement sits within its own observed historical band."
+          "low_points": 2,
+          "base_points": 3,
+          "high_points": 4,
+          "assumption_rationale": "Conservative 2-4pt band given Pet's loss ratio has stayed range-bound (63-72%) for nine quarters -- growth without offsetting margin gain is the exact pattern flagged as a watch-item in McKinsey's 'Grow fast or die slow' study."
         }
       }
     },
@@ -26,54 +26,54 @@
         "type": "risk",
         "framework_element": "Horizon 2 -- Pet",
         "impact": "high",
-        "confidence": "high",
-        "detail": "Pet IFP grew from $201M to $490M (Q1'24-Q1'26) yet gross loss ratio stayed range-bound 63-72% with no clear downward trend; scale hasn't yet translated into underwriting leverage, risking margin drag as Pet becomes the largest line.",
+        "confidence": "medium",
+        "detail": "Pet IFP grew from $201M to $490M (Q1'24-Q1'26) while gross loss ratio stayed range-bound 63-72% with no clear downward trend; pricing/underwriting likely hasn't matured alongside volume, risking margin drag as Pet nears H1 scale.",
         "evidence_source": "get_pet_loss_ratio_trend"
       },
       {
-        "title": "Homeowners core volatility",
+        "title": "Core retention erosion",
         "type": "risk",
         "framework_element": "Horizon 1 -- Homeowners",
-        "impact": "high",
-        "confidence": "medium",
-        "detail": "Homeowners loss ratio swung from 82% (Q1'25) to 49% (Q1'26) quarter to quarter; this instability in the core cash-generating segment could disrupt the funding base Horizon-2/3 bets like Pet and Europe rely on.",
-        "evidence_source": "get_all_segments_trend"
-      },
-      {
-        "title": "Car underwriting inconsistency",
-        "type": "risk",
-        "framework_element": "Horizon 2 -- Car",
         "impact": "medium",
         "confidence": "medium",
-        "detail": "Car's gross loss ratio has swung from 99% (Q1'24) to 40% (Q4'25) back to 74% (Q1'26), showing it has not yet earned durable Horizon-2 status; continued volatility could crowd out capital better spent scaling Pet.",
+        "detail": "Annual dollar retention fell from 88% (Q1'24) to 85% (Q1'26) even as Homeowners loss ratio improved sharply (0.79 to 0.49), suggesting cash-generating core may be losing customers even as underwriting gets healthier.",
+        "evidence_source": "get_company_financials"
+      },
+      {
+        "title": "Europe underwriting volatility",
+        "type": "risk",
+        "framework_element": "Horizon 3 -- Europe",
+        "impact": "medium",
+        "confidence": "low",
+        "detail": "Europe's loss ratio jumped from 0.64 (Q4'25) to 0.85 (Q1'26) on a small $67M base, a swing typical of early-stage options but one the public aggregates can't yet distinguish from a genuine deterioration.",
         "evidence_source": "get_all_segments_trend"
       },
       {
-        "title": "Pet cross-sell flywheel",
+        "title": "Pet nearing largest-segment status",
         "type": "opportunity",
         "framework_element": "Horizon 2 -- Pet",
         "impact": "high",
         "confidence": "high",
-        "detail": "Pet IFP grew 56% YoY and became Lemonade's largest product line as of early Q2'26, with $85M of that IFP sourced from existing-customer cross-sell -- a Horizon-1 customer base is directly fueling Horizon-2 scale, a compounding growth lever.",
+        "detail": "Pet IFP hit $490M (+56% YoY) with premium-per-customer up 10.8% YoY to $822 and $85M of IFP from cross-sell, validating continued investment per horizon-2 logic rather than judging it against core-business profitability yet.",
         "evidence_source": "get_pet_segment_kpis"
       },
       {
-        "title": "Europe early-stage optionality",
+        "title": "Car segment turnaround",
+        "type": "opportunity",
+        "framework_element": "Horizon 2 -- Car",
+        "impact": "medium",
+        "confidence": "high",
+        "detail": "Car's gross loss ratio fell from 0.99 (Q1'24) to 0.74 (Q1'26) while IFP grew from $123M to $214M, showing a horizon-2 business achieving both growth and underwriting improvement simultaneously -- a template Pet could emulate.",
+        "evidence_source": "get_all_segments_trend"
+      },
+      {
+        "title": "Europe optionality growth",
         "type": "opportunity",
         "framework_element": "Horizon 3 -- Europe",
         "impact": "medium",
         "confidence": "medium",
-        "detail": "Europe is still Lemonade's smallest segment ($67M IFP) but its loss ratio improved from 106% (Q1'24) to 85% (Q1'26) while IFP grew steadily each quarter, suggesting a genuine early-stage option worth continued seeding rather than harvesting.",
+        "detail": "Europe IFP grew from $12M to $67M over two years (~5.6x), a horizon-3 option showing early traction that, if underwriting stabilizes, could graduate into a horizon-2 growth line.",
         "evidence_source": "get_all_segments_trend"
-      },
-      {
-        "title": "Core margin funds future horizons",
-        "type": "opportunity",
-        "framework_element": "Horizon 1 -- Company core",
-        "impact": "high",
-        "confidence": "high",
-        "detail": "Company gross profit margin rose from 29% to 39% and Adjusted EBITDA improved from -$33.9M to -$17.1M (Q1'24 to Q1'26), giving Lemonade a strengthening core cash engine to keep funding Pet/Car/Europe expansion toward the guided Q4'26 EBITDA-positive quarter.",
-        "evidence_source": "get_company_financials"
       }
     ]
   },
@@ -757,23 +757,6 @@
             "score": 0.2984
           }
         ]
-      }
-    },
-    {
-      "tool": "estimate_dollar_value",
-      "input": {
-        "base_metric": "pet_ifp_m",
-        "low_points": 1,
-        "base_points": 2,
-        "high_points": 3
-      },
-      "result": {
-        "base_metric": "pet_ifp_m",
-        "base_usd_m": 490.0,
-        "low_usd_m": 4.9,
-        "base_case_usd_m": 9.8,
-        "high_usd_m": 14.7,
-        "formula": "value_usd_m = pet_ifp_m ($490M) * (assumed_points / 100)"
       }
     }
   ]

@@ -20,7 +20,13 @@ or another disclosed KPI).
 -- ground the actions in Lemonade's real strategy (flat fee + Giveback, AI-first claims,
 cross-sell, Synthetic Agents CAC financing, reinsurance). Propose 2-3 candidate actions
 (things to DO or run as an experiment), each ONE crisp verb-first action (<=16 words).
-Pick exactly one. Lean AI-first when it genuinely fits.
+Write them as concrete MANAGERIAL moves a BizOps lead could execute -- a review, a
+controlled pilot, a process/pricing change with a clear scope -- NOT AI-buzzword slogans.
+Prefer "run a cohort-level underwriting review and a controlled repricing pilot for
+mature Pet cohorts" over "deploy AI-driven pricing analytics". Pick exactly one. For the
+`chosen_approach`, the `rationale` should read like an execution note -- imply the target
+cohort/scope, that it's a bounded pilot, the KPI it moves, and a basic guardrail (e.g.
+regulatory/rate-filing or customer-experience) -- not just why it beats the alternatives.
 
 **Rate each action on 4 axes** (these feed an options-comparison table, so make them
 comparable and honest -- do NOT rate everything "high"):

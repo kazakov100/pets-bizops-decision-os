@@ -96,20 +96,20 @@ def simulate_target(
             quarters_at_avg_pace = 0.0  # already past the target in the favorable direction
 
     if required_favorable_per_quarter <= 0:
-        label = "trivial-or-wrong-direction"
+        label = "Target already met — no improvement needed"
         detail = (
             "The target is already at or beyond the current value in the favorable direction "
             "-- no improvement pace is actually required."
         )
     elif required_favorable_per_quarter <= max(historical_avg, 0):
-        label = "within historical average pace"
+        label = "Achievable at the historical pace"
         detail = (
             f"The required pace ({required_favorable_per_quarter:.4f}/quarter, favorable direction) "
             f"is at or below the historical average quarterly move "
             f"({historical_avg:.4f}/quarter) -- achievable if the recent trend simply continues."
         )
     elif required_favorable_per_quarter <= historical_best:
-        label = "requires sustaining the best historical quarter, every quarter"
+        label = "A stretch — needs the best-ever pace, sustained"
         detail = (
             f"The required pace ({required_favorable_per_quarter:.4f}/quarter) exceeds the historical "
             f"average ({historical_avg:.4f}/quarter) but is within the single best quarter ever "
@@ -117,7 +117,7 @@ def simulate_target(
             f"every quarter for {horizon_quarters} quarters straight."
         )
     else:
-        label = "exceeds any historical quarterly move -- not realistic on current trend"
+        label = "Unrealistic on the current trend"
         detail = (
             f"The required pace ({required_favorable_per_quarter:.4f}/quarter) exceeds even the best "
             f"single quarter seen in the disclosed history ({historical_best:.4f}/quarter) -- hitting "

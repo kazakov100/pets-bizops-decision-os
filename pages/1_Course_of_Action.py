@@ -190,6 +190,6 @@ with st.expander("Optional: check feasibility of a specific metric target"):
             direction=metric_meta["direction"],
             metric_id=selected_metric,
         ).as_dict()
-        badge = {"within historical average pace": "🟢", "requires sustaining the best historical quarter, every quarter": "🟡", "trivial-or-wrong-direction": "⚪"}.get(sim["feasibility_label"], "🔴")
+        badge = {"Achievable at the historical pace": "🟢", "A stretch — needs the best-ever pace, sustained": "🟡", "Target already met — no improvement needed": "⚪"}.get(sim["feasibility_label"], "🔴")
         st.markdown(f"### {badge} {sim['feasibility_label']}")
         style.note(sim["feasibility_detail"])

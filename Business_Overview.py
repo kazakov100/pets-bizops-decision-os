@@ -103,11 +103,17 @@ if _dd is None:
 _exec = (_dd or {}).get("executive_summary")
 if _exec:
     _kpi = _exec.get("kpi_impact", {})
-    _computed = impact.resolve_estimate(_kpi.get("dollar_estimate"))
+    _de = _kpi.get("dollar_estimate", {})
+    _computed = impact.resolve_estimate(_de)
+    # Build the illustrative-assumption line shown inside the card.
+    _assume = ""
+    if _computed and _de.get("low_points") is not None:
+        _lo, _hi = _de.get("low_points"), _de.get("high_points")
+        _assume = f"Illustrative — assumes a {_lo}–{_hi} pt improvement in {_kpi.get('metric_label', 'the metric')}"
     style.executive_takeaway(
         _exec.get("key_takeaway", ""), _exec.get("why_it_matters", ""),
         _exec.get("recommended_action", ""), _kpi.get("metric_label", ""),
-        _computed,
+        _computed, kpi_assumption=_assume,
     )
     if _computed:
         with st.expander("How the KPI impact was computed (code-computed from the AI's stated assumption)"):

@@ -69,8 +69,16 @@ EXECUTIVE_SUMMARY -- this is what a busy reader sees FIRST, above everything els
 make it the sharpest, most decision-ready synthesis of the items below:
 - `key_takeaway`, `why_it_matters`, `recommended_action` must SYNTHESIZE the items you
   surfaced -- introduce no new numbers beyond what the items already cite.
-- `recommended_action` is a concrete move tied to your highest-impact item (the lever
-  to pull), NOT "keep monitoring".
+- TONE -- these are read from PUBLIC disclosures only, so hedge appropriately. Do NOT
+  assert certainty or causation. Prefer "public disclosures suggest ...", "appears to",
+  "potentially" over flat claims. E.g. write "public disclosures suggest underwriting
+  has not kept pace with Pet's growth" (not "underwriting hasn't followed"); "potentially
+  Lemonade's largest segment" (not "soon-to-be-largest segment").
+- `recommended_action` is a concrete MANAGERIAL move (a review, a controlled pilot, a
+  process change with a clear owner/scope) -- NOT "keep monitoring" and NOT an AI-buzzword
+  slogan. Prefer "run a cohort-level underwriting review and a controlled repricing pilot
+  for mature Pet cohorts" over "deploy AI-driven pricing analytics". Name the lever and
+  how you'd test it, not a tool.
 - `kpi_impact.dollar_estimate`: you supply ONLY the inputs -- a real `base_metric` key
   (`pet_ifp_m` or `company_ifp_m`) and the assumed percentage-point range
   (low/base/high) you believe the recommended action could move. Keep the band TIGHT
