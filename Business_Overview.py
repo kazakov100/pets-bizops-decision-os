@@ -109,7 +109,7 @@ if _exec:
     _assume = ""
     if _computed and _de.get("low_points") is not None:
         _lo, _hi = _de.get("low_points"), _de.get("high_points")
-        _assume = f"Illustrative — assumes a {_lo}–{_hi} pt improvement in {_kpi.get('metric_label', 'the metric')}"
+        _assume = f"Assumes a {_lo}–{_hi} pt improvement in {_kpi.get('metric_label', 'the metric')}"
     style.executive_takeaway(
         _exec.get("key_takeaway", ""), _exec.get("why_it_matters", ""),
         _exec.get("recommended_action", ""), _kpi.get("metric_label", ""),

@@ -805,7 +805,7 @@ def executive_takeaway(
         f'<span class="pbz-exec-val">{escape_dollar(why_it_matters)}</span></div>'
         f'<div class="pbz-exec-cell action"><span class="pbz-exec-label">Recommended action</span>'
         f'<span class="pbz-exec-val">{escape_dollar(recommended_action)}</span></div>'
-        f'<div class="pbz-exec-cell kpi"><span class="pbz-exec-label">Illustrative value at stake</span>{kpi_inner}</div>'
+        f'<div class="pbz-exec-cell kpi"><span class="pbz-exec-label">Estimated value at stake</span>{kpi_inner}</div>'
         '</div></div>',
         unsafe_allow_html=True,
     )
